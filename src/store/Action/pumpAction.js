@@ -13,8 +13,8 @@ export const pumpAddAction = (payload) => {
     return async (dispatch) => {
         console.log("process.env.REACT_APP_BASE_URL", process.env.REACT_APP_BASE_URL);
         try {
-            await axios.post(`http://13.235.49.124:8000/api/v1/registration`, payload).then((res) => {
-                toast.success('Manager Add successfully');
+            await axios.post(`http://13.235.49.124:8000/api/Pump/v1/registration`, payload).then((res) => {
+                toast.success('Pump Add successfully');
                 dispatch(pumpAdd(res));
             }).catch((error) => {
                 toast.error('Somthing went wrong')
@@ -46,7 +46,7 @@ export const updateManagerAction = (userId, updatedData) => {
         try {
             // Update the URL and use axios.put for updating data
             await axios.put(`http://13.235.49.124:8000/api/v1/userUpdate/${userId}`, updatedData).then((res) => {
-                toast.success('Manager Updated Successfully');
+                toast.success('Pump Updated Successfully');
                 dispatch(updatePump(res));
             }).catch((error) => {
                 toast.error('Something went wrong');

@@ -39,7 +39,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllManagerAction } from "store/Action/managerAction";
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
+// import Typography from '@mui/material/Typography';
 import { Grid } from "@mui/material";
 import SoftInput from "components/SoftInput";
 
@@ -65,6 +65,13 @@ function Tables() {
   const handleEditClick = (rowData) => {
     navigate('/addmanager')
   };
+
+  const [editModalOpen, setEditModalOpen] = useState();
+  const [editModalData, setEditModalData] = useState();
+  const [adminData, setAdminData] = useState();
+
+
+
 
   const handleEditModalClose = () => {
     setEditModalOpen(false);

@@ -161,13 +161,6 @@ const AddManager = () => {
                             <Card >
                                 <div style={{ padding: "20px" }}>
 
-
-
-                                    {/* <div className="file-upload">
-                                                <BsCloudArrowUpFill style={{ fontSize: "40px" }} />
-                                                <h3> {selectedName || "Click box to upload Profile"}</h3>
-                                                <input type="file" onChange={handleFileChange} />
-                                            </div> */}
                                     <Grid container spacing={1}>
                                         <Grid item xs={12}>
                                             <SoftBox mb={2}>

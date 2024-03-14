@@ -53,6 +53,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { managerAddAction } from "store/Action/managerAction";
 import { useNavigate } from "react-router-dom";
+import { pumpAddAction } from "store/Action/pumpAction";
 // import { BsCloudArrowUpFill } from "react-icons/bs";
 
 
@@ -74,166 +75,604 @@ const AddPump = () => {
     const { miniSidenav, sidenavColor } = controller;
     const [submitted, setSubmitted] = useState(1);
     const navigate = useNavigate()
-    const Clients = useSelector(state => state.client);
-    const [selectedFile, setSelectedFile] = useState(null);
-    const [selectedName, setSelectedName] = useState("");
-
-    const [error, setError] = useState({
-        fullName: "",
-        email: "",
-        mobile: "",
-        password: "",
-    })
-
     const dispatch = useDispatch();
 
-    const [managerData, setManagerData] = useState({
+    const [adminDetails, setAdminDetails] = useState({
+        adminId: "",
+        managerId: "",
+        outletName: "",
+        address: "",
+        oilCompany: "",
+        cmsCode: "",
+        dealerName: "",
+        dealerContact: "",
+        dealerEmail: "",
+        managerName: "",
+        managerContact: "",
+        managerEmail: ""
+    });
 
-        fullName: "",
-        email: "",
-        mobile: "",
-        role: "admin",
-        password: "",
+    const [productDetails, setProductDetails] = useState({
+        ms: false,
+        hsd: false,
+        msPremium: false,
+        hsdPremium: false,
+        lubes: true,
+        alpg: false,
+        cng: false,
 
-    })
+    });
 
-    console.log("managerData", managerData);
-    const handleChange = (e) => {
+
+    const [nozzleDetail, setNozzleDetail] = useState({
+        "ms": {
+            numberOfNozzles: "",
+            tank: ""
+        },
+        "hsd": {
+            numberOfNozzles: "",
+            tank: ""
+        },
+        "msPremium": {
+            numberOfNozzles: "",
+            tank: ""
+        },
+        "hsdPremium": {
+            numberOfNozzles: "",
+            tank: ""
+        },
+        "alpgCng": {
+            numberOfNozzles: "",
+            tank: "",
+        }
+    });
+
+    const [bankingDetails, setBankingDetails] = useState({
+        upi: "",
+        cardSwipeMachines: "",
+        outletBanking: ""
+    });
+
+    const [otherDetails, setOtherDetails] = useState({
+        gstNo: "",
+        tinNo: "",
+        pesoLicense: "",
+        wmCertificate: "",
+        fireCertificate: "",
+        tradeCertificate: "",
+        nozzleReading: "",
+        earthpitCertificate: "",
+        stocks: "",
+        labourCertificate: "",
+        tankersReceipts: "",
+        panNumber: "",
+        creditCustomers: "",
+        expenses: "",
+        dailySalesAndPricing: "",
+        dailySwipeAndUpiPayments: "",
+        lubes: "",
+        bankStatements: ""
+    });
+
+    const handleAdminDetailsChange = (e) => {
         const { name, value } = e.target;
-        console.log("value", value);
-        setManagerData({
-            ...managerData,
-            [name]: value
+        setAdminDetails({ ...adminDetails, [name]: value });
+    };
+
+    const handleProductDetailsCheckChange = (e) => {
+        const { name } = e.target;
+        const isChecked = e.target.checked;
+        setProductDetails({
+            ...productDetails,
+            [name]: isChecked
         });
-        if (error[name] != '') {
-            setError({
-                ...error,
-                [name]: ''
-            })
-        }
-        if (value == '') {
-            setError(prevError => ({ ...prevError, [name]: `Please enter ${name}` }));
-        }
+    };
+
+    const handleProductDetailsChange = (e) => {
+        const { name, value } = e.target;
+        const [product, key] = name.split('.');
+        setNozzleDetail(prevState => ({
+            ...prevState,
+            [product]: {
+                ...prevState[product],
+                [key]: value
+            }
+        }));
+    };
+
+
+    const handleBankingDetailsChange = (e) => {
+        const { name, value } = e.target;
+        setBankingDetails({ ...bankingDetails, [name]: value });
+    };
+
+    const handleOtherDetailsChange = (e) => {
+        const { name, value } = e.target;
+        setOtherDetails({ ...otherDetails, [name]: value });
     };
 
     const handleSubmit = () => {
-        // Validate form fields
-        const newErrors = {};
-        console.log("error", error);
-        Object.keys(error).forEach((key) => {
-            console.log("managerData[key]", key, "...", managerData, managerData[key], error[key], "vddsds", error);
-            if (managerData[key] === '' && error[key] == '') {
-                console.log("trrrrrrrr");
-                setError(prevError => ({ ...prevError, [key]: `Please enter ${key}` }));
-            }
-        });
+        // Handle form submission
         setSubmitted(submitted + 1)
-        console.log("managerData", managerData);
+        console.log("Form submitted");
+    };
+
+    const payload = {
+        ...adminDetails,
+        adminId : "60f799a8c877780012345678",
+        managerId : "65b12aa3b8019e44c07621e2",
+        "products": productDetails,
+        "nozzleDetail": nozzleDetail ,
+        "bankingDetails": bankingDetails ,
+        "otherDetails" : otherDetails
+
+
     }
 
+    console.log("payload", payload)
 
     useEffect(() => {
         if (submitted != 1) {
-            const allErrorsEmpty = Object.values(error).every(errorMessage => errorMessage === '');
-            console.log("allErrorsEmpty", allErrorsEmpty);
-            if (allErrorsEmpty) {
-                dispatch(managerAddAction(managerData));
-            }
+            // const allErrorsEmpty = Object.values(error).every(errorMessage => errorMessage === '');
+            // console.log("allErrorsEmpty", allErrorsEmpty);
+            // if (allErrorsEmpty) {
+            dispatch(pumpAddAction(payload));
+            // }
         }
     }, [submitted]);
 
-    useEffect(() => {
-        console.log("ClientsClientsClients", Clients);
-        if (Clients?.addManager?.message === "Success") {
-            console.log("Navigating to /manager...");
-            navigate('/manager');
-        }
-    }, [Clients?.addManager?.message]);
-
-    console.log("errrrr", error);
     return (
         <DashboardLayout>
             <DashboardNavbar />
             <SoftBox mt={4} sx={{ minHeight: "80vh" }}>
-                <SoftBox mb={1.5}>
-                    <Grid container spacing={3}>
-                        <Grid item xs={12} lg={12} >
-                            <Card >
-                                <div style={{ padding: "20px" }}>
+                <Card style={{ padding: "20px" }}>
+                    <Grid container spacing={2}>
+                        <Grid item xs={12}>
+                            <Accordion>
+                                <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="admin-details" id="admin-details-header">
+                                    Admin Details
+                                </AccordionSummary>
+                                <AccordionDetails>
+                                    <Grid container spacing={2}>
+                                        {/* Admin Details Inputs */}
 
-
-
-                                    {/* <div className="file-upload">
-                                                <BsCloudArrowUpFill style={{ fontSize: "40px" }} />
-                                                <h3> {selectedName || "Click box to upload Profile"}</h3>
-                                                <input type="file" onChange={handleFileChange} />
-                                            </div> */}
-                                    <Grid container spacing={1}>
-                                        <Grid item xs={12}>
+                                        <Grid item xs={6}>
                                             <SoftBox mb={2}>
-                                                <label style={{ fontSize: "15px" }}>Full Name</label>
-                                                <SoftInput type="text" placeholder="Full Name" onChange={handleChange} name="fullName" value={managerData.fullName} />
-                                                {error?.fullName && <span style={{ color: 'red', fontSize: "15px" }}>{error?.fullName}</span>}
+                                                <label style={{ fontSize: "15px" }}>Outlet Name</label>
+                                                <SoftInput
+                                                    type="text"
+                                                    placeholder="Email"
+                                                    name="outletName"
+                                                    value={adminDetails.outletName}
+                                                    onChange={handleAdminDetailsChange} />
+                                            </SoftBox>
+
+
+                                        </Grid>
+                                        <Grid item xs={6}>
+                                            <SoftBox mb={2}>
+                                                <label style={{ fontSize: "15px" }}>Address</label>
+                                                <SoftInput
+                                                    type="text"
+                                                    placeholder="address"
+                                                    name="address"
+                                                    value={adminDetails.address}
+                                                    onChange={handleAdminDetailsChange} />
                                             </SoftBox>
                                         </Grid>
-                                    </Grid>
-                                    <Grid container spacing={1}>
-                                        <Grid item xs={12}>
+                                        <Grid item xs={6}>
                                             <SoftBox mb={2}>
-                                                <label style={{ fontSize: "15px" }}>Email</label>
-                                                <SoftInput type="email" placeholder="Email" onChange={handleChange} name="email" value={managerData.email} />
+                                                <label style={{ fontSize: "15px" }}>Oil Company</label>
+                                                <SoftInput
+                                                    type="text"
+                                                    placeholder="oilCompany"
+                                                    name="oilCompany"
+                                                    value={adminDetails.oilCompany}
+                                                    onChange={handleAdminDetailsChange} />
                                             </SoftBox>
                                         </Grid>
-                                    </Grid>
-                                    <Grid container spacing={1}>
-                                        <Grid item xs={12}>
-                                            <SoftBox mb={2}>
-                                                <label style={{ fontSize: "15px" }}>Phone no.</label>
-                                                <SoftInput type="number" placeholder="Phone number" onChange={handleChange} name="mobile" value={managerData.mobile} />
-                                                {error?.mobile && <span style={{ color: 'red', fontSize: "15px" }}>{error?.mobile}</span>}
 
+                                        <Grid item xs={6}>
+                                            <SoftBox mb={2}>
+                                                <label style={{ fontSize: "15px" }}>Cms Code</label>
+                                                <SoftInput
+                                                    type="text"
+                                                    placeholder="cmsCode"
+                                                    name="cmsCode"
+                                                    value={adminDetails.cmsCode}
+                                                    onChange={handleAdminDetailsChange} />
                                             </SoftBox>
                                         </Grid>
-                                    </Grid>
-                                    <Grid container spacing={1}>
-                                        <Grid item xs={12}>
+
+                                        <Grid item xs={6}>
                                             <SoftBox mb={2}>
-                                                <label style={{ fontSize: "15px" }}>Password</label>
-                                                <SoftInput type="password" placeholder="Password" onChange={handleChange} name="password" value={managerData.password} />
-                                                {error?.password && <span style={{ color: 'red', fontSize: "15px" }}>{error?.password}</span>}
+                                                <label style={{ fontSize: "15px" }}>Dealer Name</label>
+                                                <SoftInput
+                                                    type="text"
+                                                    placeholder="dealerName"
+                                                    name="dealerName"
+                                                    value={adminDetails.dealerName}
+                                                    onChange={handleAdminDetailsChange} />
                                             </SoftBox>
                                         </Grid>
+
+                                        <Grid item xs={6}>
+                                            <SoftBox mb={2}>
+                                                <label style={{ fontSize: "15px" }}>Dealer Contact</label>
+                                                <SoftInput
+                                                    type="number"
+                                                    placeholder="dealerContact"
+                                                    name="dealerContact"
+                                                    value={adminDetails.dealerContact}
+                                                    onChange={handleAdminDetailsChange} />
+                                            </SoftBox>
+                                        </Grid>
+
                                     </Grid>
-                                    <SoftButton
-                                        component="a"
-                                        variant="gradient"
-                                        color={sidenavColor}
-                                        fullWidth
-                                        onClick={handleSubmit}
-                                    >
-                                        Submit
-                                    </SoftButton>
-                                </div>
+                                </AccordionDetails>
+                            </Accordion>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Accordion>
+                                <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="product-details" id="product-details-header">
+                                    Product Details
+                                </AccordionSummary>
+                                <AccordionDetails>
+                                    <Grid container spacing={2}>
+                                        {/* Product Details Inputs */}
 
-                            </Card>
+                                        <Grid item xs={6}>
+                                            <SoftBox mb={2}>
+                                                <label style={{ fontSize: "15px" }}>MS</label>
+                                                <input
+                                                    type="checkbox"
+                                                    value={productDetails.ms}
+                                                    name="ms"
+                                                    onChange={(e) => handleProductDetailsCheckChange(e)}
+                                                />
+                                            </SoftBox>
+                                            <SoftBox mb={2}>
+                                                <label style={{ fontSize: "15px" }}>hsd</label>
+                                                <input
+                                                    type="checkbox"
+                                                    value={productDetails.hsd}
+                                                    name="hsd"
+                                                    onChange={(e) => handleProductDetailsCheckChange(e)}
+                                                />
+                                            </SoftBox>
+                                            <SoftBox mb={2}>
+                                                <label style={{ fontSize: "15px" }}>msPremium</label>
+                                                <input
+                                                    type="checkbox"
+                                                    value={productDetails.msPremium}
+                                                    name="msPremium"
+                                                    onChange={(e) => handleProductDetailsCheckChange(e)}
+                                                />
+                                            </SoftBox>
+                                            <SoftBox mb={2}>
+                                                <label style={{ fontSize: "15px" }}>hsdPremium</label>
+                                                <input
+                                                    type="checkbox"
+                                                    value={productDetails.hsdPremium}
+                                                    name="hsdPremium"
+                                                    onChange={(e) => handleProductDetailsCheckChange(e)}
+                                                />
+                                            </SoftBox>
+                                            <SoftBox mb={2}>
+                                                <label style={{ fontSize: "15px" }}>alpgCng</label>
+                                                <input
+                                                    type="checkbox"
+                                                    value={productDetails.alpgCng}
+                                                    name="alpgCng"
+                                                    onChange={(e) => handleProductDetailsCheckChange(e)}
+                                                />
+                                            </SoftBox>
 
+                                            {productDetails.ms === true && (
+                                                <>
+                                                    <SoftBox mb={2}>
+                                                        <label style={{ fontSize: "15px" }}>Number of Nozzles</label>
+                                                        <input
+                                                            type="number"
+                                                            name="ms.numberOfNozzles"
+                                                            value={nozzleDetail.ms.numberOfNozzles}
+                                                            onChange={handleProductDetailsChange}
+                                                        />
+                                                    </SoftBox>
+                                                    <SoftBox mb={2}>
+                                                        <label style={{ fontSize: "15px" }}>Tank</label>
+                                                        <input
+                                                            type="number"
+                                                            name="ms.tank"
+                                                            value={nozzleDetail.ms.tank}
+                                                            onChange={handleProductDetailsChange}
+                                                        />
+                                                    </SoftBox>
+                                                </>
+                                            )}
 
+                                            {productDetails.hsd === true && (
+                                                <>
+                                                    <SoftBox mb={2}>
+                                                        <label style={{ fontSize: "15px" }}>Number of Nozzles</label>
+                                                        <input
+                                                            type="number"
+                                                            name="hsd.numberOfNozzles"
+                                                            value={nozzleDetail.hsd.numberOfNozzles}
+                                                            onChange={handleProductDetailsChange}
+                                                        />
+                                                    </SoftBox>
+                                                    <SoftBox mb={2}>
+                                                        <label style={{ fontSize: "15px" }}>Tank</label>
+                                                        <input
+                                                            type="number"
+                                                            name="hsd.tank"
+                                                            value={nozzleDetail.hsd.tank}
+                                                            onChange={handleProductDetailsChange}
+                                                        />
+                                                    </SoftBox>
+                                                </>
+                                            )}
+
+                                            {productDetails.msPremium === true && (
+                                                <>
+                                                    <SoftBox mb={2}>
+                                                        <label style={{ fontSize: "15px" }}>Number of Nozzles</label>
+                                                        <input
+                                                            type="number"
+                                                            name="msPremium.numberOfNozzles"
+                                                            value={nozzleDetail.msPremium.numberOfNozzles}
+                                                            onChange={handleProductDetailsChange}
+                                                        />
+                                                    </SoftBox>
+                                                    <SoftBox mb={2}>
+                                                        <label style={{ fontSize: "15px" }}>Tank</label>
+                                                        <input
+                                                            type="number"
+                                                            name="msPremium.tank"
+                                                            value={nozzleDetail.msPremium.tank}
+                                                            onChange={handleProductDetailsChange}
+                                                        />
+                                                    </SoftBox>
+                                                </>
+                                            )}
+                                              {productDetails.hsdPremium === true && (
+                                                <>
+                                                    <SoftBox mb={2}>
+                                                        <label style={{ fontSize: "15px" }}>Number of Nozzles</label>
+                                                        <input
+                                                            type="number"
+                                                            name="hsdPremium.numberOfNozzles"
+                                                            value={nozzleDetail.hsdPremium.numberOfNozzles}
+                                                            onChange={handleProductDetailsChange}
+                                                        />
+                                                    </SoftBox>
+                                                    <SoftBox mb={2}>
+                                                        <label style={{ fontSize: "15px" }}>Tank</label>
+                                                        <input
+                                                            type="number"
+                                                            name="hsdPremium.tank"
+                                                            value={nozzleDetail.hsdPremium.tank}
+                                                            onChange={handleProductDetailsChange}
+                                                        />
+                                                    </SoftBox>
+                                                </>
+                                            )}
+                                             {productDetails.alpgCng === true && (
+                                                <>
+                                                    <SoftBox mb={2}>
+                                                        <label style={{ fontSize: "15px" }}>Number of Nozzles</label>
+                                                        <input
+                                                            type="number"
+                                                            name="alpgCng.numberOfNozzles"
+                                                            value={nozzleDetail.alpgCng.numberOfNozzles}
+                                                            onChange={handleProductDetailsChange}
+                                                        />
+                                                    </SoftBox>
+                                                    <SoftBox mb={2}>
+                                                        <label style={{ fontSize: "15px" }}>Tank</label>
+                                                        <input
+                                                            type="number"
+                                                            name="alpgCng.tank"
+                                                            value={nozzleDetail.alpgCng.tank}
+                                                            onChange={handleProductDetailsChange}
+                                                        />
+                                                    </SoftBox>
+                                                </>
+                                            )}
+                                        </Grid>
+                                    </Grid>
+                                </AccordionDetails>
+                            </Accordion>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Accordion>
+                                <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="banking-details" id="banking-details-header">
+                                    Banking Details
+                                </AccordionSummary>
+                                <AccordionDetails>
+                                    <Grid container spacing={2}>
+                                        <Grid item xs={6}>
+                                            <SoftBox mb={2}>
+                                                <label style={{ fontSize: "15px" }}>UPI</label>
+                                                <SoftInput
+                                                    type="text"
+                                                    placeholder="upi"
+                                                    name="upi"
+                                                    value={adminDetails.upi}
+                                                    onChange={handleBankingDetailsChange} />
+                                            </SoftBox>
+                                        </Grid>
+
+                                        <Grid item xs={6}>
+                                            <SoftBox mb={2}>
+                                                <label style={{ fontSize: "15px" }}>Card Swipe Machines</label>
+                                                <SoftInput
+                                                    type="text"
+                                                    placeholder="cardSwipeMachines"
+                                                    name="cardSwipeMachines"
+                                                    value={adminDetails.cardSwipeMachines}
+                                                    onChange={handleBankingDetailsChange} />
+                                            </SoftBox>
+                                        </Grid>
+
+                                        <Grid item xs={6}>
+                                            <SoftBox mb={2}>
+                                                <label style={{ fontSize: "15px" }}>Outlet Banking</label>
+                                                <SoftInput
+                                                    type="text"
+                                                    placeholder="outletBanking"
+                                                    name="outletBanking"
+                                                    value={adminDetails.outletBanking}
+                                                    onChange={handleBankingDetailsChange} />
+                                            </SoftBox>
+                                        </Grid>
+
+                                    </Grid>
+                                </AccordionDetails>
+                            </Accordion>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Accordion>
+                                <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="other-details" id="other-details-header">
+                                    Other Details
+                                </AccordionSummary>
+                                <AccordionDetails>
+                                    <Grid container spacing={2}>
+                                        <Grid item xs={6}>
+                                            <SoftBox mb={2}>
+                                                <label style={{ fontSize: "15px" }}>GST NO</label>
+                                                <SoftInput
+                                                    type="text"
+                                                    placeholder="gstNo"
+                                                    name="gstNo"
+                                                    value={adminDetails.gstNo}
+                                                    onChange={handleOtherDetailsChange} />
+                                            </SoftBox>
+                                        </Grid>
+
+                                    </Grid>
+
+                                    <Grid container spacing={2}>
+                                        <Grid item xs={6}>
+                                            <SoftBox mb={2}>
+                                                <label style={{ fontSize: "15px" }}>Tin No</label>
+                                                <SoftInput
+                                                    type="text"
+                                                    placeholder="tinNo"
+                                                    name="tinNo"
+                                                    value={adminDetails.tinNo}
+                                                    onChange={handleOtherDetailsChange} />
+                                            </SoftBox>
+                                        </Grid>
+
+                                    </Grid>
+
+                                    <Grid container spacing={2}>
+                                        <Grid item xs={6}>
+                                            <SoftBox mb={2}>
+                                                <label style={{ fontSize: "15px" }}>Peso License</label>
+                                                <SoftInput
+                                                    type="text"
+                                                    placeholder="pesoLicense"
+                                                    name="pesoLicense"
+                                                    value={adminDetails.pesoLicense}
+                                                    onChange={handleOtherDetailsChange} />
+                                            </SoftBox>
+                                        </Grid>
+
+                                    </Grid>
+
+                                    <Grid container spacing={2}>
+                                        <Grid item xs={6}>
+                                            <SoftBox mb={2}>
+                                                <label style={{ fontSize: "15px" }}>Wm Certificate</label>
+                                                <SoftInput
+                                                    type="text"
+                                                    placeholder="wmCertificate"
+                                                    name="wmCertificate"
+                                                    value={adminDetails.wmCertificate}
+                                                    onChange={handleOtherDetailsChange} />
+                                            </SoftBox>
+                                        </Grid>
+
+                                    </Grid>
+
+                                    <Grid container spacing={2}>
+                                        <Grid item xs={6}>
+                                            <SoftBox mb={2}>
+                                                <label style={{ fontSize: "15px" }}>Fire Certificate</label>
+                                                <SoftInput
+                                                    type="text"
+                                                    placeholder="fireCertificate"
+                                                    name="fireCertificate"
+                                                    value={adminDetails.fireCertificate}
+                                                    onChange={handleOtherDetailsChange} />
+                                            </SoftBox>
+                                        </Grid>
+
+                                    </Grid>
+
+                                    <Grid container spacing={2}>
+                                        <Grid item xs={6}>
+                                            <SoftBox mb={2}>
+                                                <label style={{ fontSize: "15px" }}>Trade Certificate</label>
+                                                <SoftInput
+                                                    type="text"
+                                                    placeholder="tradeCertificate"
+                                                    name="tradeCertificate"
+                                                    value={adminDetails.tradeCertificate}
+                                                    onChange={handleOtherDetailsChange} />
+                                            </SoftBox>
+                                        </Grid>
+
+                                    </Grid>
+
+                                    <Grid container spacing={2}>
+                                        <Grid item xs={6}>
+                                            <SoftBox mb={2}>
+                                                <label style={{ fontSize: "15px" }}>Nozzle Reading</label>
+                                                <SoftInput
+                                                    type="text"
+                                                    placeholder="nozzleReading"
+                                                    name="nozzleReading"
+                                                    value={adminDetails.nozzleReading}
+                                                    onChange={handleOtherDetailsChange} />
+                                            </SoftBox>
+                                        </Grid>
+
+                                    </Grid>
+
+                                    <Grid container spacing={2}>
+                                        <Grid item xs={6}>
+                                            <SoftBox mb={2}>
+                                                <label style={{ fontSize: "15px" }}>Earthpit Certificate</label>
+                                                <SoftInput
+                                                    type="text"
+                                                    placeholder="earthpitCertificate"
+                                                    name="earthpitCertificate"
+                                                    value={adminDetails.earthpitCertificate}
+                                                    onChange={handleOtherDetailsChange} />
+                                            </SoftBox>
+                                        </Grid>
+
+                                    </Grid>
+                                </AccordionDetails>
+                            </Accordion>
                         </Grid>
                     </Grid>
-                </SoftBox>
-                <SoftBox my={3}>
-                    <Grid container spacing={3}>
-                        <Grid item xs={12} md={7}>
-                            <BillingInformation />
-                        </Grid>
-                        <Grid item xs={12} md={5}>
-                            <Transactions />
-                        </Grid>
-                    </Grid>
-                </SoftBox>
+                    <SoftButton
+
+                        variant="outlined"
+                        color={sidenavColor}
+                        fullWidth
+                        onClick={handleSubmit}>
+                        Submit
+                    </SoftButton>
+                </Card>
             </SoftBox>
             <Footer />
-        </DashboardLayout >
+        </DashboardLayout>
     );
 }
 

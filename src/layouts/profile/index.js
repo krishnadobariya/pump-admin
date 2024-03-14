@@ -32,10 +32,10 @@ import Footer from "examples/Footer";
 import ProfileInfoCard from "examples/Cards/InfoCards/ProfileInfoCard";
 import ProfilesList from "examples/Lists/ProfilesList";
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
+// import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import DefaultProjectCard from "examples/Cards/ProjectCards/DefaultProjectCard";
-import PlaceholderCard from "examples/Cards/PlaceholderCard";
+// import DefaultProjectCard from "examples/Cards/ProjectCards/DefaultProjectCard";
+// import PlaceholderCard from "examples/Cards/PlaceholderCard";
 
 // Overview page components
 import Header from "layouts/profile/components/Header";
@@ -374,7 +374,7 @@ function Overview() {
             variant="gradient"
             color={sidenavColor}
             fullWidth
-            onClick={() => { EditAdmin() }}
+            // onClick={() => { EditAdmin() }}
 
           >
             Submit

@@ -56,6 +56,10 @@ function Pump() {
     const handleClose = () => setOpen(false);
     const [mangerById, setManagerById] = useState();
 
+    const [editModalOpen, setEditModalOpen] = useState();
+    const [editModalData, setEditModalData] = useState();
+    const [adminData, setAdminData] = useState();
+
     const dispatch = useDispatch()
     const navigate = useNavigate();
 
