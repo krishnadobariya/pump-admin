@@ -40,7 +40,7 @@ import { getAllManagerAction } from "store/Action/managerAction";
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { Accordion, AccordionDetails, AccordionSummary, Checkbox, FormControlLabel, FormGroup, Grid } from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary, Checkbox, FormControl, FormControlLabel, FormGroup, Grid, MenuItem, Select } from "@mui/material";
 import SoftInput from "components/SoftInput";
 import { getAllPumpAction } from "store/Action/pumpAction";
 import { Close, ExpandMore } from "@mui/icons-material";
@@ -121,6 +121,12 @@ function Pump() {
         }
 
     };
+
+    const managerList = useSelector(state => state.manager);
+    console.log("managerList", managerList);
+    useEffect(() => {
+        dispatch(getAllManagerAction())
+    }, []);
 
     const handleInputChange = (e) => {
         const { name, value, checked } = e.target;
@@ -309,27 +315,28 @@ function Pump() {
                                             </SoftBox>
                                         </Grid>
 
-                                        {/* <Grid item xs={12}>
+                                        <Grid item xs={12}>
                                             <SoftBox mb={2}>
                                                 <label style={{ fontSize: "15px" }}>Select Manager</label>
                                                 <FormControl fullWidth>
+                                                    {console.log("mangerById?.managerIdmangerById?.managerId", mangerById?.managerId)}
                                                     <Select
                                                         labelId="demo-simple-select-label"
                                                         id="demo-simple-select"
-                                                        value={managerId}
-                                                        onChange={(e) => { handleChange(e) }}
+                                                        value={mangerById?.managerId}
+                                                        onChange={(e) => { handleInputChange(e) }}
+                                                        name="managerId"
                                                     >
                                                         {managerList?.getAllManager?.data?.map((res) => {
                                                             return (
                                                                 res?.role !== "admin" && <MenuItem value={res?._id}>{res?.fullName}</MenuItem>
-
                                                             )
                                                         })}
                                                     </Select>
                                                 </FormControl>
                                             </SoftBox>
 
-                                        </Grid> */}
+                                        </Grid>
 
                                     </Grid>
                                 </AccordionDetails>
@@ -909,7 +916,7 @@ function Pump() {
                         fullWidth
                         onClick={handleSubmit}
                     >
-                        Edit Pump
+                        Update Pump
                     </SoftButton>
 
                 </Box>

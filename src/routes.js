@@ -65,6 +65,8 @@ import Pump from "layouts/Pump";
 import AddPump from "layouts/AddPump";
 import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up";
+import Category from "layouts/Category";
+import AddCategory from "layouts/AddCategory";
 
 const routes = [
   {
@@ -95,7 +97,15 @@ const routes = [
     noCollapse: true,
   },
 
-
+  {
+    type: "collapse",
+    name: "Category",
+    key: "category",
+    route: "/category",
+    icon: <CustomerSupport size="12px" />,
+    component: <Category />,
+    noCollapse: true,
+  },
   // { type: "title", title: "Account Pages", key: "account-pages" },
   // {
   //   type: "collapse",
@@ -119,6 +129,13 @@ const routes = [
     key: "addpump",
     route: "/addpump",
     component: <AddPump />,
+    noCollapse: true,
+  },
+  {
+    name: "Create Category",
+    key: "addcategry",
+    route: "/addcategory",
+    component: <AddCategory />,
     noCollapse: true,
   },
 

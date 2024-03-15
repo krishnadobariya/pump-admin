@@ -51,7 +51,7 @@ export const updateManagerAction = (userId, updatedData) => {
                 dispatch(updateManager(res));
             }).catch((error) => {
                 console.log(error);
-                toast.error('Something went wrong');
+                toast.error(error?.response?.data?.message)
                 dispatch(updateManager(error?.response));
             });
         } catch (error) {
