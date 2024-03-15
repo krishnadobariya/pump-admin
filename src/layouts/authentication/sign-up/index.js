@@ -35,39 +35,63 @@ import Separator from "layouts/authentication/components/Separator";
 
 // Images
 import curved6 from "assets/images/curved-images/curved14.jpg";
+import { useDispatch } from "react-redux";
+import { registerAdminAction } from "store/Action/adminAction";
 
 function SignUp() {
   const [agreement, setAgremment] = useState(true);
+
+  const [adminDetails, setAdminDetails] = useState({
+    fullName: "",
+    email: "",
+    mobile: "",
+    role: "admin",
+    password: ""
+  });
+
+  const dispatch = useDispatch()
+  const handleAdminDetailsChange = (e) => {
+    const { name, value } = e.target;
+    setAdminDetails({ ...adminDetails, [name]: value });
+  };
+
+  const registerAdmin = () => {
+    dispatch(registerAdminAction(adminDetails))
+  }
 
   const handleSetAgremment = () => setAgremment(!agreement);
 
   return (
     <BasicLayout
       title="Welcome!"
-      description="Use these awesome forms to login or create new account in your project for free."
+      description="Use these awesome forms to login or create new account for our new Admin!"
       image={curved6}
     >
       <Card>
-        <SoftBox p={3} mb={1} textAlign="center">
+        {/* <SoftBox p={3} mb={1} textAlign="center">
           <SoftTypography variant="h5" fontWeight="medium">
             Register with
           </SoftTypography>
-        </SoftBox>
-        <SoftBox mb={2}>
+        </SoftBox> */}
+        {/* <SoftBox mb={2}>
           <Socials />
-        </SoftBox>
-        <Separator />
+        </SoftBox> */}
+        {/* <Separator /> */}
         <SoftBox pt={2} pb={3} px={3}>
           <SoftBox component="form" role="form">
             <SoftBox mb={2}>
-              <SoftInput placeholder="Name" />
+              <SoftInput type="text" name="fullName" value={adminDetails.fullName} onChange={handleAdminDetailsChange} placeholder="Name" />
             </SoftBox>
             <SoftBox mb={2}>
-              <SoftInput type="email" placeholder="Email" />
+              <SoftInput type="email" name="email" value={adminDetails.email} onChange={handleAdminDetailsChange} placeholder="Email" />
             </SoftBox>
             <SoftBox mb={2}>
-              <SoftInput type="password" placeholder="Password" />
+              <SoftInput type="text" name="mobile" value={adminDetails.mobile} onChange={handleAdminDetailsChange} placeholder="Mobile" />
             </SoftBox>
+            <SoftBox mb={2}>
+              <SoftInput type="password" name="password" value={adminDetails.password} onChange={handleAdminDetailsChange} placeholder="Password" />
+            </SoftBox>
+
             <SoftBox display="flex" alignItems="center">
               <Checkbox checked={agreement} onChange={handleSetAgremment} />
               <SoftTypography
@@ -89,7 +113,7 @@ function SignUp() {
               </SoftTypography>
             </SoftBox>
             <SoftBox mt={4} mb={1}>
-              <SoftButton variant="gradient" color="dark" fullWidth>
+              <SoftButton variant="gradient" color="dark" fullWidth onClick={registerAdmin}>
                 sign up
               </SoftButton>
             </SoftBox>

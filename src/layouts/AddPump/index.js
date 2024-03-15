@@ -54,8 +54,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { managerAddAction } from "store/Action/managerAction";
 import { useNavigate } from "react-router-dom";
 import { pumpAddAction } from "store/Action/pumpAction";
+import { FormControl, FormControlLabel, FormGroup, InputLabel, MenuItem, Select } from "@mui/material";
 // import { BsCloudArrowUpFill } from "react-icons/bs";
-
+import Checkbox from '@mui/material/Checkbox';
+import { getAllManagerAction } from "store/Action/managerAction";
 
 const style = {
     position: 'absolute',
@@ -74,9 +76,22 @@ const AddPump = () => {
     const [controller] = useSoftUIController();
     const { miniSidenav, sidenavColor } = controller;
     const [submitted, setSubmitted] = useState(1);
-    const navigate = useNavigate()
+    const [managerId, setManagerId] = useState();
+    const adminId = localStorage.getItem('adminId');
+    const navigate = useNavigate();
     const dispatch = useDispatch();
 
+
+    const managerList = useSelector(state => state.manager);
+    console.log("managerList", managerList);
+    useEffect(() => {
+        dispatch(getAllManagerAction())
+    }, []);
+
+    const handleChange = (e) => {
+        console.log(e.target.value);
+        setManagerId(e.target.value)
+    }
     const [adminDetails, setAdminDetails] = useState({
         adminId: "",
         managerId: "",
@@ -89,7 +104,7 @@ const AddPump = () => {
         dealerEmail: "",
         managerName: "",
         managerContact: "",
-        managerEmail: ""
+        managerEmail: "",
     });
 
     const [productDetails, setProductDetails] = useState({
@@ -97,7 +112,7 @@ const AddPump = () => {
         hsd: false,
         msPremium: false,
         hsdPremium: false,
-        lubes: true,
+        lubes: false,
         alpg: false,
         cng: false,
 
@@ -121,7 +136,15 @@ const AddPump = () => {
             numberOfNozzles: "",
             tank: ""
         },
-        "alpgCng": {
+        "lubes": {
+            numberOfNozzles: "",
+            tank: ""
+        },
+        "alpg": {
+            numberOfNozzles: "",
+            tank: ""
+        },
+        "cng": {
             numberOfNozzles: "",
             tank: "",
         }
@@ -199,14 +222,12 @@ const AddPump = () => {
 
     const payload = {
         ...adminDetails,
-        adminId : "60f799a8c877780012345678",
-        managerId : "65b12aa3b8019e44c07621e2",
+        adminId: adminId,
+        managerId: managerId,
         "products": productDetails,
-        "nozzleDetail": nozzleDetail ,
-        "bankingDetails": bankingDetails ,
-        "otherDetails" : otherDetails
-
-
+        "nozzleDetail": nozzleDetail,
+        "bankingDetails": bankingDetails,
+        "otherDetails": otherDetails
     }
 
     console.log("payload", payload)
@@ -228,12 +249,12 @@ const AddPump = () => {
                 <Card style={{ padding: "20px" }}>
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
-                            <Accordion>
-                                <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="admin-details" id="admin-details-header">
+                            <Accordion defaultExpanded>
+                                <AccordionSummary expandIcon={<ExpandMoreIcon />} sx={{ fontSize: "20px" }} aria-controls="admin-details" id="admin-details-header">
                                     Admin Details
                                 </AccordionSummary>
                                 <AccordionDetails>
-                                    <Grid container spacing={2}>
+                                    <Grid container spacing={2} px={2}>
                                         {/* Admin Details Inputs */}
 
                                         <Grid item xs={6}>
@@ -241,7 +262,7 @@ const AddPump = () => {
                                                 <label style={{ fontSize: "15px" }}>Outlet Name</label>
                                                 <SoftInput
                                                     type="text"
-                                                    placeholder="Email"
+                                                    placeholder="Outlet Name"
                                                     name="outletName"
                                                     value={adminDetails.outletName}
                                                     onChange={handleAdminDetailsChange} />
@@ -254,7 +275,7 @@ const AddPump = () => {
                                                 <label style={{ fontSize: "15px" }}>Address</label>
                                                 <SoftInput
                                                     type="text"
-                                                    placeholder="address"
+                                                    placeholder="Address"
                                                     name="address"
                                                     value={adminDetails.address}
                                                     onChange={handleAdminDetailsChange} />
@@ -265,7 +286,7 @@ const AddPump = () => {
                                                 <label style={{ fontSize: "15px" }}>Oil Company</label>
                                                 <SoftInput
                                                     type="text"
-                                                    placeholder="oilCompany"
+                                                    placeholder="Oil Company"
                                                     name="oilCompany"
                                                     value={adminDetails.oilCompany}
                                                     onChange={handleAdminDetailsChange} />
@@ -277,7 +298,7 @@ const AddPump = () => {
                                                 <label style={{ fontSize: "15px" }}>Cms Code</label>
                                                 <SoftInput
                                                     type="text"
-                                                    placeholder="cmsCode"
+                                                    placeholder="Cms Code"
                                                     name="cmsCode"
                                                     value={adminDetails.cmsCode}
                                                     onChange={handleAdminDetailsChange} />
@@ -289,7 +310,7 @@ const AddPump = () => {
                                                 <label style={{ fontSize: "15px" }}>Dealer Name</label>
                                                 <SoftInput
                                                     type="text"
-                                                    placeholder="dealerName"
+                                                    placeholder="Dealer Name"
                                                     name="dealerName"
                                                     value={adminDetails.dealerName}
                                                     onChange={handleAdminDetailsChange} />
@@ -301,11 +322,81 @@ const AddPump = () => {
                                                 <label style={{ fontSize: "15px" }}>Dealer Contact</label>
                                                 <SoftInput
                                                     type="number"
-                                                    placeholder="dealerContact"
+                                                    placeholder="Dealer Contact"
                                                     name="dealerContact"
                                                     value={adminDetails.dealerContact}
                                                     onChange={handleAdminDetailsChange} />
                                             </SoftBox>
+                                        </Grid>
+
+                                        <Grid item xs={6}>
+                                            <SoftBox mb={2}>
+                                                <label style={{ fontSize: "15px" }}>Dealer Email</label>
+                                                <SoftInput
+                                                    type="email"
+                                                    placeholder="Dealer Email"
+                                                    name="dealerEmail"
+                                                    value={adminDetails.dealerEmail}
+                                                    onChange={handleAdminDetailsChange} />
+                                            </SoftBox>
+                                        </Grid>
+
+                                        <Grid item xs={6}>
+                                            <SoftBox mb={2}>
+                                                <label style={{ fontSize: "15px" }}>Manager Name</label>
+                                                <SoftInput
+                                                    type="text"
+                                                    placeholder="Manager Name"
+                                                    name="managerName"
+                                                    value={adminDetails.managerName}
+                                                    onChange={handleAdminDetailsChange} />
+                                            </SoftBox>
+                                        </Grid>
+
+                                        <Grid item xs={6}>
+                                            <SoftBox mb={2}>
+                                                <label style={{ fontSize: "15px" }}>Manager Contact</label>
+                                                <SoftInput
+                                                    type="text"
+                                                    placeholder="Manager Contact"
+                                                    name="managerContact"
+                                                    value={adminDetails.managerContact}
+                                                    onChange={handleAdminDetailsChange} />
+                                            </SoftBox>
+                                        </Grid>
+
+                                        <Grid item xs={6}>
+                                            <SoftBox mb={2}>
+                                                <label style={{ fontSize: "15px" }}>Manager Email</label>
+                                                <SoftInput
+                                                    type="email"
+                                                    placeholder="Manager Email"
+                                                    name="managerEmail"
+                                                    value={adminDetails.managerEmail}
+                                                    onChange={handleAdminDetailsChange} />
+                                            </SoftBox>
+                                        </Grid>
+
+                                        <Grid item xs={12}>
+                                            <SoftBox mb={2}>
+                                                <label style={{ fontSize: "15px" }}>Select Manager</label>
+                                                <FormControl fullWidth>
+                                                    <Select
+                                                        labelId="demo-simple-select-label"
+                                                        id="demo-simple-select"
+                                                        value={managerId}
+                                                        onChange={(e) => { handleChange(e) }}
+                                                    >
+                                                        {managerList?.getAllManager?.data?.map((res) => {
+                                                            return (
+                                                                res?.role !== "admin" && <MenuItem value={res?._id}>{res?.fullName}</MenuItem>
+
+                                                            )
+                                                        })}
+                                                    </Select>
+                                                </FormControl>
+                                            </SoftBox>
+
                                         </Grid>
 
                                     </Grid>
@@ -318,169 +409,276 @@ const AddPump = () => {
                                     Product Details
                                 </AccordionSummary>
                                 <AccordionDetails>
-                                    <Grid container spacing={2}>
+                                    <Grid container spacing={1} px={3}>
                                         {/* Product Details Inputs */}
 
-                                        <Grid item xs={6}>
+                                        <Grid item xs={12}>
                                             <SoftBox mb={2}>
-                                                <label style={{ fontSize: "15px" }}>MS</label>
-                                                <input
-                                                    type="checkbox"
-                                                    value={productDetails.ms}
-                                                    name="ms"
-                                                    onChange={(e) => handleProductDetailsCheckChange(e)}
-                                                />
-                                            </SoftBox>
-                                            <SoftBox mb={2}>
-                                                <label style={{ fontSize: "15px" }}>hsd</label>
-                                                <input
-                                                    type="checkbox"
-                                                    value={productDetails.hsd}
-                                                    name="hsd"
-                                                    onChange={(e) => handleProductDetailsCheckChange(e)}
-                                                />
-                                            </SoftBox>
-                                            <SoftBox mb={2}>
-                                                <label style={{ fontSize: "15px" }}>msPremium</label>
-                                                <input
-                                                    type="checkbox"
-                                                    value={productDetails.msPremium}
-                                                    name="msPremium"
-                                                    onChange={(e) => handleProductDetailsCheckChange(e)}
-                                                />
-                                            </SoftBox>
-                                            <SoftBox mb={2}>
-                                                <label style={{ fontSize: "15px" }}>hsdPremium</label>
-                                                <input
-                                                    type="checkbox"
-                                                    value={productDetails.hsdPremium}
-                                                    name="hsdPremium"
-                                                    onChange={(e) => handleProductDetailsCheckChange(e)}
-                                                />
-                                            </SoftBox>
-                                            <SoftBox mb={2}>
-                                                <label style={{ fontSize: "15px" }}>alpgCng</label>
-                                                <input
-                                                    type="checkbox"
-                                                    value={productDetails.alpgCng}
-                                                    name="alpgCng"
-                                                    onChange={(e) => handleProductDetailsCheckChange(e)}
-                                                />
+                                                <FormGroup>
+                                                    <FormControlLabel control={<Checkbox />} value={productDetails.ms} name="ms"
+                                                        onChange={(e) => handleProductDetailsCheckChange(e)} label="MS" />
+                                                </FormGroup>
                                             </SoftBox>
 
                                             {productDetails.ms === true && (
                                                 <>
-                                                    <SoftBox mb={2}>
-                                                        <label style={{ fontSize: "15px" }}>Number of Nozzles</label>
-                                                        <input
-                                                            type="number"
-                                                            name="ms.numberOfNozzles"
-                                                            value={nozzleDetail.ms.numberOfNozzles}
-                                                            onChange={handleProductDetailsChange}
-                                                        />
-                                                    </SoftBox>
-                                                    <SoftBox mb={2}>
-                                                        <label style={{ fontSize: "15px" }}>Tank</label>
-                                                        <input
-                                                            type="number"
-                                                            name="ms.tank"
-                                                            value={nozzleDetail.ms.tank}
-                                                            onChange={handleProductDetailsChange}
-                                                        />
-                                                    </SoftBox>
+                                                    <Grid container spacing={1}>
+                                                        <Grid item xs={6}>
+                                                            <SoftBox mb={2}>
+                                                                <label style={{ fontSize: "15px" }}>Number of Nozzles</label>
+                                                                <SoftInput
+                                                                    type="number"
+                                                                    name="ms.numberOfNozzles"
+                                                                    value={nozzleDetail.ms.numberOfNozzles}
+                                                                    onChange={handleProductDetailsChange}
+                                                                />
+                                                            </SoftBox>
+                                                        </Grid>
+                                                        <Grid item xs={6}>
+                                                            <SoftBox mb={2}>
+                                                                <label style={{ fontSize: "15px" }}>Tank</label>
+                                                                <SoftInput
+                                                                    type="number"
+                                                                    name="ms.tank"
+                                                                    value={nozzleDetail.ms.tank}
+                                                                    onChange={handleProductDetailsChange}
+                                                                />
+                                                            </SoftBox>
+                                                        </Grid>
+                                                    </Grid>
                                                 </>
                                             )}
 
+                                        </Grid>
+                                        <Grid item xs={12}>
+                                            <SoftBox mb={2}>
+                                                <FormGroup>
+                                                    <FormControlLabel control={<Checkbox />} value={productDetails.hsd} name="hsd"
+                                                        onChange={(e) => handleProductDetailsCheckChange(e)} label="HSD" />
+                                                </FormGroup>
+                                            </SoftBox>
                                             {productDetails.hsd === true && (
                                                 <>
-                                                    <SoftBox mb={2}>
-                                                        <label style={{ fontSize: "15px" }}>Number of Nozzles</label>
-                                                        <input
-                                                            type="number"
-                                                            name="hsd.numberOfNozzles"
-                                                            value={nozzleDetail.hsd.numberOfNozzles}
-                                                            onChange={handleProductDetailsChange}
-                                                        />
-                                                    </SoftBox>
-                                                    <SoftBox mb={2}>
-                                                        <label style={{ fontSize: "15px" }}>Tank</label>
-                                                        <input
-                                                            type="number"
-                                                            name="hsd.tank"
-                                                            value={nozzleDetail.hsd.tank}
-                                                            onChange={handleProductDetailsChange}
-                                                        />
-                                                    </SoftBox>
-                                                </>
-                                            )}
-
-                                            {productDetails.msPremium === true && (
-                                                <>
-                                                    <SoftBox mb={2}>
-                                                        <label style={{ fontSize: "15px" }}>Number of Nozzles</label>
-                                                        <input
-                                                            type="number"
-                                                            name="msPremium.numberOfNozzles"
-                                                            value={nozzleDetail.msPremium.numberOfNozzles}
-                                                            onChange={handleProductDetailsChange}
-                                                        />
-                                                    </SoftBox>
-                                                    <SoftBox mb={2}>
-                                                        <label style={{ fontSize: "15px" }}>Tank</label>
-                                                        <input
-                                                            type="number"
-                                                            name="msPremium.tank"
-                                                            value={nozzleDetail.msPremium.tank}
-                                                            onChange={handleProductDetailsChange}
-                                                        />
-                                                    </SoftBox>
-                                                </>
-                                            )}
-                                              {productDetails.hsdPremium === true && (
-                                                <>
-                                                    <SoftBox mb={2}>
-                                                        <label style={{ fontSize: "15px" }}>Number of Nozzles</label>
-                                                        <input
-                                                            type="number"
-                                                            name="hsdPremium.numberOfNozzles"
-                                                            value={nozzleDetail.hsdPremium.numberOfNozzles}
-                                                            onChange={handleProductDetailsChange}
-                                                        />
-                                                    </SoftBox>
-                                                    <SoftBox mb={2}>
-                                                        <label style={{ fontSize: "15px" }}>Tank</label>
-                                                        <input
-                                                            type="number"
-                                                            name="hsdPremium.tank"
-                                                            value={nozzleDetail.hsdPremium.tank}
-                                                            onChange={handleProductDetailsChange}
-                                                        />
-                                                    </SoftBox>
-                                                </>
-                                            )}
-                                             {productDetails.alpgCng === true && (
-                                                <>
-                                                    <SoftBox mb={2}>
-                                                        <label style={{ fontSize: "15px" }}>Number of Nozzles</label>
-                                                        <input
-                                                            type="number"
-                                                            name="alpgCng.numberOfNozzles"
-                                                            value={nozzleDetail.alpgCng.numberOfNozzles}
-                                                            onChange={handleProductDetailsChange}
-                                                        />
-                                                    </SoftBox>
-                                                    <SoftBox mb={2}>
-                                                        <label style={{ fontSize: "15px" }}>Tank</label>
-                                                        <input
-                                                            type="number"
-                                                            name="alpgCng.tank"
-                                                            value={nozzleDetail.alpgCng.tank}
-                                                            onChange={handleProductDetailsChange}
-                                                        />
-                                                    </SoftBox>
+                                                    <Grid container spacing={2}>
+                                                        <Grid item xs={6}>
+                                                            <SoftBox mb={2}>
+                                                                <label style={{ fontSize: "15px" }}>Number of Nozzles</label>
+                                                                <SoftInput
+                                                                    type="number"
+                                                                    name="hsd.numberOfNozzles"
+                                                                    value={nozzleDetail.hsd.numberOfNozzles}
+                                                                    onChange={handleProductDetailsChange}
+                                                                />
+                                                            </SoftBox>
+                                                        </Grid>
+                                                        <Grid item xs={6}>
+                                                            <SoftBox mb={2}>
+                                                                <label style={{ fontSize: "15px" }}>Tank</label>
+                                                                <SoftInput
+                                                                    type="number"
+                                                                    name="hsd.tank"
+                                                                    value={nozzleDetail.hsd.tank}
+                                                                    onChange={handleProductDetailsChange}
+                                                                />
+                                                            </SoftBox>
+                                                        </Grid>
+                                                    </Grid>
                                                 </>
                                             )}
                                         </Grid>
+
+
+
+                                        <Grid item xs={12}>
+                                            <SoftBox mb={2}>
+                                                <FormGroup>
+                                                    <FormControlLabel control={<Checkbox />} value={productDetails.msPremium}
+                                                        name="msPremium"
+                                                        onChange={(e) => handleProductDetailsCheckChange(e)} label="Ms Premium" />
+                                                </FormGroup>
+                                            </SoftBox>
+
+                                            {productDetails.msPremium === true && (
+                                                <>
+                                                    <Grid container spacing={2}>
+                                                        <Grid item xs={6}>
+                                                            <SoftBox mb={2}>
+                                                                <label style={{ fontSize: "15px" }}>Number of Nozzles</label>
+                                                                <SoftInput
+                                                                    type="number"
+                                                                    name="msPremium.numberOfNozzles"
+                                                                    value={nozzleDetail.msPremium.numberOfNozzles}
+                                                                    onChange={handleProductDetailsChange}
+                                                                />
+                                                            </SoftBox>
+                                                        </Grid>
+                                                        <Grid item xs={6}>
+                                                            <SoftBox mb={2}>
+                                                                <label style={{ fontSize: "15px" }}>Tank</label>
+                                                                <SoftInput
+                                                                    type="number"
+                                                                    name="msPremium.tank"
+                                                                    value={nozzleDetail.msPremium.tank}
+                                                                    onChange={handleProductDetailsChange}
+                                                                />
+                                                            </SoftBox>
+                                                        </Grid>
+                                                    </Grid>
+                                                </>
+                                            )}
+                                        </Grid>
+
+                                        <Grid item xs={12}>
+
+                                            <SoftBox mb={2}>
+                                                <FormGroup>
+                                                    <FormControlLabel control={<Checkbox />} value={productDetails.hsdPremium}
+                                                        name="hsdPremium"
+                                                        onChange={(e) => handleProductDetailsCheckChange(e)} label="Hsd Premium" />
+                                                </FormGroup>
+                                            </SoftBox>
+                                            {productDetails.hsdPremium === true && (
+                                                <>
+                                                    <Grid container spacing={2}>
+                                                        <Grid item xs={6}>
+                                                            <SoftBox mb={2}>
+                                                                <label style={{ fontSize: "15px" }}>Number of Nozzles</label>
+                                                                <SoftInput
+                                                                    type="number"
+                                                                    name="hsdPremium.numberOfNozzles"
+                                                                    value={nozzleDetail.hsdPremium.numberOfNozzles}
+                                                                    onChange={handleProductDetailsChange}
+                                                                />
+                                                            </SoftBox>
+                                                        </Grid>
+                                                        <Grid item xs={6}>
+                                                            <SoftBox mb={2}>
+                                                                <label style={{ fontSize: "15px" }}>Tank</label>
+                                                                <SoftInput
+                                                                    type="number"
+                                                                    name="hsdPremium.tank"
+                                                                    value={nozzleDetail.hsdPremium.tank}
+                                                                    onChange={handleProductDetailsChange}
+                                                                />
+                                                            </SoftBox>
+                                                        </Grid>
+                                                    </Grid>
+                                                </>
+                                            )}
+                                        </Grid>
+
+                                        <Grid item xs={12}>
+                                            <SoftBox mb={2}>
+                                                <FormGroup>
+                                                    <FormControlLabel control={<Checkbox />} value={productDetails.lubes} name="lubes"
+                                                        onChange={(e) => handleProductDetailsCheckChange(e)} label="Lubes" />
+                                                </FormGroup>
+                                            </SoftBox>
+                                            {productDetails.lubes === true && (
+                                                <>
+                                                    <Grid container spacing={2}>
+                                                        <Grid item xs={6}>
+                                                            <SoftBox mb={2}>
+                                                                <label style={{ fontSize: "15px" }}>Number of Nozzles</label>
+                                                                <SoftInput
+                                                                    type="number"
+                                                                    name="lubes.numberOfNozzles"
+                                                                    value={nozzleDetail.lubes.numberOfNozzles}
+                                                                    onChange={handleProductDetailsChange}
+                                                                />
+                                                            </SoftBox>
+                                                        </Grid>
+                                                        <Grid item xs={6}>
+                                                            <SoftBox mb={2}>
+                                                                <label style={{ fontSize: "15px" }}>Tank</label>
+                                                                <SoftInput
+                                                                    type="number"
+                                                                    name="lubes.tank"
+                                                                    value={nozzleDetail.lubes.tank}
+                                                                    onChange={handleProductDetailsChange}
+                                                                />
+                                                            </SoftBox>
+                                                        </Grid>
+                                                    </Grid>
+                                                </>
+                                            )}
+                                        </Grid>
+                                        <Grid item xs={12}>
+                                            <SoftBox mb={2}>
+                                                <FormGroup>
+                                                    <FormControlLabel control={<Checkbox />} value={productDetails.alpg} name="alpg"
+                                                        onChange={(e) => handleProductDetailsCheckChange(e)} label="ALPG" />
+                                                </FormGroup>
+                                            </SoftBox>
+                                            {productDetails.alpg === true && (
+                                                <>
+                                                    <Grid container spacing={2}>
+                                                        <Grid item xs={6}>
+                                                            <SoftBox mb={2}>
+                                                                <label style={{ fontSize: "15px" }}>Number of Nozzles</label>
+                                                                <SoftInput
+                                                                    type="number"
+                                                                    name="alpg.numberOfNozzles"
+                                                                    value={nozzleDetail.alpg.numberOfNozzles}
+                                                                    onChange={handleProductDetailsChange}
+                                                                />
+                                                            </SoftBox>
+                                                        </Grid>
+                                                        <Grid item xs={6}>
+                                                            <SoftBox mb={2}>
+                                                                <label style={{ fontSize: "15px" }}>Tank</label>
+                                                                <SoftInput
+                                                                    type="number"
+                                                                    name="alpg.tank"
+                                                                    value={nozzleDetail.alpg.tank}
+                                                                    onChange={handleProductDetailsChange}
+                                                                />
+                                                            </SoftBox>
+                                                        </Grid>
+                                                    </Grid>
+                                                </>
+                                            )}
+                                        </Grid>
+
+
+                                        <Grid item xs={12}>
+                                            <SoftBox mb={2}>
+                                                <FormGroup>
+                                                    <FormControlLabel control={<Checkbox />} value={productDetails.cng} name="cng"
+                                                        onChange={(e) => handleProductDetailsCheckChange(e)} label="CNG" />
+                                                </FormGroup>
+                                            </SoftBox>
+                                            {productDetails.cng === true && (
+                                                <>
+                                                    <Grid container spacing={2}>
+                                                        <Grid item xs={6}>
+                                                            <SoftBox mb={2}>
+                                                                <label style={{ fontSize: "15px" }}>Number of Nozzles</label>
+                                                                <SoftInput
+                                                                    type="number"
+                                                                    name="cng.numberOfNozzles"
+                                                                    value={nozzleDetail.cng.numberOfNozzles}
+                                                                    onChange={handleProductDetailsChange}
+                                                                />
+                                                            </SoftBox>
+                                                        </Grid>
+                                                        <Grid item xs={6}>
+                                                            <SoftBox mb={2}>
+                                                                <label style={{ fontSize: "15px" }}>Tank</label>
+                                                                <SoftInput
+                                                                    type="number"
+                                                                    name="cng.tank"
+                                                                    value={nozzleDetail.cng.tank}
+                                                                    onChange={handleProductDetailsChange}
+                                                                />
+                                                            </SoftBox>
+                                                        </Grid>
+                                                    </Grid>
+
+                                                </>
+                                            )}
+                                        </Grid>
+
                                     </Grid>
                                 </AccordionDetails>
                             </Accordion>
@@ -491,13 +689,13 @@ const AddPump = () => {
                                     Banking Details
                                 </AccordionSummary>
                                 <AccordionDetails>
-                                    <Grid container spacing={2}>
+                                    <Grid container spacing={2} px={2}>
                                         <Grid item xs={6}>
                                             <SoftBox mb={2}>
                                                 <label style={{ fontSize: "15px" }}>UPI</label>
                                                 <SoftInput
                                                     type="text"
-                                                    placeholder="upi"
+                                                    placeholder="UPI"
                                                     name="upi"
                                                     value={adminDetails.upi}
                                                     onChange={handleBankingDetailsChange} />
@@ -509,7 +707,7 @@ const AddPump = () => {
                                                 <label style={{ fontSize: "15px" }}>Card Swipe Machines</label>
                                                 <SoftInput
                                                     type="text"
-                                                    placeholder="cardSwipeMachines"
+                                                    placeholder="Card Swipe Machines"
                                                     name="cardSwipeMachines"
                                                     value={adminDetails.cardSwipeMachines}
                                                     onChange={handleBankingDetailsChange} />
@@ -521,7 +719,7 @@ const AddPump = () => {
                                                 <label style={{ fontSize: "15px" }}>Outlet Banking</label>
                                                 <SoftInput
                                                     type="text"
-                                                    placeholder="outletBanking"
+                                                    placeholder="Outlet Banking"
                                                     name="outletBanking"
                                                     value={adminDetails.outletBanking}
                                                     onChange={handleBankingDetailsChange} />
@@ -538,136 +736,249 @@ const AddPump = () => {
                                     Other Details
                                 </AccordionSummary>
                                 <AccordionDetails>
-                                    <Grid container spacing={2}>
+                                    <Grid container spacing={2} px={2}>
                                         <Grid item xs={6}>
                                             <SoftBox mb={2}>
                                                 <label style={{ fontSize: "15px" }}>GST NO</label>
                                                 <SoftInput
                                                     type="text"
-                                                    placeholder="gstNo"
+                                                    placeholder="GST No"
                                                     name="gstNo"
                                                     value={adminDetails.gstNo}
                                                     onChange={handleOtherDetailsChange} />
                                             </SoftBox>
                                         </Grid>
 
+                                        <Grid item xs={6}>
+                                            <SoftBox mb={2}>
+                                                <label style={{ fontSize: "15px" }}>Bank Statements</label>
+                                                <SoftInput
+                                                    type="text"
+                                                    placeholder="Bank Statements"
+                                                    name="bankStatements"
+                                                    value={otherDetails.bankStatements}
+                                                    onChange={handleOtherDetailsChange} />
+                                            </SoftBox>
+                                        </Grid>
+
                                     </Grid>
 
-                                    <Grid container spacing={2}>
+                                    <Grid container spacing={2} px={2}>
                                         <Grid item xs={6}>
                                             <SoftBox mb={2}>
                                                 <label style={{ fontSize: "15px" }}>Tin No</label>
                                                 <SoftInput
                                                     type="text"
-                                                    placeholder="tinNo"
+                                                    placeholder="Tin No"
                                                     name="tinNo"
                                                     value={adminDetails.tinNo}
                                                     onChange={handleOtherDetailsChange} />
                                             </SoftBox>
                                         </Grid>
+                                        <Grid item xs={6}>
+                                            <SoftBox mb={2}>
+                                                <label style={{ fontSize: "15px" }}>Lubes</label>
+                                                <SoftInput
+                                                    type="text"
+                                                    placeholder="Lubes"
+                                                    name="lubes"
+                                                    value={otherDetails.lubes}
+                                                    onChange={handleOtherDetailsChange} />
+                                            </SoftBox>
+                                        </Grid>
 
                                     </Grid>
 
-                                    <Grid container spacing={2}>
+                                    <Grid container spacing={2} px={2}>
                                         <Grid item xs={6}>
                                             <SoftBox mb={2}>
                                                 <label style={{ fontSize: "15px" }}>Peso License</label>
                                                 <SoftInput
                                                     type="text"
-                                                    placeholder="pesoLicense"
+                                                    placeholder="Peso License"
                                                     name="pesoLicense"
-                                                    value={adminDetails.pesoLicense}
+                                                    value={otherDetails.pesoLicense}
+                                                    onChange={handleOtherDetailsChange} />
+                                            </SoftBox>
+                                        </Grid>
+                                        <Grid item xs={6}>
+                                            <SoftBox mb={2}>
+                                                <label style={{ fontSize: "15px" }}>Stocks</label>
+                                                <SoftInput
+                                                    type="text"
+                                                    placeholder="Stocks"
+                                                    name="stocks"
+                                                    value={otherDetails.stocks}
                                                     onChange={handleOtherDetailsChange} />
                                             </SoftBox>
                                         </Grid>
 
                                     </Grid>
 
-                                    <Grid container spacing={2}>
+                                    <Grid container spacing={2} px={2}>
                                         <Grid item xs={6}>
                                             <SoftBox mb={2}>
                                                 <label style={{ fontSize: "15px" }}>Wm Certificate</label>
                                                 <SoftInput
                                                     type="text"
-                                                    placeholder="wmCertificate"
+                                                    placeholder="Wm Certificate"
                                                     name="wmCertificate"
-                                                    value={adminDetails.wmCertificate}
+                                                    value={otherDetails.wmCertificate}
                                                     onChange={handleOtherDetailsChange} />
                                             </SoftBox>
                                         </Grid>
-
+                                        <Grid item xs={6}>
+                                            <SoftBox mb={2}>
+                                                <label style={{ fontSize: "15px" }}>Labour Certificate</label>
+                                                <SoftInput
+                                                    type="text"
+                                                    placeholder="Labour Certificate"
+                                                    name="labourCertificate"
+                                                    value={otherDetails.labourCertificate}
+                                                    onChange={handleOtherDetailsChange} />
+                                            </SoftBox>
+                                        </Grid>
                                     </Grid>
 
-                                    <Grid container spacing={2}>
+                                    <Grid container spacing={2} px={2}>
                                         <Grid item xs={6}>
                                             <SoftBox mb={2}>
                                                 <label style={{ fontSize: "15px" }}>Fire Certificate</label>
                                                 <SoftInput
                                                     type="text"
-                                                    placeholder="fireCertificate"
+                                                    placeholder="Fire Certificate"
                                                     name="fireCertificate"
-                                                    value={adminDetails.fireCertificate}
+                                                    value={otherDetails.fireCertificate}
+                                                    onChange={handleOtherDetailsChange} />
+                                            </SoftBox>
+
+                                        </Grid>
+                                        <Grid item xs={6}>
+                                            <SoftBox mb={2}>
+                                                <label style={{ fontSize: "15px" }}>Tankers Receipts</label>
+                                                <SoftInput
+                                                    type="text"
+                                                    placeholder="Tankers Receipts"
+                                                    name="tankersReceipts"
+                                                    value={otherDetails.tankersReceipts}
                                                     onChange={handleOtherDetailsChange} />
                                             </SoftBox>
                                         </Grid>
-
                                     </Grid>
 
-                                    <Grid container spacing={2}>
+                                    <Grid container spacing={2} px={2}>
                                         <Grid item xs={6}>
                                             <SoftBox mb={2}>
                                                 <label style={{ fontSize: "15px" }}>Trade Certificate</label>
                                                 <SoftInput
                                                     type="text"
-                                                    placeholder="tradeCertificate"
+                                                    placeholder="Trade Certificate"
                                                     name="tradeCertificate"
-                                                    value={adminDetails.tradeCertificate}
+                                                    value={otherDetails.tradeCertificate}
+                                                    onChange={handleOtherDetailsChange} />
+                                            </SoftBox>
+                                        </Grid>
+                                        <Grid item xs={6}>
+                                            <SoftBox mb={2}>
+                                                <label style={{ fontSize: "15px" }}>panNumber</label>
+                                                <SoftInput
+                                                    type="text"
+                                                    placeholder="Pan Number"
+                                                    name="panNumber"
+                                                    value={otherDetails.panNumber}
                                                     onChange={handleOtherDetailsChange} />
                                             </SoftBox>
                                         </Grid>
 
                                     </Grid>
 
-                                    <Grid container spacing={2}>
+                                    <Grid container spacing={2} px={2}>
                                         <Grid item xs={6}>
                                             <SoftBox mb={2}>
                                                 <label style={{ fontSize: "15px" }}>Nozzle Reading</label>
                                                 <SoftInput
                                                     type="text"
-                                                    placeholder="nozzleReading"
+                                                    placeholder="Nozzle Reading"
                                                     name="nozzleReading"
-                                                    value={adminDetails.nozzleReading}
+                                                    value={otherDetails.nozzleReading}
+                                                    onChange={handleOtherDetailsChange} />
+                                            </SoftBox>
+                                        </Grid>
+                                        <Grid item xs={6}>
+                                            <SoftBox mb={2}>
+                                                <label style={{ fontSize: "15px" }}>Credit Customers</label>
+                                                <SoftInput
+                                                    type="text"
+                                                    placeholder="Credit Customers"
+                                                    name="creditCustomers"
+                                                    value={otherDetails.creditCustomers}
                                                     onChange={handleOtherDetailsChange} />
                                             </SoftBox>
                                         </Grid>
 
                                     </Grid>
 
-                                    <Grid container spacing={2}>
+                                    <Grid container spacing={2} px={2}>
                                         <Grid item xs={6}>
                                             <SoftBox mb={2}>
                                                 <label style={{ fontSize: "15px" }}>Earthpit Certificate</label>
                                                 <SoftInput
                                                     type="text"
-                                                    placeholder="earthpitCertificate"
+                                                    placeholder="Earthpit Certificate"
                                                     name="earthpitCertificate"
-                                                    value={adminDetails.earthpitCertificate}
+                                                    value={otherDetails.earthpitCertificate}
+                                                    onChange={handleOtherDetailsChange} />
+                                            </SoftBox>
+                                        </Grid>
+                                        <Grid item xs={6}>
+                                            <SoftBox mb={2}>
+                                                <label style={{ fontSize: "15px" }}>Expenses</label>
+                                                <SoftInput
+                                                    type="text"
+                                                    placeholder="Expenses"
+                                                    name="expenses"
+                                                    value={otherDetails.expenses}
                                                     onChange={handleOtherDetailsChange} />
                                             </SoftBox>
                                         </Grid>
 
                                     </Grid>
+                                    <Grid container spacing={2} px={2}>
+                                        <Grid item xs={6}>
+                                            <SoftBox mb={2}>
+                                                <label style={{ fontSize: "15px" }}>Daily Sales And Pricing</label>
+                                                <SoftInput
+                                                    type="text"
+                                                    placeholder="Daily Sales And Pricing"
+                                                    name="dailySalesAndPricing"
+                                                    value={otherDetails.dailySalesAndPricing}
+                                                    onChange={handleOtherDetailsChange} />
+                                            </SoftBox>
+                                        </Grid>
+                                        <Grid item xs={6}>
+                                            <SoftBox mb={2}>
+                                                <label style={{ fontSize: "15px" }}>Daily Swipe And Upi Payments</label>
+                                                <SoftInput
+                                                    type="text"
+                                                    placeholder="Daily Swipe And Upi Payments"
+                                                    name="dailySwipeAndUpiPayments"
+                                                    value={otherDetails.dailySwipeAndUpiPayments}
+                                                    onChange={handleOtherDetailsChange} />
+                                            </SoftBox>
+                                        </Grid>
+
+                                    </Grid>
+
                                 </AccordionDetails>
                             </Accordion>
                         </Grid>
                     </Grid>
                     <SoftButton
-
-                        variant="outlined"
+                        variant="gradient"
                         color={sidenavColor}
                         fullWidth
                         onClick={handleSubmit}>
-                        Submit
+                        Create Pump
                     </SoftButton>
                 </Card>
             </SoftBox>

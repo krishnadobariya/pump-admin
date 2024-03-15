@@ -42,6 +42,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { Grid } from "@mui/material";
 import SoftInput from "components/SoftInput";
+import { getAllPumpAction } from "store/Action/pumpAction";
 
 
 function Pump() {
@@ -49,8 +50,6 @@ function Pump() {
     const [controller] = useSoftUIController();
     const [row, setRow] = useState([]);
     const { miniSidenav, sidenavColor } = controller;
-    const Clients = useSelector(state => state.client);
-
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -63,12 +62,8 @@ function Pump() {
     const dispatch = useDispatch()
     const navigate = useNavigate();
 
-    const getAllManager = useSelector((state) => state.manager.getAllManager);
-    console.log("getAllManager", getAllManager?.data)
-
-    const handleEditClick = (rowData) => {
-        navigate('/addmanager')
-    };
+    const getAllPump = useSelector((state) => state.pump);
+    console.log("getAllManager", getAllPump)
 
     const handleEditModalClose = () => {
         setEditModalOpen(false);
@@ -81,7 +76,7 @@ function Pump() {
 
     };
     useEffect(() => {
-        dispatch(getAllManagerAction())
+        dispatch(getAllPumpAction())
     }, [dispatch])
 
 
@@ -95,11 +90,10 @@ function Pump() {
     };
 
 
-    useEffect(() => {
-        setRow(getAllManager?.data?.data || [])
-    }, [getAllManager])
+    // useEffect(() => {
+    //     setRow(getAllManager?.data?.data || [])
+    // }, [getAllManager])
 
-    console.log("ClientsClients", Clients);
 
     const style = {
         position: 'absolute',
@@ -162,7 +156,7 @@ function Pump() {
                                 },
                             }}
                         >
-                            <Table columns={columns} rows={getAllManager?.data} mangerById={mangerById} setManagerById={setManagerById} onEditClick={handleEditClick} handleOpen={handleOpen} />
+                            <Table columns={columns} rows={getAllPump?.getAllPump?.data} mangerById={mangerById} setManagerById={setManagerById} handleOpen={handleOpen} />
                         </SoftBox>
                     </Card>
                 </SoftBox>

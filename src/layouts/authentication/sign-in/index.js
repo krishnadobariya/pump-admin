@@ -32,9 +32,28 @@ import CoverLayout from "layouts/authentication/components/CoverLayout";
 
 // Images
 import loginImg from "assets/images/login.jpg";
+import { useDispatch } from "react-redux";
+import { loginAdminAction } from "store/Action/adminAction";
 
 function SignIn() {
   const [rememberMe, setRememberMe] = useState(true);
+
+  const [adminLogin, setAdminLogin] = useState({
+    email: "",
+    role: "admin",
+    password: ""
+  });
+
+  const dispatch = useDispatch()
+  const handleLoginChange = (e) => {
+    const { name, value } = e.target;
+    setAdminLogin({ ...adminLogin, [name]: value });
+  };
+
+  const loginAdmin = () => {
+    dispatch(loginAdminAction(adminLogin))
+  }
+
 
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
 
@@ -51,7 +70,7 @@ function SignIn() {
               Email
             </SoftTypography>
           </SoftBox>
-          <SoftInput type="email" placeholder="Email" />
+          <SoftInput type="email" name="email" value={adminLogin.email} onChange={handleLoginChange} placeholder="Email" />
         </SoftBox>
         <SoftBox mb={2}>
           <SoftBox mb={1} ml={0.5}>
@@ -59,7 +78,7 @@ function SignIn() {
               Password
             </SoftTypography>
           </SoftBox>
-          <SoftInput type="password" placeholder="Password" />
+          <SoftInput type="password" onChange={handleLoginChange} name="password" value={adminLogin.password} placeholder="Password" />
         </SoftBox>
         {/* <SoftBox display="flex" alignItems="center">
           <Switch checked={rememberMe} onChange={handleSetRememberMe} />
@@ -73,7 +92,7 @@ function SignIn() {
           </SoftTypography>
         </SoftBox> */}
         <SoftBox mt={4} mb={1}>
-          <SoftButton variant="gradient" color="info" fullWidth>
+          <SoftButton variant="gradient" color="info" fullWidth onClick={loginAdmin}>
             sign in
           </SoftButton>
         </SoftBox>

@@ -25,11 +25,11 @@ export const pumpAddAction = (payload) => {
         }
     }
 }
-export const getAllManagerAction = (payload) => {
+export const getAllPumpAction = (payload) => {
     return async (dispatch) => {
         console.log("process.env.REACT_APP_BASE_URL", process.env.REACT_APP_BASE_URL);
         try {
-            await axios.get(`http://13.235.49.124:8000/api/v1/getUsers`, payload).then((res) => {
+            await axios.get(`http://13.235.49.124:8000/api/Pump/v1/getAllPumps`).then((res) => {
                 dispatch(getAllPump(res));
             }).catch((error) => {
                 toast.error('Somthing went wrong')
@@ -41,7 +41,7 @@ export const getAllManagerAction = (payload) => {
     }
 }
 
-export const updateManagerAction = (userId, updatedData) => {
+export const updatePumpAction = (userId, updatedData) => {
     return async (dispatch) => {
         try {
             // Update the URL and use axios.put for updating data

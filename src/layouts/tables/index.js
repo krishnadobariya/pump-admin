@@ -49,7 +49,6 @@ function Tables() {
   const [controller] = useSoftUIController();
   const [row, setRow] = useState([]);
   const { miniSidenav, sidenavColor } = controller;
-  const Clients = useSelector(state => state.client);
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -70,19 +69,17 @@ function Tables() {
   const [editModalData, setEditModalData] = useState();
   const [adminData, setAdminData] = useState();
 
-
-
-
   const handleEditModalClose = () => {
     setEditModalOpen(false);
     setEditModalData({});
   };
+
   const handleSaveChanges = (editedData) => {
     console.log("Saving changes:", editedData);
     setEditModalData({});
     setEditModalOpen(false);
-
   };
+
   useEffect(() => {
     dispatch(getAllManagerAction())
   }, [dispatch])
@@ -97,12 +94,9 @@ function Tables() {
     });
   };
 
-
   useEffect(() => {
     setRow(getAllManager?.data?.data || [])
   }, [getAllManager])
-
-  console.log("ClientsClients", Clients);
 
   const style = {
     position: 'absolute',

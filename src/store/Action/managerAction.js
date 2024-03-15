@@ -29,7 +29,7 @@ export const getAllManagerAction = (payload) => {
     return async (dispatch) => {
         console.log("process.env.REACT_APP_BASE_URL", process.env.REACT_APP_BASE_URL);
         try {
-            await axios.get(`http://13.235.49.124:8000/api/v1/getUsers`, payload).then((res) => {
+            await axios.get(`http://13.235.49.124:8000/api/v1/getUsers`).then((res) => {
                 dispatch(getAllManager(res));
             }).catch((error) => {
                 toast.error('Somthing went wrong')

@@ -40,7 +40,7 @@ import SoftButton from "components/SoftButton";
 import { useSoftUIController } from "context";
 import { useNavigate } from "react-router-dom";
 
-function Table({ columns, rows, mangerById, setManagerById, onEditClick, handleOpen }) {
+function Table({ columns, rows, mangerById, setManagerById, handleOpen }) {
   const { light } = colors;
   const { size, fontWeightBold } = typography;
   const { borderWidth } = borders;

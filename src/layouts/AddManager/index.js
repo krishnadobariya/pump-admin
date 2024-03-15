@@ -92,7 +92,7 @@ const AddManager = () => {
         fullName: "",
         email: "",
         mobile: "",
-        role: "admin",
+        role: "manager",
         password: "",
 
     })
