@@ -117,7 +117,12 @@ function Table({ columns, rows, mangerById, setManagerById, handleOpen }) {
                   "completeAddress": row?.completeAddress,
                   "pinCode": row?.pinCode,
                   "state": row?.state,
-                  "email": row?.email
+                  "email": row?.email,
+                  "_id": row?._id,
+                  "city": row?.city,
+                  "gender": row?.gender,
+                  "country": row?.country,
+                  "address": row?.address
                 })
               }}
               fullWidth

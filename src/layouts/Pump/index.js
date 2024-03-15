@@ -44,57 +44,34 @@ import { Accordion, AccordionDetails, AccordionSummary, Checkbox, FormControlLab
 import SoftInput from "components/SoftInput";
 import { getAllPumpAction } from "store/Action/pumpAction";
 import { ExpandMore } from "@mui/icons-material";
+import { updatePumpAction } from "store/Action/pumpAction";
 
 
 function Pump() {
-    const { columns: prCols, rows: prRows } = projectsTableData;
     const [controller] = useSoftUIController();
-    const [row, setRow] = useState([]);
     const { miniSidenav, sidenavColor } = controller;
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const [mangerById, setManagerById] = useState();
 
-    const [editModalOpen, setEditModalOpen] = useState();
-    const [editModalData, setEditModalData] = useState();
-    const [adminData, setAdminData] = useState();
-
     const dispatch = useDispatch()
     const navigate = useNavigate();
 
     const getAllPump = useSelector((state) => state.pump);
-    console.log("getAllManager", getAllPump)
 
-    const handleEditModalClose = () => {
-        setEditModalOpen(false);
-        setEditModalData({});
-    };
-    const handleSaveChanges = (editedData) => {
-        console.log("Saving changes:", editedData);
-        setEditModalData({});
-        setEditModalOpen(false);
 
-    };
     useEffect(() => {
         dispatch(getAllPumpAction())
     }, [dispatch])
 
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        console.log("value", value);
-        setAdminData({
-            ...mangerById,
-            [name]: value
-        });
-    };
+    const handleSubmit = () => {
+        dispatch(updatePumpAction(mangerById?._id, mangerById))
+    }
 
 
-    // useEffect(() => {
-    //     setRow(getAllManager?.data?.data || [])
-    // }, [getAllManager])
-
+    console.log("mangerByIdmangerByIdmangerById", mangerById);
 
     const style = {
         position: 'absolute',
@@ -144,10 +121,12 @@ function Pump() {
     };
 
     const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        console.log("Input Change:", name, value);
+        const { name, value, checked } = e.target;
+
+        const inputValue = e.target.type === 'checkbox' ? checked : value;
+        console.log("Input Change:", inputValue);
         const [section, field] = name.split('.');
-        handleFormChange(section, field, value);
+        handleFormChange(section, field, inputValue);
     };
     return (
 
@@ -361,7 +340,7 @@ function Pump() {
                                         <Grid item xs={12}>
                                             <SoftBox mb={2}>
                                                 <FormGroup>
-                                                    <FormControlLabel control={<Checkbox />} value={mangerById?.products?.ms} name="products.ms"
+                                                    <FormControlLabel control={<Checkbox checked={mangerById?.products?.ms} />} value={mangerById?.products?.ms} name="products.ms"
                                                         onChange={(e) => handleInputChange(e)} label="MS" />
                                                 </FormGroup>
                                             </SoftBox>
@@ -399,7 +378,7 @@ function Pump() {
                                         <Grid item xs={12}>
                                             <SoftBox mb={2}>
                                                 <FormGroup>
-                                                    <FormControlLabel control={<Checkbox />} value={mangerById?.products?.hsd} name="products.hsd"
+                                                    <FormControlLabel control={<Checkbox checked={mangerById?.products?.hsd} />} value={mangerById?.products?.hsd} name="products.hsd"
                                                         onChange={(e) => handleInputChange(e)} label="HSD" />
                                                 </FormGroup>
                                             </SoftBox>
@@ -438,7 +417,7 @@ function Pump() {
                                         <Grid item xs={12}>
                                             <SoftBox mb={2}>
                                                 <FormGroup>
-                                                    <FormControlLabel control={<Checkbox />} value={mangerById?.products?.msPremium}
+                                                    <FormControlLabel control={<Checkbox checked={mangerById?.products?.msPremium} />} value={mangerById?.products?.msPremium}
                                                         name="products.msPremium"
                                                         onChange={(e) => handleInputChange(e)} label="Ms Premium" />
                                                 </FormGroup>
@@ -478,7 +457,7 @@ function Pump() {
 
                                             <SoftBox mb={2}>
                                                 <FormGroup>
-                                                    <FormControlLabel control={<Checkbox />} value={mangerById?.products?.hsdPremium}
+                                                    <FormControlLabel control={<Checkbox checked={mangerById?.products?.hsdPremium} />} value={mangerById?.products?.hsdPremium}
                                                         name="products.hsdPremium"
                                                         onChange={(e) => handleInputChange(e)} label="Hsd Premium" />
                                                 </FormGroup>
@@ -516,7 +495,7 @@ function Pump() {
                                         <Grid item xs={12}>
                                             <SoftBox mb={2}>
                                                 <FormGroup>
-                                                    <FormControlLabel control={<Checkbox />} value={mangerById?.products?.lubes} name="products.lubes"
+                                                    <FormControlLabel control={<Checkbox checked={mangerById?.products?.lubes} />} value={mangerById?.products?.lubes} name="products.lubes"
                                                         onChange={(e) => handleInputChange(e)} label="Lubes" />
                                                 </FormGroup>
                                             </SoftBox>
@@ -552,7 +531,7 @@ function Pump() {
                                         <Grid item xs={12}>
                                             <SoftBox mb={2}>
                                                 <FormGroup>
-                                                    <FormControlLabel control={<Checkbox />} value={mangerById?.products?.alpg} name="products.alpg"
+                                                    <FormControlLabel control={<Checkbox checked={mangerById?.products?.alpg} />} value={mangerById?.products?.alpg} name="products.alpg"
                                                         onChange={(e) => handleInputChange(e)} label="ALPG" />
                                                 </FormGroup>
                                             </SoftBox>
@@ -590,7 +569,7 @@ function Pump() {
                                         <Grid item xs={12}>
                                             <SoftBox mb={2}>
                                                 <FormGroup>
-                                                    <FormControlLabel control={<Checkbox />} value={mangerById?.products?.cng} name="products.cng"
+                                                    <FormControlLabel control={<Checkbox value={mangerById?.products?.cng} />} value={mangerById?.products?.cng} name="products.cng"
                                                         onChange={(e) => handleInputChange(e)} label="CNG" />
                                                 </FormGroup>
                                             </SoftBox>
@@ -923,7 +902,7 @@ function Pump() {
                         variant="gradient"
                         color={sidenavColor}
                         fullWidth
-                    // onClick={handleSubmit}
+                        onClick={handleSubmit}
                     >
                         Edit Pump
                     </SoftButton>

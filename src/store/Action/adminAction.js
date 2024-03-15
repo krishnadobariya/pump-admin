@@ -17,7 +17,7 @@ export const registerAdminAction = (payload) => {
                 window.location.href = "/"
                 dispatch(registerAdmin(res));
             }).catch((error) => {
-                toast.error('Somthing went wrong')
+                toast.error(error?.response?.data?.message)
                 dispatch(registerAdmin(error?.response))
             });
         } catch (error) {
@@ -36,7 +36,8 @@ export const loginAdminAction = (payload) => {
                 window.location.href = "/"
                 dispatch(loginAdmin(res));
             }).catch((error) => {
-                toast.error('Somthing went wrong')
+                console.log(error);
+                toast.error(error?.response?.data?.message)
                 dispatch(loginAdmin(error?.response))
             });
         } catch (error) {

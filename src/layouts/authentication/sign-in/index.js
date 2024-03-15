@@ -91,6 +91,9 @@ function SignIn() {
             &nbsp;&nbsp;Remember me
           </SoftTypography>
         </SoftBox> */}
+        <SoftTypography component="label" variant="caption" fontWeight="bold">
+          Not a Member? <Link to='/authentication/sign-up'>Register</Link>
+        </SoftTypography>
         <SoftBox mt={4} mb={1}>
           <SoftButton variant="gradient" color="info" fullWidth onClick={loginAdmin}>
             sign in

@@ -16,7 +16,7 @@ Coded by www.creative-tim.com
 import { useEffect } from "react";
 
 // react-router-dom components
-import { useLocation, NavLink } from "react-router-dom";
+import { useLocation, NavLink, useNavigate } from "react-router-dom";
 
 // prop-types is a library for typechecking of props.
 import PropTypes from "prop-types";
@@ -50,6 +50,7 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
   const collapseName = pathname.split("/").slice(1)[0];
 
   const closeSidenav = () => setMiniSidenav(dispatch, true);
+  const navigate = useNavigate()
 
   useEffect(() => {
     // A function that sets the mini state of the sidenav.
@@ -68,6 +69,11 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
     // Remove event listener on cleanup
     return () => window.removeEventListener("resize", handleMiniSidenav);
   }, [dispatch, location]);
+
+  const handelLogout = () => {
+    localStorage.removeItem("adminId");
+    navigate('/authentication/sign-in')
+  }
 
   // Render all the routes from the routes.js (All the visible items on the Sidenav)
   const renderRoutes = routes.map(({ type, name, icon, title, noCollapse, key, route, href }) => {
@@ -157,7 +163,7 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
       <Divider />
       <List>{renderRoutes}</List>
       <SoftBox pt={2} my={2} mx={2} mt="auto">
-   
+
         <SoftBox mt={2}>
           <SoftButton
             component="a"
@@ -165,6 +171,7 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
             rel="noreferrer"
             variant="gradient"
             color={color}
+            onClick={() => { handelLogout() }}
             fullWidth
           >
             Logout

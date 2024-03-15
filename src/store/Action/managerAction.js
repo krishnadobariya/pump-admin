@@ -17,7 +17,7 @@ export const managerAddAction = (payload) => {
                 toast.success('Manager Add successfully');
                 dispatch(managerAdd(res));
             }).catch((error) => {
-                toast.error('Somthing went wrong')
+                toast.error(error?.response?.data?.message)
                 dispatch(managerAdd(error?.response))
             });
         } catch (error) {
@@ -32,7 +32,7 @@ export const getAllManagerAction = (payload) => {
             await axios.get(`http://43.204.149.24:8000/api/v1/getUsers`).then((res) => {
                 dispatch(getAllManager(res));
             }).catch((error) => {
-                toast.error('Somthing went wrong')
+                toast.error(error?.response?.data?.message)
                 dispatch(getAllManager(error?.response))
             });
         } catch (error) {
@@ -45,10 +45,12 @@ export const updateManagerAction = (userId, updatedData) => {
     return async (dispatch) => {
         try {
             // Update the URL and use axios.put for updating data
-            await axios.put(`http://43.204.149.24:8000/api/v1/userUpdate/${userId}`, updatedData).then((res) => {
+            await axios.patch(`http://43.204.149.24:8000/api/v1/userUpdate/${userId}`, updatedData).then((res) => {
                 toast.success('Manager Updated Successfully');
+                dispatch(getAllManagerAction())
                 dispatch(updateManager(res));
             }).catch((error) => {
+                console.log(error);
                 toast.error('Something went wrong');
                 dispatch(updateManager(error?.response));
             });

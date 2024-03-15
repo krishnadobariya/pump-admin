@@ -40,8 +40,9 @@ import { getAllManagerAction } from "store/Action/managerAction";
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 // import Typography from '@mui/material/Typography';
-import { Grid } from "@mui/material";
+import { FormControl, FormControlLabel, FormLabel, Grid, Radio, RadioGroup } from "@mui/material";
 import SoftInput from "components/SoftInput";
+import { updateManagerAction } from "store/Action/managerAction";
 
 
 function Tables() {
@@ -67,7 +68,6 @@ function Tables() {
 
   const [editModalOpen, setEditModalOpen] = useState();
   const [editModalData, setEditModalData] = useState();
-  const [adminData, setAdminData] = useState();
 
   const handleEditModalClose = () => {
     setEditModalOpen(false);
@@ -88,11 +88,15 @@ function Tables() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     console.log("value", value);
-    setAdminData({
+    setManagerById({
       ...mangerById,
       [name]: value
     });
   };
+
+  const editManager = () => {
+    dispatch(updateManagerAction(mangerById?._id, mangerById))
+  }
 
   useEffect(() => {
     setRow(getAllManager?.data?.data || [])
@@ -117,7 +121,6 @@ function Tables() {
     // { name: "Client Industry", align: "left", backname: "clientindustry" },
     { name: "Email", align: "left", backname: "email" },
     // { name: "Phone no.", align: "center", backname: "mobile" },
-    { name: "Status", align: "center", backname: "status" },
     { name: "Address", align: "center", backname: "address" },
     { name: "Gender", align: "center", backname: "gender" },
     { name: "Role", align: "center", backname: "role" },
@@ -203,6 +206,29 @@ function Tables() {
             </Grid>
           </Grid>
           <Grid container spacing={3}>
+
+            <Grid item xs={4}>
+              <SoftBox mb={2}>
+                <label style={{ fontSize: "15px" }}>Address</label>
+                <SoftInput type="text" placeholder="Address" onChange={handleChange} name="address" value={mangerById?.address} />
+              </SoftBox>
+            </Grid>
+            <Grid item xs={4}>
+              <SoftBox mb={2}>
+                <label style={{ fontSize: "15px" }}>City</label>
+                <SoftInput type="text" placeholder="City" onChange={handleChange} name="city" value={mangerById?.city} />
+              </SoftBox>
+            </Grid>
+            <Grid item xs={4}>
+              <SoftBox mb={2}>
+                <label style={{ fontSize: "15px" }}>State</label>
+                <SoftInput type="text" placeholder="State" onChange={handleChange} name="state" value={mangerById?.state} />
+              </SoftBox>
+
+            </Grid>
+            <Grid container spacing={3}>
+
+            </Grid>
             <Grid item xs={4}>
               <SoftBox mb={2}>
                 <label style={{ fontSize: "15px" }}>Country</label>
@@ -212,21 +238,35 @@ function Tables() {
             <Grid item xs={4}>
               <SoftBox mb={2}>
                 <label style={{ fontSize: "15px" }}>Pin Code</label>
-                <SoftInput type="text" placeholder="Pin Code" onChange={handleChange} name="pinCode" value={mangerById?.pinCode} />
+                <SoftInput type="number" placeholder="Pin Code" onChange={handleChange} name="pinCode" value={mangerById?.pinCode} />
               </SoftBox>
             </Grid>
+
             <Grid item xs={4}>
               <SoftBox mb={2}>
-                <label style={{ fontSize: "15px" }}>State</label>
-                <SoftInput type="text" placeholder="State" onChange={handleChange} name="state" value={mangerById?.State} />
+                <label style={{ fontSize: "15px" }}>Gender</label>
+                <FormControl>
+                  <RadioGroup
+                    row
+                    aria-labelledby="demo-radio-buttons-group-label"
+                    value={mangerById?.gender}
+                    name="gender"
+                    onChange={handleChange}
+                  >
+                    <FormControlLabel value="female" control={<Radio />} label="Female" />
+                    <FormControlLabel value="male" control={<Radio />} label="Male" />
+                    <FormControlLabel value="other" control={<Radio />} label="Other" />
+                  </RadioGroup>
+                </FormControl>
               </SoftBox>
             </Grid>
           </Grid>
           <SoftButton component='a'
             variant="gradient"
             color={sidenavColor}
+            onClick={editManager}
             fullWidth>
-            Edit Manager
+            Update Manager
           </SoftButton>
         </Box>
       </Modal>
