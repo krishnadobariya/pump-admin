@@ -1,6 +1,6 @@
 /**
 =========================================================
-* CodersBay - v4.0.1
+* Pmate - v4.0.1
 =========================================================
 
 * Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-react
@@ -19,7 +19,7 @@ import { BrowserRouter } from "react-router-dom";
 import App from "App";
 import 'style.css'
 
-// CodersBay Context Provider
+// Pmate Context Provider
 import { SoftUIControllerProvider } from "context";
 import { applyMiddleware, createStore } from "redux";
 import rootReducer from "store";

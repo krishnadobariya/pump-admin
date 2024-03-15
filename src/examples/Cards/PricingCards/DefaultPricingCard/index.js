@@ -1,6 +1,6 @@
 /**
 =========================================================
-* CodersBay - v4.0.1
+* Pmate - v4.0.1
 =========================================================
 
 * Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-react
@@ -23,7 +23,7 @@ import PropTypes from "prop-types";
 import Card from "@mui/material/Card";
 import Icon from "@mui/material/Icon";
 
-// CodersBay components
+// Pmate components
 import SoftBox from "components/SoftBox";
 import SoftTypography from "components/SoftTypography";
 import SoftBadge from "components/SoftBadge";
@@ -80,7 +80,7 @@ function DefaultPricingCard({ badge, price, specifications, action }) {
           <SoftBox mt={3}>
             <SoftButton
               component={Link}
-              to={action.route}   
+              to={action.route}
               variant="gradient"
               color={action.color}
               fullWidth

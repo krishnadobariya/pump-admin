@@ -1,6 +1,6 @@
 /**
 =========================================================
-* CodersBay - v4.0.1
+* Pmate - v4.0.1
 =========================================================
 
 * Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-react
@@ -19,14 +19,14 @@ import PropTypes from "prop-types";
 // @mui material components
 import Grid from "@mui/material/Grid";
 
-// CodersBay components
+// Pmate components
 import SoftBox from "components/SoftBox";
 import SoftTypography from "components/SoftTypography";
 
-// CodersBay examples
+// Pmate examples
 import PageLayout from "examples/LayoutContainers/PageLayout";
 
-// CodersBay page layout routes
+// Pmate page layout routes
 import pageRoutes from "page.routes";
 
 // Images

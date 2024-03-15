@@ -1,6 +1,6 @@
 /**
 =========================================================
-* CodersBay - v4.0.1
+* Pmate - v4.0.1
 =========================================================
 
 * Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-react
@@ -24,17 +24,17 @@ import { Radar } from "react-chartjs-2";
 // @mui material components
 import Card from "@mui/material/Card";
 
-// CodersBay components
+// Pmate components
 import SoftBox from "components/SoftBox";
 import SoftTypography from "components/SoftTypography";
 
 // RadarChart configurations
 import configs from "examples/Charts/RadarChart/configs";
 
-// CodersBay base styles
+// Pmate base styles
 import colors from "assets/theme/base/colors";
 
-// CodersBay helper functions
+// Pmate helper functions
 import rgba from "assets/theme/functions/rgba";
 
 function RadarChart({ title, description, chart }) {

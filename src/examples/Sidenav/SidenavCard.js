@@ -1,6 +1,6 @@
 /**
 =========================================================
-* CodersBay - v4.0.1
+* Pmate - v4.0.1
 =========================================================
 
 * Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-react
@@ -19,13 +19,13 @@ import CardContent from "@mui/material/CardContent";
 import Icon from "@mui/material/Icon";
 import Link from "@mui/material/Link";
 
-// CodersBay components
+// Pmate components
 import SoftButton from "components/SoftButton";
 import SoftBox from "components/SoftBox";
 import SoftTypography from "components/SoftTypography";
 
 
-// CodersBay context
+// Pmate context
 import { useSoftUIController } from "context";
 
 function SidenavCard() {

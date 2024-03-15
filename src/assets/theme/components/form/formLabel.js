@@ -1,6 +1,6 @@
 /**
 =========================================================
-* CodersBay - v3.1.0
+* Pmate - v3.1.0
 =========================================================
 
 * Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-pro-react
@@ -13,7 +13,7 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-// CodersBay base styles
+// Pmate base styles
 import colors from "assets/theme/base/colors";
 
 const { dark } = colors;

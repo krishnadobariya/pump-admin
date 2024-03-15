@@ -2,7 +2,7 @@
 // @mui material components
 import Icon from "@mui/material/Icon";
 
-// CodersBay components
+// Pmate components
 import SoftBox from "components/SoftBox";
 import SoftTypography from "components/SoftTypography";
 import SoftProgress from "components/SoftProgress";

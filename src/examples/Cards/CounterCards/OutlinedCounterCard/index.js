@@ -1,6 +1,6 @@
 /**
 =========================================================
-* CodersBay - v4.0.1
+* Pmate - v4.0.1
 =========================================================
 
 * Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-react
@@ -19,11 +19,11 @@ import CountUp from "react-countup";
 // prop-types is a library for typechecking of props
 import PropTypes from "prop-types";
 
-// CodersBay components
+// Pmate components
 import SoftBox from "components/SoftBox";
 import SoftTypography from "components/SoftTypography";
 
-// CodersBay base styles
+// Pmate base styles
 import colors from "assets/theme/base/colors";
 import borders from "assets/theme/base/borders";
 

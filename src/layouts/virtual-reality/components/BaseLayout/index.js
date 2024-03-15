@@ -1,6 +1,6 @@
 /**
 =========================================================
-* CodersBay - v4.0.1
+* Pmate - v4.0.1
 =========================================================
 
 * Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-react
@@ -21,19 +21,19 @@ import { useLocation } from "react-router-dom";
 // prop-types is a library for typechecking of props
 import PropTypes from "prop-types";
 
-// CodersBay components
+// Pmate components
 import SoftBox from "components/SoftBox";
 
-// CodersBay examples
+// Pmate examples
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
 import Sidenav from "examples/Sidenav";
 
-// CodersBay context
+// Pmate context
 import { useSoftUIController, setMiniSidenav, setLayout, setTransparentSidenav } from "context";
 
-// CodersBay routes
+// Pmate routes
 import routes from "routes";
 
 // Custom styles for the BaseLayout
@@ -44,7 +44,7 @@ import {
 } from "layouts/virtual-reality/components/BaseLayout/styles";
 
 // Images
-import brand from "assets/images/logo-ct.png";
+import brand from "assets/images/logo.jpeg";
 
 function BaseLayout({ children }) {
   const [controller, dispatch] = useSoftUIController();
@@ -83,7 +83,7 @@ function BaseLayout({ children }) {
         <SoftBox display={{ xs: "block", lg: "none" }}>
           <Sidenav
             brand={brand}
-            brandName="CodersBay PRO"
+            brandName="Pmate PRO"
             routes={routes}
             onMouseEnter={handleOnMouseEnter}
             onMouseLeave={handleOnMouseLeave}
@@ -94,7 +94,7 @@ function BaseLayout({ children }) {
             <Sidenav
               color={sidenavColor}
               brand={brand}
-              brandName="CodersBay PRO"
+              brandName="Pmate PRO"
               routes={routes}
               onMouseEnter={handleOnMouseEnter}
               onMouseLeave={handleOnMouseLeave}

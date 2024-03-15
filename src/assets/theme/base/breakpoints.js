@@ -1,6 +1,6 @@
 /**
 =========================================================
-* CodersBay - v3.1.0
+* Pmate - v3.1.0
 =========================================================
 
 * Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-pro-react
@@ -14,9 +14,9 @@ Coded by www.creative-tim.com
 */
 
 /**
- * The base breakpoints for the CodersBay.
+ * The base breakpoints for the Pmate.
  * You can add new breakpoints using this file.
- * You can customized the breakpoints for the entire CodersBay using thie file.
+ * You can customized the breakpoints for the entire Pmate using thie file.
  */
 
 const breakpoints = {

@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.3d4bbe85.css",
-    "main.js": "/static/js/main.5873e686.js",
+    "main.js": "/static/js/main.43d20b2f.js",
     "static/media/login.jpg": "/static/media/login.fa4720cb3c8798ebdec3.jpg",
     "static/media/curved0.jpg": "/static/media/curved0.d146ec6e9401aa9d52c5.jpg",
     "static/media/vr-bg.jpg": "/static/media/vr-bg.7afa879d8396a599757f.jpg",
@@ -11,6 +11,7 @@
     "static/media/rocket-white.png": "/static/media/rocket-white.de5786399f850a27a362.png",
     "static/media/curved1.jpg": "/static/media/curved1.af81cb53f1615f33b710.jpg",
     "static/media/icon-sun-cloud.png": "/static/media/icon-sun-cloud.3399b234b40032f90d9b.png",
+    "static/media/logo.jpeg": "/static/media/logo.0279b65815f4ab892c59.jpeg",
     "static/media/ivancik.jpg": "/static/media/ivancik.442b474727c414bb3b85.jpg",
     "static/media/visa.png": "/static/media/visa.71c0d5e9e2aaee42e4c3.png",
     "static/media/mastercard.png": "/static/media/mastercard.27fca3e7637a9458fb64.png",
@@ -30,10 +31,10 @@
     "static/media/logo-webdev.svg": "/static/media/logo-webdev.25d88bfc768c8439fdb33efc0d8e6015.svg",
     "index.html": "/index.html",
     "main.3d4bbe85.css.map": "/static/css/main.3d4bbe85.css.map",
-    "main.5873e686.js.map": "/static/js/main.5873e686.js.map"
+    "main.43d20b2f.js.map": "/static/js/main.43d20b2f.js.map"
   },
   "entrypoints": [
     "static/css/main.3d4bbe85.css",
-    "static/js/main.5873e686.js"
+    "static/js/main.43d20b2f.js"
   ]
 }

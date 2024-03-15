@@ -1,6 +1,6 @@
 /**
 =========================================================
-* CodersBay - v4.0.1
+* Pmate - v4.0.1
 =========================================================
 
 * Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-react
@@ -16,11 +16,11 @@ Coded by www.creative-tim.com
 // @mui material components
 import Card from "@mui/material/Card";
 
-// CodersBay components
+// Pmate components
 import SoftBox from "components/SoftBox";
 import SoftTypography from "components/SoftTypography";
 import SoftButton from "components/SoftButton";
-// CodersBay examples
+// Pmate examples
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import EditManagerModal from "layouts/EditManager/index"
@@ -43,6 +43,7 @@ import Box from '@mui/material/Box';
 import { FormControl, FormControlLabel, FormLabel, Grid, Radio, RadioGroup } from "@mui/material";
 import SoftInput from "components/SoftInput";
 import { updateManagerAction } from "store/Action/managerAction";
+import { IoClose } from "react-icons/io5";
 
 
 function Tables() {
@@ -177,6 +178,10 @@ function Tables() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
+          <div style={{ display: "flex", justifyContent: "end", width: "100%", marginBottom: "10px" }} >
+            <IoClose style={{ backgroundColor: "#DEDBD7", padding: "3px", borderRadius: "2px" }} onClick={handleClose} />
+          </div>
+
           <Grid container spacing={2}>
             <Grid item xs={6}>
               <SoftBox mb={2}>

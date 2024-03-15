@@ -1,6 +1,6 @@
 /**
 =========================================================
-* CodersBay - v3.1.0
+* Pmate - v3.1.0
 =========================================================
 
 * Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-pro-react
@@ -14,9 +14,9 @@ Coded by www.creative-tim.com
 */
 
 /**
- * The base colors for the CodersBay.
+ * The base colors for the Pmate.
  * You can add new color using this file.
- * You can customized the colors for the entire CodersBay using thie file.
+ * You can customized the colors for the entire Pmate using thie file.
  */
 
 const colors = {

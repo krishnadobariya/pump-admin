@@ -1,6 +1,6 @@
 /**
 =========================================================
-* CodersBay - v4.0.1
+* Pmate - v4.0.1
 =========================================================
 
 * Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-react
@@ -23,13 +23,13 @@ import { createContext, useContext, useReducer, useMemo } from "react";
 // prop-types is a library for typechecking of props
 import PropTypes from "prop-types";
 
-// The CodersBay PRO Material main context
+// The Pmate PRO Material main context
 const SoftUI = createContext(null);
 
 // Setting custom name for the context which is visible on react dev tools
 SoftUI.displayName = "SoftUIContext";
 
-// CodersBay reducer
+// Pmate reducer
 function reducer(state, action) {
   switch (action.type) {
     case "MINI_SIDENAV": {
@@ -62,7 +62,7 @@ function reducer(state, action) {
   }
 }
 
-// CodersBay context provider
+// Pmate context provider
 function SoftUIControllerProvider({ children }) {
   const initialState = {
     miniSidenav: false,
@@ -82,7 +82,7 @@ function SoftUIControllerProvider({ children }) {
   return <SoftUI.Provider value={value}>{children}</SoftUI.Provider>;
 }
 
-// CodersBay custom hook for using context
+// Pmate custom hook for using context
 function useSoftUIController() {
   const context = useContext(SoftUI);
 
