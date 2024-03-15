@@ -13,7 +13,7 @@ export const pumpAddAction = (payload) => {
     return async (dispatch) => {
         console.log("process.env.REACT_APP_BASE_URL", process.env.REACT_APP_BASE_URL);
         try {
-            await axios.post(`http://13.235.49.124:8000/api/Pump/v1/registration`, payload).then((res) => {
+            await axios.post(`http://43.204.149.24:8000/api/Pump/v1/registration`, payload).then((res) => {
                 toast.success('Pump Add successfully');
                 dispatch(pumpAdd(res));
             }).catch((error) => {
@@ -29,7 +29,7 @@ export const getAllPumpAction = (payload) => {
     return async (dispatch) => {
         console.log("process.env.REACT_APP_BASE_URL", process.env.REACT_APP_BASE_URL);
         try {
-            await axios.get(`http://13.235.49.124:8000/api/Pump/v1/getAllPumps`).then((res) => {
+            await axios.get(`http://43.204.149.24:8000/api/Pump/v1/getAllPumps`).then((res) => {
                 dispatch(getAllPump(res));
             }).catch((error) => {
                 toast.error('Somthing went wrong')
@@ -45,7 +45,7 @@ export const updatePumpAction = (userId, updatedData) => {
     return async (dispatch) => {
         try {
             // Update the URL and use axios.put for updating data
-            await axios.put(`http://13.235.49.124:8000/api/v1/userUpdate/${userId}`, updatedData).then((res) => {
+            await axios.put(`http://43.204.149.24:8000/api/v1/userUpdate/${userId}`, updatedData).then((res) => {
                 toast.success('Pump Updated Successfully');
                 dispatch(updatePump(res));
             }).catch((error) => {
