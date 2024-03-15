@@ -249,7 +249,7 @@ const AddPump = () => {
                 <Card style={{ padding: "20px" }}>
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
-                            <Accordion defaultExpanded>
+                            <Accordion defaultExpanded sx={{ boxShadow: "none" }}>
                                 <AccordionSummary expandIcon={<ExpandMoreIcon />} sx={{ fontSize: "20px" }} aria-controls="admin-details" id="admin-details-header">
                                     Admin Details
                                 </AccordionSummary>
@@ -404,7 +404,7 @@ const AddPump = () => {
                             </Accordion>
                         </Grid>
                         <Grid item xs={12}>
-                            <Accordion>
+                            <Accordion sx={{ boxShadow: "none" }}>
                                 <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="product-details" id="product-details-header">
                                     Product Details
                                 </AccordionSummary>
@@ -684,7 +684,7 @@ const AddPump = () => {
                             </Accordion>
                         </Grid>
                         <Grid item xs={12}>
-                            <Accordion>
+                            <Accordion sx={{ boxShadow: "none" }}>
                                 <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="banking-details" id="banking-details-header">
                                     Banking Details
                                 </AccordionSummary>
@@ -731,7 +731,7 @@ const AddPump = () => {
                             </Accordion>
                         </Grid>
                         <Grid item xs={12}>
-                            <Accordion>
+                            <Accordion sx={{ boxShadow: "none" }}>
                                 <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="other-details" id="other-details-header">
                                     Other Details
                                 </AccordionSummary>
