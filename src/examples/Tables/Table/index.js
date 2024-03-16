@@ -39,8 +39,11 @@ import borders from "assets/theme/base/borders";
 import SoftButton from "components/SoftButton";
 import { useSoftUIController } from "context";
 import { useNavigate } from "react-router-dom";
+import { MdAutoDelete } from "react-icons/md";
+import { FaEdit } from "react-icons/fa";
 
-function Table({ columns, rows, mangerById, setManagerById, handleOpen }) {
+
+function Table({ columns, rows, mangerById, setManagerById, handleOpen, handleOpenDel }) {
   const { light } = colors;
   const { size, fontWeightBold } = typography;
   const { borderWidth } = borders;
@@ -88,7 +91,7 @@ function Table({ columns, rows, mangerById, setManagerById, handleOpen }) {
   const renderRows = rows.map((row, key) => {
     const rowKey = `row-${key}`;
 
-    const tableRow = columns.map(({ name, align, backname }) => {
+    const tableRow = columns.map(({ name, align, backname, width }) => {
       let template;
       console.log("row[backname]", row[backname]);
       template = (<>
@@ -125,12 +128,14 @@ function Table({ columns, rows, mangerById, setManagerById, handleOpen }) {
                   "address": row?.address
                 })
               }}
-              fullWidth
+
             >
-              Edit
+              <FaEdit />
+
 
               {/* <Icon sx={{ fontWeight: "bold" }}>arrow_forward</Icon> */}
             </SoftButton>    </SoftBox>}
+
 
 
         {backname == "EditButton" &&
@@ -139,6 +144,7 @@ function Table({ columns, rows, mangerById, setManagerById, handleOpen }) {
             key={uuidv4()}
             component="td"
             p={1}
+            width={width}
             textAlign={align}
             borderBottom={row.hasBorder ? `${borderWidth[1]} solid ${light.main}` : null}
           >
@@ -150,9 +156,10 @@ function Table({ columns, rows, mangerById, setManagerById, handleOpen }) {
               onClick={() => {
                 handleOpen(); setManagerById(row)
               }}
-              fullWidth
+
             >
-              Edit
+              <FaEdit />
+
 
               {/* <Icon sx={{ fontWeight: "bold" }}>arrow_forward</Icon> */}
             </SoftButton>    </SoftBox>}
@@ -163,20 +170,45 @@ function Table({ columns, rows, mangerById, setManagerById, handleOpen }) {
             key={uuidv4()}
             component="td"
             p={1}
+            width={width}
             textAlign={align}
             borderBottom={row.hasBorder ? `${borderWidth[1]} solid ${light.main}` : null}
           >
             <SoftButton
               component="a"
               variant="gradient"
-              color={sidenavColor}
+              color={"success"}
               sx={{ margin: "1px" }}
               onClick={() => {
                 handleOpen(); setManagerById(row)
               }}
-              fullWidth
+
             >
-              Edit
+              <FaEdit />
+
+
+              {/* <Icon sx={{ fontWeight: "bold" }}>arrow_forward</Icon> */}
+            </SoftButton>    </SoftBox>}
+        {backname == "delBtn" &&
+
+          <SoftBox
+            key={uuidv4()}
+            component="td"
+            p={1}
+            width={width}
+            textAlign={align}
+            borderBottom={row.hasBorder ? `${borderWidth[1]} solid ${light.main}` : null}
+          >
+            <SoftButton
+              component="a"
+              variant="gradient"
+              color={"error"}
+              sx={{ margin: "1px" }}
+              onClick={() => {
+                handleOpenDel(); setManagerById(row)
+              }}
+            >
+              <MdAutoDelete />
 
               {/* <Icon sx={{ fontWeight: "bold" }}>arrow_forward</Icon> */}
             </SoftButton>    </SoftBox>}
@@ -187,6 +219,7 @@ function Table({ columns, rows, mangerById, setManagerById, handleOpen }) {
             key={uuidv4()}
             component="td"
             p={1}
+            width={width}
             textAlign={align}
             borderBottom={row.hasBorder ? `${borderWidth[1]} solid ${light.main}` : null}
           >
@@ -198,19 +231,21 @@ function Table({ columns, rows, mangerById, setManagerById, handleOpen }) {
               onClick={() => {
                 handleOpen(); setManagerById(row)
               }}
-              fullWidth
+
             >
-              Edit
+              <FaEdit />
+
 
               {/* <Icon sx={{ fontWeight: "bold" }}>arrow_forward</Icon> */}
             </SoftButton>    </SoftBox>}
 
 
-        {(backname != "ViewButton") &&
+        {(backname != "ViewButton" && backname != "EditButtonNoz" && backname != "delBtn" && backname != "EditButtonCat" && backname != "EditButton") &&
           <SoftBox
             key={uuidv4()}
             component="td"
             p={1}
+            width={width}
             textAlign={align}
             borderBottom={row.hasBorder ? `${borderWidth[1]} solid ${light.main}` : null}
           >

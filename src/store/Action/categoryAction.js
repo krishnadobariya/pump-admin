@@ -3,11 +3,14 @@ import { toast } from "react-toastify";
 
 export const ADD_CATEGORY = "ADD_CATEGORY";
 export const GET_ALL_CATEGORY = "GET_ALL_CATEGORY";
-export const UPDATE_CATEGORY = "UPDATE_CATEGORY"
+export const UPDATE_CATEGORY = "UPDATE_CATEGORY";
+export const DELTE_CATEGORY = "DELTE_CATEGORY"
 
 const categoryAdd = (payload) => ({ type: ADD_CATEGORY, payload: payload.data });
 const getAllCategory = (payload) => ({ type: GET_ALL_CATEGORY, payload: payload.data })
 const updateCategory = (payload) => ({ type: UPDATE_CATEGORY, payload: payload.data })
+const deleteCategory = (payload) => ({ type: DELTE_CATEGORY, payload: payload.data })
+
 
 export const categoryAddAction = (payload) => {
     return async (dispatch) => {
@@ -57,6 +60,29 @@ export const updateCategoryAction = (userId, updatedData) => {
                 console.log(error);
                 toast.error(error?.response?.data?.message)
                 dispatch(updateCategory(error?.response));
+            });
+        } catch (error) {
+            console.log("Error::::", error);
+        }
+    };
+};
+
+export const deleteCategoryAction = (userId) => {
+    return async (dispatch) => {
+        try {
+            // Update the URL and use axios.put for updating data
+            await axios.delete(`http://43.204.149.24:8000/api/categories/v1/deleteOne/${userId}`, {
+                headers: {
+                    'Authorization': localStorage.getItem('token'),
+                }
+            }).then((res) => {
+                toast.success('Nozzles Delete Successfully');
+                dispatch(getAllCategoryAction())
+                dispatch(deleteCategory(res));
+            }).catch((error) => {
+                console.log(error);
+                toast.error(error?.response?.data?.message)
+                dispatch(deleteCategory(error?.response));
             });
         } catch (error) {
             console.log("Error::::", error);

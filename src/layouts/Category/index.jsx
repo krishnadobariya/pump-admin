@@ -48,6 +48,7 @@ import SoftAlertCloseIcon from "components/SoftAlert/SoftAlertCloseIcon";
 import { IoClose } from "react-icons/io5";
 import { getAllCategoryAction } from "store/Action/categoryAction";
 import { updateCategoryAction } from "store/Action/categoryAction";
+import { deleteCategoryAction } from "store/Action/categoryAction";
 
 
 function Category() {
@@ -56,6 +57,9 @@ function Category() {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    const [openDel, setOpenDel] = useState(false);
+    const handleOpenDel = () => setOpenDel(true);
+    const handleCloseDel = () => setOpenDel(false);
     const [mangerById, setManagerById] = useState();
 
     const dispatch = useDispatch()
@@ -71,9 +75,13 @@ function Category() {
 
     const handleSubmit = () => {
         dispatch(updateCategoryAction(mangerById?._id, mangerById))
+        handleClose()
     }
 
-
+    const deleteCategory = () => {
+        dispatch(deleteCategoryAction(mangerById?._id))
+        handleCloseDel()
+    }
     console.log("mangerByIdmangerByIdmangerById", mangerById);
 
     const style = {
@@ -89,14 +97,26 @@ function Category() {
         maxHeight: "80vh", overflowY: "scroll"
     };
 
+    const style1 = {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 600,
+        borderRadius: "10px",
+        bgcolor: 'background.paper',
+        boxShadow: 24,
+        p: 4,
+        maxHeight: "80vh"
+    };
 
     const columns = [
         { name: "Title", align: "left", backname: "title" },
         // { name: "Client Industry", align: "left", backname: "clientindustry" },
         { name: "Description", align: "left", backname: "description" },
         { name: "Pump Id", align: "center", backname: "pumpId" },
-        { name: "", align: "right", backname: "EditButtonCat" },
-
+        { name: "", align: "right", backname: "EditButtonCat", width: "1px" },
+        { name: "", align: "right", backname: "delBtn", width: "1px" }
     ];
 
 
@@ -138,7 +158,7 @@ function Category() {
                                 },
                             }}
                         >
-                            <Table columns={columns} rows={getAllCategory?.getAllCategory?.data} mangerById={mangerById} setManagerById={setManagerById} handleOpen={handleOpen} />
+                            <Table columns={columns} rows={getAllCategory?.getAllCategory?.data} mangerById={mangerById} setManagerById={setManagerById} handleOpen={handleOpen} handleOpenDel={handleOpenDel} />
                         </SoftBox>
                     </Card>
                 </SoftBox>
@@ -219,6 +239,41 @@ function Category() {
                     >
                         Update Category
                     </SoftButton>
+
+                </Box>
+            </Modal>
+            <Modal
+                open={openDel}
+                onClose={handleCloseDel}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box sx={style1}>
+                    <div style={{ display: "flex", justifyContent: "end", width: "100%" }} >
+                        <IoClose style={{ backgroundColor: "#DEDBD7", padding: "3px", borderRadius: "2px" }} onClick={handleCloseDel} />
+                    </div>
+
+
+                    <p style={{ textAlign: "center", marginTop: "20px", marginBottom: "20px" }}>
+                        Are you sure you want to delete this Category?
+                    </p>
+
+                    <div style={{ display: "flex", justifyContent: "center" }}>
+                        <SoftButton component='a'
+                            variant="gradient"
+                            color={"secondary"}
+                            onClick={handleCloseDel}>
+                            Cancel
+                        </SoftButton>
+                        <SoftButton component='a'
+                            variant="gradient"
+                            color={"error"}
+                            sx={{ marginLeft: "30px" }}
+                            onClick={deleteCategory}>
+
+                            Delete
+                        </SoftButton>
+                    </div>
 
                 </Box>
             </Modal>

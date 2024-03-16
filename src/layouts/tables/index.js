@@ -55,6 +55,11 @@ function Tables() {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const [openDel, setOpenDel] = useState(false);
+  const handleOpenDel = () => setOpenDel(true);
+  const handleCloseDel = () => setOpenDel(false);
+
   const [mangerById, setManagerById] = useState();
 
   const dispatch = useDispatch()
@@ -67,19 +72,6 @@ function Tables() {
     navigate('/addmanager')
   };
 
-  const [editModalOpen, setEditModalOpen] = useState();
-  const [editModalData, setEditModalData] = useState();
-
-  const handleEditModalClose = () => {
-    setEditModalOpen(false);
-    setEditModalData({});
-  };
-
-  const handleSaveChanges = (editedData) => {
-    console.log("Saving changes:", editedData);
-    setEditModalData({});
-    setEditModalOpen(false);
-  };
 
   useEffect(() => {
     dispatch(getAllManagerAction())
@@ -117,6 +109,7 @@ function Tables() {
   };
 
 
+
   const columns = [
     { name: "Full Name", align: "left", backname: "fullName" },
     // { name: "Client Industry", align: "left", backname: "clientindustry" },
@@ -128,8 +121,7 @@ function Tables() {
     { name: "City", align: "center", backname: "city" },
     { name: "Pincode", align: "center", backname: "pinCode" },
     { name: "", align: "right", backname: "ViewButton" },
-
-
+  
   ];
 
   console.log("mangerById", mangerById)
@@ -163,7 +155,7 @@ function Tables() {
                 },
               }}
             >
-              <Table columns={columns} rows={getAllManager?.data} mangerById={mangerById} setManagerById={setManagerById} onEditClick={handleEditClick} handleOpen={handleOpen} />
+              <Table columns={columns} rows={getAllManager?.data} mangerById={mangerById} setManagerById={setManagerById} onEditClick={handleEditClick} handleOpen={handleOpen} handleOpenDel={handleOpenDel} />
             </SoftBox>
           </Card>
         </SoftBox>
@@ -275,6 +267,8 @@ function Tables() {
           </SoftButton>
         </Box>
       </Modal>
+
+  
       {/* <EditManagerModal
         isOpen={editModalOpen}
         onClose={handleEditModalClose}
