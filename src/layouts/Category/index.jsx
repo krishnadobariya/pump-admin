@@ -154,11 +154,11 @@ function Category() {
             >
 
                 <Box sx={style}>
-                    <div style={{ display: "flex", justifyContent: "end", width: "100%", marginBottom: "10px" }} >
+                    <div style={{ display: "flex", justifyContent: "end", width: "100%" }} >
                         <IoClose style={{ backgroundColor: "#DEDBD7", padding: "3px", borderRadius: "2px" }} onClick={handleClose} />
                     </div>
 
-                    <Grid container spacing={2}>
+                    <Grid container spacing={2} sx={{ marginTop: "10px" }}>
                         <Grid item xs={12}>
                             <Grid container spacing={2} px={2}>
                                 <Grid item xs={6}>

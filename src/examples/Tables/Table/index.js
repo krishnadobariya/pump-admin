@@ -181,6 +181,30 @@ function Table({ columns, rows, mangerById, setManagerById, handleOpen }) {
               {/* <Icon sx={{ fontWeight: "bold" }}>arrow_forward</Icon> */}
             </SoftButton>    </SoftBox>}
 
+        {backname == "EditButtonNoz" &&
+
+          <SoftBox
+            key={uuidv4()}
+            component="td"
+            p={1}
+            textAlign={align}
+            borderBottom={row.hasBorder ? `${borderWidth[1]} solid ${light.main}` : null}
+          >
+            <SoftButton
+              component="a"
+              variant="gradient"
+              color={sidenavColor}
+              sx={{ margin: "1px" }}
+              onClick={() => {
+                handleOpen(); setManagerById(row)
+              }}
+              fullWidth
+            >
+              Edit
+
+              {/* <Icon sx={{ fontWeight: "bold" }}>arrow_forward</Icon> */}
+            </SoftButton>    </SoftBox>}
+
 
         {(backname != "ViewButton") &&
           <SoftBox

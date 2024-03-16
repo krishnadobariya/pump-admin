@@ -45,7 +45,11 @@ export const updatePumpAction = (userId, updatedData) => {
     return async (dispatch) => {
         try {
             // Update the URL and use axios.put for updating data
-            await axios.patch(`http://43.204.149.24:8000/api/v1/userUpdate/${userId}`, updatedData).then((res) => {
+            await axios.patch(`http://43.204.149.24:8000/api/Pump/v1/PumpsUpdate/${userId}`, updatedData, {
+                headers: {
+                    'Authorization': localStorage.getItem('token'),
+                }
+            }).then((res) => {
                 toast.success('Pump Updated Successfully');
                 dispatch(getAllPumpAction())
                 dispatch(updatePump(res));

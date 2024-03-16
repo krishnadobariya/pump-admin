@@ -14,6 +14,7 @@ export const registerAdminAction = (payload) => {
             await axios.post(`http://43.204.149.24:8000/api/v1/registration`, payload).then((res) => {
                 toast.success('Admin Register Successfully!!');
                 localStorage.setItem('adminId', res?.data?.data?._id);
+                localStorage.setItem('token', res?.data?.data?.token);
                 window.location.href = "/"
                 dispatch(registerAdmin(res));
             }).catch((error) => {
@@ -33,6 +34,7 @@ export const loginAdminAction = (payload) => {
             await axios.post(`http://43.204.149.24:8000/api/v1/loginNormalUser`, payload).then((res) => {
                 toast.success('Admin Login Successfully!!');
                 localStorage.setItem('adminId', res?.data?.data?._id);
+                localStorage.setItem('token', res?.data?.data?.token);
                 window.location.href = "/"
                 dispatch(loginAdmin(res));
             }).catch((error) => {

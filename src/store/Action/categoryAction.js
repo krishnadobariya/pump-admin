@@ -45,7 +45,11 @@ export const updateCategoryAction = (userId, updatedData) => {
     return async (dispatch) => {
         try {
             // Update the URL and use axios.put for updating data
-            await axios.patch(`http://43.204.149.24:8000/api/categories/v1/update/${userId}`, updatedData).then((res) => {
+            await axios.patch(`http://43.204.149.24:8000/api/categories/v1/update/${userId}`, updatedData, {
+                headers: {
+                    'Authorization': localStorage.getItem('token'),
+                }
+            }).then((res) => {
                 toast.success('Category Updated Successfully');
                 dispatch(getAllCategoryAction())
                 dispatch(updateCategory(res));

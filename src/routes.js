@@ -67,6 +67,8 @@ import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up";
 import Category from "layouts/Category";
 import AddCategory from "layouts/AddCategory";
+import Nozzles from "layouts/Nozzles";
+import AddNozzles from "layouts/AddNozzles";
 
 const routes = [
   {
@@ -106,6 +108,15 @@ const routes = [
     component: <Category />,
     noCollapse: true,
   },
+  {
+    type: "collapse",
+    name: "Nozzles",
+    key: "nozzles",
+    route: "/nozzles",
+    icon: <SpaceShip size="12px" />,
+    component: <Nozzles />,
+    noCollapse: true,
+  },
   // { type: "title", title: "Account Pages", key: "account-pages" },
   // {
   //   type: "collapse",
@@ -139,6 +150,13 @@ const routes = [
     noCollapse: true,
   },
 
+  {
+    name: "Create Nozzles",
+    key: "addNozzles",
+    route: "/addnozzles",
+    component: <AddNozzles />,
+    noCollapse: true,
+  },
   {
     name: "Edit Manager",
     key: "manager2",

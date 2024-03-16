@@ -178,11 +178,11 @@ function Tables() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <div style={{ display: "flex", justifyContent: "end", width: "100%", marginBottom: "10px" }} >
+          <div style={{ display: "flex", justifyContent: "end", width: "100%" }} >
             <IoClose style={{ backgroundColor: "#DEDBD7", padding: "3px", borderRadius: "2px" }} onClick={handleClose} />
           </div>
 
-          <Grid container spacing={2}>
+          <Grid container spacing={2} sx={{ marginTop: "10px" }}>
             <Grid item xs={6}>
               <SoftBox mb={2}>
                 <label style={{ fontSize: "15px" }}>Full Name</label>
