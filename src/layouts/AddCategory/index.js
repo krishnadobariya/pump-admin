@@ -146,6 +146,7 @@ const AddCategory = () => {
                                                         value={categoryData?.pumpId}
                                                         onChange={(e) => { handleChange(e) }}
                                                         name="pumpId"
+                                                        sx={{ width: "100%" }}
                                                     >
                                                         {pumpList?.getAllPump?.data?.map((res) => {
                                                             return (
