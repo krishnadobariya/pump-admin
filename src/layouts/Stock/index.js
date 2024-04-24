@@ -48,12 +48,11 @@ import SoftAlertCloseIcon from "components/SoftAlert/SoftAlertCloseIcon";
 import { IoClose } from "react-icons/io5";
 import { getAllCategoryAction } from "store/Action/categoryAction";
 import { updateCategoryAction } from "store/Action/categoryAction";
-import { getAllNozzlesAction } from "store/Action/nozzlesAction";
-import { updateNozzlesAction } from "store/Action/nozzlesAction";
-import { deleteNozzlesAction } from "store/Action/nozzlesAction";
+import { getAllStockAction } from "store/Action/stockAction";
 
 
-function Nozzles() {
+
+function Stock() {
     const [controller] = useSoftUIController();
     const { miniSidenav, sidenavColor } = controller;
     const [open, setOpen] = useState(false);
@@ -67,18 +66,18 @@ function Nozzles() {
     const dispatch = useDispatch()
     const navigate = useNavigate();
 
-    const getAllNozzles = useSelector((state) => state.nozzles);
-    console.log("getAllNozzles", getAllNozzles);
+    const getAllStock = useSelector((state) => state.stock);
+    console.log("getAllStock", getAllStock);
 
     useEffect(() => {
-        dispatch(getAllNozzlesAction())
+        dispatch(getAllStockAction())
     }, [dispatch])
 
 
-    const handleSubmit = () => {
-        dispatch(updateNozzlesAction(mangerById?._id, mangerById))
-        handleClose()
-    }
+    // const handleSubmit = () => {
+    //     dispatch(updateNozzlesAction(mangerById?._id, mangerById))
+    //     handleClose()
+    // }
 
 
     console.log("mangerByIdmangerByIdmangerById", mangerById);
@@ -110,20 +109,20 @@ function Nozzles() {
     };
 
     const columns = [
-        { name: "Number Of Nozzles", align: "left", backname: "numberOfNozzles" },
+        { name: "Stock Date", align: "left", backname: "stockDate" },
+        { name: "user ID", align: "left", backname: "userId" },
         // { name: "Client Industry", align: "left", backname: "clientindustry" },
-        { name: "Description", align: "left", backname: "description" },
-        { name: "Pump Id", align: "center", backname: "pumpId" },
+        // { name: "Pump Id", align: "center", backname: "pumpId" },
         { name: "Category Id", align: "center", backname: "categoryId" },
         { name: "", align: "right", backname: "EditButtonNoz", width: "1px" },
         { name: "", align: "right", backname: "delBtn", width: "1px" }
 
     ];
 
-    const deleteNozzles = () => {
-        dispatch(deleteNozzlesAction(mangerById?._id))
-        handleCloseDel()
-    }
+    // const deleteNozzles = () => {
+    //     dispatch(deleteNozzlesAction(mangerById?._id))
+    //     handleCloseDel()
+    // }
     const pumpList = useSelector(state => state.pump);
     useEffect(() => {
         dispatch(getAllPumpAction())
@@ -135,7 +134,7 @@ function Nozzles() {
     };
 
     const handleChange = () => {
-        
+
     }
     const categoryList = useSelector(state => state.category);
     useEffect(() => {
@@ -149,14 +148,14 @@ function Nozzles() {
                 <SoftBox mb={3}>
                     <Card>
                         <SoftBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
-                            <SoftTypography variant="h6">Nozzles list</SoftTypography>
+                            <SoftTypography variant="h6">Stock list</SoftTypography>
                             <SoftButton
                                 component="a"
                                 variant="gradient"
                                 color={sidenavColor}
-                                onClick={() => { navigate('/addnozzles') }}
+                                onClick={() => { navigate('/addStock') }}
                             >
-                                Add Nozzles
+                                Add STOCK
                             </SoftButton>
                         </SoftBox>
 
@@ -170,7 +169,7 @@ function Nozzles() {
                                 },
                             }}
                         >
-                            <Table columns={columns} rows={getAllNozzles?.getAllNozzles?.data} mangerById={mangerById} setManagerById={setManagerById} handleOpen={handleOpen} handleOpenDel={handleOpenDel} />
+                            <Table columns={columns} rows={getAllStock?.getAllStock?.data} mangerById={mangerById} setManagerById={setManagerById} handleOpen={handleOpen} handleOpenDel={handleOpenDel} />
                         </SoftBox>
                     </Card>
                 </SoftBox>
@@ -195,24 +194,24 @@ function Nozzles() {
                             <Grid container spacing={2} px={2}>
                                 <Grid item xs={6}>
                                     <SoftBox mb={2}>
-                                        <label style={{ fontSize: "15px" }}>Number Of Nozzles</label>
+                                        <label style={{ fontSize: "15px" }}>Stock Date</label>
                                         <SoftInput
                                             type="text"
-                                            placeholder="Number Of Nozzles"
-                                            name="numberOfNozzles"
-                                            value={mangerById?.numberOfNozzles}
+                                            placeholder="Description"
+                                            name="stockDate"
+                                            value={mangerById?.stockDate}
                                             onChange={handleInputChange} />
                                     </SoftBox>
                                 </Grid>
 
                                 <Grid item xs={6}>
                                     <SoftBox mb={2}>
-                                        <label style={{ fontSize: "15px" }}>Description</label>
+                                        <label style={{ fontSize: "15px" }}>User ID</label>
                                         <SoftInput
                                             type="text"
-                                            placeholder="Description"
-                                            name="description"
-                                            value={mangerById?.description}
+                                            placeholder="Number Of Nozzles"
+                                            name="userId"
+                                            value={mangerById?.userId}
                                             onChange={handleInputChange} />
                                     </SoftBox>
                                 </Grid>
@@ -266,14 +265,14 @@ function Nozzles() {
                         </Grid>
 
                     </Grid>
-                    <SoftButton
+                    {/* <SoftButton
                         variant="gradient"
                         color={sidenavColor}
                         fullWidth
                         onClick={handleSubmit}
                     >
                         Update Nozzles
-                    </SoftButton>
+                    </SoftButton> */}
 
                 </Box>
             </Modal>
@@ -294,7 +293,7 @@ function Nozzles() {
                         Are you sure you want to delete this Nozzles?
                     </p>
 
-                    <div style={{ display: "flex", justifyContent: "center" }}>
+                    {/* <div style={{ display: "flex", justifyContent: "center" }}>
                         <SoftButton component='a'
                             variant="gradient"
                             color={"secondary"}
@@ -309,7 +308,7 @@ function Nozzles() {
 
                             Delete
                         </SoftButton>
-                    </div>
+                    </div> */}
 
                 </Box>
             </Modal>
@@ -323,4 +322,4 @@ function Nozzles() {
     );
 }
 
-export default Nozzles;
+export default Stock;

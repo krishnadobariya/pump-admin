@@ -68,7 +68,9 @@ import SignUp from "layouts/authentication/sign-up";
 import Category from "layouts/Category";
 import AddCategory from "layouts/AddCategory";
 import Nozzles from "layouts/Nozzles";
+import Stock from "layouts/Stock";
 import AddNozzles from "layouts/AddNozzles";
+import AddStock from "layouts/AddStock";
 
 const routes = [
   {
@@ -117,6 +119,15 @@ const routes = [
     component: <Nozzles />,
     noCollapse: true,
   },
+  {
+    type: "collapse",
+    name: "Stock",
+    key: "stock",
+    route: "/stock",
+    icon: <SpaceShip size="12px" />,
+    component: <Stock />,
+    noCollapse: true,
+  },
   // { type: "title", title: "Account Pages", key: "account-pages" },
   // {
   //   type: "collapse",
@@ -162,6 +173,13 @@ const routes = [
     key: "manager2",
     route: "/editManager",
     component: <EditManagerModal />,
+    noCollapse: true,
+  },
+  {
+    name: "Create Stock",
+    key: "addStock",
+    route: "/addStock",
+    component: <AddStock />,
     noCollapse: true,
   },
   // {
