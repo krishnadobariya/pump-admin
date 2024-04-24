@@ -16,7 +16,7 @@ export const categoryAddAction = (payload) => {
     return async (dispatch) => {
         console.log("process.env.REACT_APP_BASE_URL", process.env.REACT_APP_BASE_URL);
         try {
-            await axios.post(`http://43.204.149.24:8000/api/categories/v1/create`, payload).then((res) => {
+            await axios.post(`http://13.201.102.180:8000/api/categories/v1/create`, payload).then((res) => {
                 toast.success('Category Add successfully');
                 dispatch(categoryAdd(res));
             }).catch((error) => {
@@ -32,7 +32,7 @@ export const getAllCategoryAction = (payload) => {
     return async (dispatch) => {
         console.log("process.env.REACT_APP_BASE_URL", process.env.REACT_APP_BASE_URL);
         try {
-            await axios.get(`http://43.204.149.24:8000/api/categories/v1/getAll`).then((res) => {
+            await axios.get(`http://13.201.102.180:8000/api/categories/v1/getAll`).then((res) => {
                 dispatch(getAllCategory(res));
             }).catch((error) => {
                 toast.error(error?.response?.data?.message)
@@ -48,7 +48,7 @@ export const updateCategoryAction = (userId, updatedData) => {
     return async (dispatch) => {
         try {
             // Update the URL and use axios.put for updating data
-            await axios.patch(`http://43.204.149.24:8000/api/categories/v1/update/${userId}`, updatedData, {
+            await axios.patch(`http://13.201.102.180:8000/api/categories/v1/update/${userId}`, updatedData, {
                 headers: {
                     'Authorization': localStorage.getItem('token'),
                 }
@@ -71,7 +71,7 @@ export const deleteCategoryAction = (userId) => {
     return async (dispatch) => {
         try {
             // Update the URL and use axios.put for updating data
-            await axios.delete(`http://43.204.149.24:8000/api/categories/v1/deleteOne/${userId}`, {
+            await axios.delete(`http://13.201.102.180:8000/api/categories/v1/deleteOne/${userId}`, {
                 headers: {
                     'Authorization': localStorage.getItem('token'),
                 }

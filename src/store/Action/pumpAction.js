@@ -13,7 +13,7 @@ export const pumpAddAction = (payload) => {
     return async (dispatch) => {
         console.log("process.env.REACT_APP_BASE_URL", process.env.REACT_APP_BASE_URL);
         try {
-            await axios.post(`http://43.204.149.24:8000/api/Pump/v1/registration`, payload).then((res) => {
+            await axios.post(`http://13.201.102.180:8000/api/Pump/v1/registration`, payload).then((res) => {
                 toast.success('Pump Add successfully');
                 dispatch(pumpAdd(res));
             }).catch((error) => {
@@ -29,7 +29,7 @@ export const getAllPumpAction = (payload) => {
     return async (dispatch) => {
         console.log("process.env.REACT_APP_BASE_URL", process.env.REACT_APP_BASE_URL);
         try {
-            await axios.get(`http://43.204.149.24:8000/api/Pump/v1/getAllPumps`).then((res) => {
+            await axios.get(`http://13.201.102.180:8000/api/Pump/v1/getAllPumps`).then((res) => {
                 dispatch(getAllPump(res));
             }).catch((error) => {
                 toast.error(error?.response?.data?.message)
@@ -45,7 +45,7 @@ export const updatePumpAction = (userId, updatedData) => {
     return async (dispatch) => {
         try {
             // Update the URL and use axios.put for updating data
-            await axios.patch(`http://43.204.149.24:8000/api/Pump/v1/PumpsUpdate/${userId}`, updatedData, {
+            await axios.patch(`http://13.201.102.180:8000/api/Pump/v1/PumpsUpdate/${userId}`, updatedData, {
                 headers: {
                     'Authorization': localStorage.getItem('token'),
                 }
