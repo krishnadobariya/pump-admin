@@ -51,6 +51,7 @@ import Settings from "examples/Icons/Settings";
 import Document from "examples/Icons/Document";
 import SpaceShip from "examples/Icons/SpaceShip";
 import CustomerSupport from "examples/Icons/CustomerSupport";
+
 import CreditCard from "examples/Icons/CreditCard";
 import Cube from "examples/Icons/Cube";
 import { Co2 } from "@mui/icons-material";
@@ -71,6 +72,8 @@ import Nozzles from "layouts/Nozzles";
 import Stock from "layouts/Stock";
 import AddNozzles from "layouts/AddNozzles";
 import AddStock from "layouts/AddStock";
+import Assets from "layouts/Assets";
+import AddAssets from "layouts/AddAssets";
 
 const routes = [
   {
@@ -128,6 +131,48 @@ const routes = [
     component: <Stock />,
     noCollapse: true,
   },
+
+  {
+    type: "collapse",
+    name: "Assets",
+    key: "assets",
+    route: "/assets",
+    icon: <CreditCard size="12px" />,
+    component: <Assets />,
+    noCollapse: true,
+  },
+
+  {
+    type: "collapse",
+    name: "Bank",
+    key: "bank",
+    route: "/bank",
+    icon: <Cube size="12px" />,
+    // component: <Assets />,
+    noCollapse: true,
+  },
+
+  {
+    type: "collapse",
+    name: "Expenses",
+    key: "expenses",
+    route: "/expenses",
+    icon: <Document size="12px" />,
+    // component: <Assets />,
+    noCollapse: true,
+  },
+
+
+  {
+    type: "collapse",
+    name: "User",
+    key: "user",
+    route: "/user",
+    icon: <CustomerSupport size="12px" />,
+    // component: <Assets />,
+    noCollapse: true,
+  },
+
   // { type: "title", title: "Account Pages", key: "account-pages" },
   // {
   //   type: "collapse",
@@ -182,6 +227,17 @@ const routes = [
     component: <AddStock />,
     noCollapse: true,
   },
+
+  {
+    name: "Create Assets",
+    key: "addassets",
+    route: "/addassets",
+    component: <AddAssets />,
+    noCollapse: true,
+  },
+
+
+
   // {
   //   type: "collapse",
   //   name: "Sign In",
