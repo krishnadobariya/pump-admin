@@ -30,35 +30,38 @@ import { Close, ExpandMore } from "@mui/icons-material";
 import { updatePumpAction } from "store/Action/pumpAction";
 import SoftAlertCloseIcon from "components/SoftAlert/SoftAlertCloseIcon";
 import { IoClose } from "react-icons/io5";
-import { assetsGetAction } from "store/Action/assetsAction";
+import { assetsGetAction , updateAssetsAction , deleteAssetsAction } from "store/Action/assetsAction";
 
 
 
-function Stock() {
+function Assets() {
     const [controller] = useSoftUIController();
-    const { miniSidenav, sidenavColor } = controller;
+    const { sidenavColor } = controller;
     const [open, setOpen] = useState(false);
+    const [mangerById, setManagerById] = useState({});
+    const [openDel, setOpenDel] = useState(false);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const assetsGet = useSelector((state) => state.assets);
+
+    useEffect(() => {
+        dispatch(assetsGetAction());
+    }, [dispatch]);
+
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    const [mangerById, setManagerById] = useState();
-    const [openDel, setOpenDel] = useState(false);
     const handleOpenDel = () => setOpenDel(true);
     const handleCloseDel = () => setOpenDel(false);
 
-    const dispatch = useDispatch()
-    const navigate = useNavigate();
+    const handleSubmit = () => {
+        dispatch(updateAssetsAction(mangerById?._id, mangerById));
+        handleClose();
+    };
 
-    const assetsGet = useSelector((state) => state.assets);
-    console.log("assetsGet-->", assetsGet);
-
-    useEffect(() => {
-        dispatch(assetsGetAction())
-    }, [dispatch])
-
-
-
-
-    // console.log("mangerByIdmangerByIdmangerById", mangerById);
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setManagerById({ ...mangerById, [name]: value });
+    };
 
     const style = {
         position: 'absolute',
@@ -87,31 +90,20 @@ function Stock() {
     };
 
     const columns = [
-        { name: "Stock Date", align: "left", backname: "stockDate" },
-        { name: "user ID", align: "left", backname: "userId" },
-        // { name: "Client Industry", align: "left", backname: "clientindustry" },
-        // { name: "Pump Id", align: "center", backname: "pumpId" },
-        { name: "Category Id", align: "center", backname: "categoryId" },
+        { name: "assets name", align: "left", backname: "assets_name" },
+        { name: "assets type", align: "left", backname: "assets_type" },
         { name: "", align: "right", backname: "EditButtonNoz", width: "1px" },
         { name: "", align: "right", backname: "delBtn", width: "1px" }
 
     ];
 
-  
 
- 
-
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setManagerById({ ...mangerById, [name]: value });
-    };
-
-    const handleChange = () => {
-
+    const deleteAssets = () => {
+        dispatch(deleteAssetsAction(mangerById?._id))
+        handleCloseDel()
     }
-   
+  
     return (
-
         <DashboardLayout>
             <DashboardNavbar />
             <SoftBox py={3} sx={{ minHeight: "80vh" }}>
@@ -125,7 +117,7 @@ function Stock() {
                                 color={sidenavColor}
                                 onClick={() => { navigate('/addassets') }}
                             >
-                                Assets 
+                                Assets
                             </SoftButton>
                         </SoftBox>
 
@@ -162,29 +154,38 @@ function Stock() {
                             <Grid container spacing={2} px={2}>
                                 <Grid item xs={6}>
                                     <SoftBox mb={2}>
-                                        <label style={{ fontSize: "15px" }}>Stock Date</label>
+                                        <label style={{ fontSize: "15px" }}>Assets Name</label>
                                         <SoftInput
                                             type="text"
-                                            placeholder="Description"
-                                            name="stockDate"
-                                            value={mangerById?.stockDate}
+                                            placeholder="Assets Name"
+                                            name="assets_name"
+                                            value={mangerById?.assets_name}
                                             onChange={handleInputChange} />
                                     </SoftBox>
                                 </Grid>
                                 <Grid item xs={6}>
                                     <SoftBox mb={2}>
-                                        <label style={{ fontSize: "15px" }}>User ID</label>
+                                        <label style={{ fontSize: "15px" }}>Assets Type</label>
                                         <SoftInput
                                             type="text"
-                                            placeholder="Number Of Nozzles"
-                                            name="userId"
-                                            value={mangerById?.userId}
+                                            placeholder="Assets Type"
+                                            name="assets_type"
+                                            value={mangerById?.assets_type}
                                             onChange={handleInputChange} />
                                     </SoftBox>
                                 </Grid>
                             </Grid>
                         </Grid>
                     </Grid>
+
+                    <SoftButton
+                        variant="gradient"
+                        color={sidenavColor}
+                        fullWidth
+                        onClick={handleSubmit}
+                    >
+                        Update Category
+                    </SoftButton>
                 </Box>
             </Modal>
             <Modal
@@ -198,12 +199,27 @@ function Stock() {
                         <IoClose style={{ backgroundColor: "#DEDBD7", padding: "3px", borderRadius: "2px" }} onClick={handleCloseDel} />
                     </div>
                     <p style={{ textAlign: "center", marginTop: "20px", marginBottom: "20px" }}>
-                        Are you sure you want to delete this Nozzles?
+                        Are you sure you want to delete this Assets?
                     </p>
+                    <div style={{ display: "flex", justifyContent: "center" }}>
+                        <SoftButton component='a'
+                            variant="gradient"
+                            color={"secondary"}
+                            onClick={handleCloseDel}>
+                            Cancel
+                        </SoftButton>
+                        <SoftButton component='a'
+                            variant="gradient"
+                            color={"error"}
+                            sx={{ marginLeft: "30px" }}
+                            onClick={deleteAssets}>
+                            Delete
+                        </SoftButton>
+                    </div>
                 </Box>
             </Modal>
         </DashboardLayout >
     );
 }
 
-export default Stock;
+export default Assets;

@@ -14,9 +14,8 @@ const deleteNozzles = (payload) => ({ type: DELTE_NOZZLES, payload: payload.data
 
 export const nozzlesAddAction = (payload) => {
     return async (dispatch) => {
-        console.log("process.env.REACT_APP_BASE_URL", process.env.REACT_APP_BASE_URL);
         try {
-            await axios.post(`REACT_APP_BASE_URLapi/nozzles/v1/create`, payload).then((res) => {
+            await axios.post(`${process.env.REACT_APP_BASE_URL}api/nozzles/v1/create`, payload).then((res) => {
                 toast.success('Nozzles Add successfully');
                 dispatch(nozzlesAdd(res));
             }).catch((error) => {
@@ -30,10 +29,10 @@ export const nozzlesAddAction = (payload) => {
 }
 export const getAllNozzlesAction = (payload) => {
     return async (dispatch) => {
-        console.log("process.env.REACT_APP_BASE_URL", process.env.REACT_APP_BASE_URL);
         try {
-            await axios.get(`REACT_APP_BASE_URLapi/nozzles/v1/getAll`).then((res) => {
+            await axios.get(`${process.env.REACT_APP_BASE_URL}api/nozzles/v1/getAll`).then((res) => {
                 dispatch(getAllNozzles(res));
+                console.log("resssssssssss",res);
             }).catch((error) => {
                 toast.error(error?.response?.data?.message)
                 dispatch(getAllNozzles(error?.response))
@@ -47,8 +46,7 @@ export const getAllNozzlesAction = (payload) => {
 export const updateNozzlesAction = (userId, updatedData) => {
     return async (dispatch) => {
         try {
-            // Update the URL and use axios.put for updating data
-            await axios.patch(`REACT_APP_BASE_URLapi/nozzles/v1/update/${userId}`, updatedData, {
+            await axios.patch(`${process.env.REACT_APP_BASE_URL}api/nozzles/v1/update/${userId}`, updatedData, {
                 headers: {
                     'Authorization': localStorage.getItem('token'),
                 }
@@ -71,7 +69,7 @@ export const deleteNozzlesAction = (userId) => {
     return async (dispatch) => {
         try {
             // Update the URL and use axios.put for updating data
-            await axios.delete(`REACT_APP_BASE_URLapi/nozzles/v1/deleteOne/${userId}`, {
+            await axios.delete(`${process.env.REACT_APP_BASE_URL}api/nozzles/v1/deleteOne/${userId}`, {
                 headers: {
                     'Authorization': localStorage.getItem('token'),
                 }

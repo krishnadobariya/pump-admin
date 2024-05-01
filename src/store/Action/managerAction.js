@@ -11,9 +11,8 @@ const updateManager = (payload) => ({ type: UPDATE_MANAGER, payload: payload.dat
 
 export const managerAddAction = (payload) => {
     return async (dispatch) => {
-        console.log("process.env.REACT_APP_BASE_URL", process.env.REACT_APP_BASE_URL);
         try {
-            await axios.post(`REACT_APP_BASE_URLapi/v1/registration`, payload).then((res) => {
+            await axios.post(`${process.env.REACT_APP_BASE_URL}api/v1/registration`, payload).then((res) => {
                 toast.success('Manager Add successfully');
                 dispatch(managerAdd(res));
             }).catch((error) => {
@@ -27,9 +26,8 @@ export const managerAddAction = (payload) => {
 }
 export const getAllManagerAction = (payload) => {
     return async (dispatch) => {
-        console.log("process.env.REACT_APP_BASE_URL", process.env.REACT_APP_BASE_URL);
         try {
-            await axios.get(`REACT_APP_BASE_URLapi/v1/getUsers`).then((res) => {
+            await axios.get(`${process.env.REACT_APP_BASE_URL}api/v1/getUsers`).then((res) => {
                 dispatch(getAllManager(res));
             }).catch((error) => {
                 toast.error(error?.response?.data?.message)
@@ -45,7 +43,7 @@ export const updateManagerAction = (userId, updatedData) => {
     return async (dispatch) => {
         try {
             // Update the URL and use axios.put for updating data
-            await axios.patch(`REACT_APP_BASE_URLapi/v1/userUpdate/${userId}`, updatedData).then((res) => {
+            await axios.patch(`${process.env.REACT_APP_BASE_URL}api/v1/userUpdate/${userId}`, updatedData).then((res) => {
                 toast.success('Manager Updated Successfully');
                 dispatch(getAllManagerAction())
                 dispatch(updateManager(res));

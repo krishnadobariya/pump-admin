@@ -10,7 +10,6 @@ const getAllStock = (payload) => ({ type: GET_ALL_STOCK, payload: payload.data }
 
 export const stockAddAction = (payload) => {
     return async (dispatch) => {
-        console.log("process.env.REACT_APP_BASE_URL", process.env.REACT_APP_BASE_URL);
         const requiredFields = ['userId', 'categoryId', 'stockDate', 'receipts', 'invoice_date', 'receipts_amount', 'receipts_quantity', 'tanker_no', 'invoice_no'];
         const emptyFields = requiredFields.filter(field => !payload[field]);
 
@@ -44,7 +43,6 @@ export const stockAddAction = (payload) => {
 
 export const getAllStockAction = (payload) => {
     return async (dispatch) => {
-        // console.log("process.env.REACT_APP_BASE_URL", process.env.REACT_APP_BASE_URL);
         try {
             await axios.get(`${process.env.REACT_APP_BASE_URL}api/userStock/v1/getAll`).then((res) => {
                 dispatch(getAllStock(res));

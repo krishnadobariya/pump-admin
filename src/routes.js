@@ -74,6 +74,7 @@ import AddNozzles from "layouts/AddNozzles";
 import AddStock from "layouts/AddStock";
 import Assets from "layouts/Assets";
 import AddAssets from "layouts/AddAssets";
+import Attendance from "layouts/Attendance";
 
 const routes = [
   {
@@ -144,11 +145,11 @@ const routes = [
 
   {
     type: "collapse",
-    name: "Bank",
-    key: "bank",
-    route: "/bank",
+    name: "Attendance",
+    key: "attendance",
+    route: "/attendance",
     icon: <Cube size="12px" />,
-    // component: <Assets />,
+    component: <Attendance />,
     noCollapse: true,
   },
 

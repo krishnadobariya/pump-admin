@@ -11,9 +11,8 @@ const updatePump = (payload) => ({ type: UPDATE_PUMP, payload: payload.data })
 
 export const pumpAddAction = (payload) => {
     return async (dispatch) => {
-        console.log("process.env.REACT_APP_BASE_URL", process.env.REACT_APP_BASE_URL);
         try {
-            await axios.post(`REACT_APP_BASE_URLapi/Pump/v1/registration`, payload).then((res) => {
+            await axios.post(`${process.env.REACT_APP_BASE_URL}api/Pump/v1/registration`, payload).then((res) => {
                 toast.success('Pump Add successfully');
                 dispatch(pumpAdd(res));
             }).catch((error) => {
@@ -27,9 +26,8 @@ export const pumpAddAction = (payload) => {
 }
 export const getAllPumpAction = (payload) => {
     return async (dispatch) => {
-        console.log("process.env.REACT_APP_BASE_URL", process.env.REACT_APP_BASE_URL);
         try {
-            await axios.get(`REACT_APP_BASE_URLapi/Pump/v1/getAllPumps`).then((res) => {
+            await axios.get(`${process.env.REACT_APP_BASE_URL}api/Pump/v1/getAllPumps`).then((res) => {
                 dispatch(getAllPump(res));
             }).catch((error) => {
                 toast.error(error?.response?.data?.message)
@@ -45,7 +43,7 @@ export const updatePumpAction = (userId, updatedData) => {
     return async (dispatch) => {
         try {
             // Update the URL and use axios.put for updating data
-            await axios.patch(`REACT_APP_BASE_URLapi/Pump/v1/PumpsUpdate/${userId}`, updatedData, {
+            await axios.patch(`${process.env.REACT_APP_BASE_URL}api/Pump/v1/PumpsUpdate/${userId}`, updatedData, {
                 headers: {
                     'Authorization': localStorage.getItem('token'),
                 }

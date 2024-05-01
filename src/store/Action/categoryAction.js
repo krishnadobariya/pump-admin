@@ -14,9 +14,8 @@ const deleteCategory = (payload) => ({ type: DELTE_CATEGORY, payload: payload.da
 
 export const categoryAddAction = (payload) => {
     return async (dispatch) => {
-        console.log("process.env.REACT_APP_BASE_URL", process.env.REACT_APP_BASE_URL);
         try {
-            await axios.post(`REACT_APP_BASE_URLapi/categories/v1/create`, payload).then((res) => {
+            await axios.post(`${process.env.REACT_APP_BASE_URL}api/categories/v1/create`, payload).then((res) => {
                 toast.success('Category Add successfully');
                 dispatch(categoryAdd(res));
             }).catch((error) => {
@@ -30,9 +29,8 @@ export const categoryAddAction = (payload) => {
 }
 export const getAllCategoryAction = (payload) => {
     return async (dispatch) => {
-        console.log("process.env.REACT_APP_BASE_URL", process.env.REACT_APP_BASE_URL);
         try {
-            await axios.get(`REACT_APP_BASE_URLapi/categories/v1/getAll`).then((res) => {
+            await axios.get(`${process.env.REACT_APP_BASE_URL}api/categories/v1/getAll`).then((res) => {
                 dispatch(getAllCategory(res));
             }).catch((error) => {
                 toast.error(error?.response?.data?.message)
@@ -48,7 +46,7 @@ export const updateCategoryAction = (userId, updatedData) => {
     return async (dispatch) => {
         try {
             // Update the URL and use axios.put for updating data
-            await axios.patch(`REACT_APP_BASE_URLapi/categories/v1/update/${userId}`, updatedData, {
+            await axios.patch(`${process.env.REACT_APP_BASE_URL}api/categories/v1/update/${userId}`, updatedData, {
                 headers: {
                     'Authorization': localStorage.getItem('token'),
                 }
@@ -71,7 +69,7 @@ export const deleteCategoryAction = (userId) => {
     return async (dispatch) => {
         try {
             // Update the URL and use axios.put for updating data
-            await axios.delete(`REACT_APP_BASE_URLapi/categories/v1/deleteOne/${userId}`, {
+            await axios.delete(`${process.env.REACT_APP_BASE_URL}api/categories/v1/deleteOne/${userId}`, {
                 headers: {
                     'Authorization': localStorage.getItem('token'),
                 }
