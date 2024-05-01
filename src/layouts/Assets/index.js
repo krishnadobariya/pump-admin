@@ -26,14 +26,11 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { Accordion, AccordionDetails, AccordionSummary, Checkbox, FormControl, FormControlLabel, FormGroup, Grid, MenuItem, Select } from "@mui/material";
 import SoftInput from "components/SoftInput";
-import { getAllPumpAction } from "store/Action/pumpAction";
 import { Close, ExpandMore } from "@mui/icons-material";
 import { updatePumpAction } from "store/Action/pumpAction";
 import SoftAlertCloseIcon from "components/SoftAlert/SoftAlertCloseIcon";
 import { IoClose } from "react-icons/io5";
-import { getAllCategoryAction } from "store/Action/categoryAction";
-import { updateCategoryAction } from "store/Action/categoryAction";
-import { getAllStockAction } from "store/Action/stockAction";
+import { assetsGetAction } from "store/Action/assetsAction";
 
 
 
@@ -51,21 +48,17 @@ function Stock() {
     const dispatch = useDispatch()
     const navigate = useNavigate();
 
-    const getAllStock = useSelector((state) => state.stock);
-    console.log("getAllStock", getAllStock);
+    const assetsGet = useSelector((state) => state.assets);
+    console.log("assetsGet-->", assetsGet);
 
     useEffect(() => {
-        dispatch(getAllStockAction())
+        dispatch(assetsGetAction())
     }, [dispatch])
 
 
-    // const handleSubmit = () => {
-    //     dispatch(updateNozzlesAction(mangerById?._id, mangerById))
-    //     handleClose()
-    // }
 
 
-    console.log("mangerByIdmangerByIdmangerById", mangerById);
+    // console.log("mangerByIdmangerByIdmangerById", mangerById);
 
     const style = {
         position: 'absolute',
@@ -104,15 +97,9 @@ function Stock() {
 
     ];
 
-    // const deleteNozzles = () => {
-    //     dispatch(deleteNozzlesAction(mangerById?._id))
-    //     handleCloseDel()
-    // }
+  
 
-    const pumpList = useSelector(state => state.pump);
-    useEffect(() => {
-        dispatch(getAllPumpAction())
-    }, []);
+ 
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -122,10 +109,7 @@ function Stock() {
     const handleChange = () => {
 
     }
-    const categoryList = useSelector(state => state.category);
-    useEffect(() => {
-        dispatch(getAllCategoryAction())
-    }, []);
+   
     return (
 
         <DashboardLayout>
@@ -141,7 +125,7 @@ function Stock() {
                                 color={sidenavColor}
                                 onClick={() => { navigate('/addassets') }}
                             >
-                                Assets STOCK
+                                Assets 
                             </SoftButton>
                         </SoftBox>
 
@@ -155,7 +139,7 @@ function Stock() {
                                 },
                             }}
                         >
-                            <Table columns={columns} rows={getAllStock?.getAllStock?.data} mangerById={mangerById} setManagerById={setManagerById} handleOpen={handleOpen} handleOpenDel={handleOpenDel} />
+                            <Table columns={columns} rows={assetsGet?.assetsGet?.data} mangerById={mangerById} setManagerById={setManagerById} handleOpen={handleOpen} handleOpenDel={handleOpenDel} />
                         </SoftBox>
                     </Card>
                 </SoftBox>
@@ -169,12 +153,10 @@ function Stock() {
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
-
                 <Box sx={style}>
                     <div style={{ display: "flex", justifyContent: "end", width: "100%" }} >
                         <IoClose style={{ backgroundColor: "#DEDBD7", padding: "3px", borderRadius: "2px" }} onClick={handleClose} />
                     </div>
-
                     <Grid container spacing={2} sx={{ marginTop: "10px" }}>
                         <Grid item xs={12}>
                             <Grid container spacing={2} px={2}>
@@ -189,7 +171,6 @@ function Stock() {
                                             onChange={handleInputChange} />
                                     </SoftBox>
                                 </Grid>
-
                                 <Grid item xs={6}>
                                     <SoftBox mb={2}>
                                         <label style={{ fontSize: "15px" }}>User ID</label>
@@ -201,68 +182,11 @@ function Stock() {
                                             onChange={handleInputChange} />
                                     </SoftBox>
                                 </Grid>
-
-                                <Grid item xs={12}>
-                                    <SoftBox mb={2}>
-                                        <label style={{ fontSize: "15px" }}>Select Pump</label>
-                                        <FormControl fullWidth>
-                                            <Select
-                                                labelId="demo-simple-select-label"
-                                                id="demo-simple-select"
-                                                value={mangerById?.pumpId}
-                                                onChange={(e) => { handleInputChange(e) }}
-                                                name="managerId"
-                                            >
-                                                {pumpList?.getAllPump?.data?.map((res) => {
-                                                    return (
-                                                        <MenuItem value={res?._id}>{res?.outletName}</MenuItem>
-                                                    )
-                                                })}
-                                            </Select>
-                                        </FormControl>
-                                    </SoftBox>
-
-                                </Grid>
-
-
-                                <Grid item xs={12}>
-                                    <SoftBox mb={2}>
-                                        <label style={{ fontSize: "15px" }}>Select Category</label>
-                                        <FormControl fullWidth>
-                                            <Select
-                                                labelId="demo-simple-select-label"
-                                                id="demo-simple-select"
-                                                value={mangerById?.categoryId}
-                                                onChange={(e) => { handleChange(e) }}
-                                                name="categoryId"
-                                            >
-                                                {categoryList?.getAllCategory?.data?.map((res) => {
-                                                    return (
-                                                        <MenuItem value={res?._id}>{res?.title}</MenuItem>
-                                                    )
-                                                })}
-                                            </Select>
-                                        </FormControl>
-                                    </SoftBox>
-                                </Grid>
-
-
                             </Grid>
                         </Grid>
-
                     </Grid>
-                    {/* <SoftButton
-                        variant="gradient"
-                        color={sidenavColor}
-                        fullWidth
-                        onClick={handleSubmit}
-                    >
-                        Update Nozzles
-                    </SoftButton> */}
-
                 </Box>
             </Modal>
-
             <Modal
                 open={openDel}
                 onClose={handleCloseDel}
@@ -273,37 +197,11 @@ function Stock() {
                     <div style={{ display: "flex", justifyContent: "end", width: "100%" }} >
                         <IoClose style={{ backgroundColor: "#DEDBD7", padding: "3px", borderRadius: "2px" }} onClick={handleCloseDel} />
                     </div>
-
-
                     <p style={{ textAlign: "center", marginTop: "20px", marginBottom: "20px" }}>
                         Are you sure you want to delete this Nozzles?
                     </p>
-
-                    {/* <div style={{ display: "flex", justifyContent: "center" }}>
-                        <SoftButton component='a'
-                            variant="gradient"
-                            color={"secondary"}
-                            onClick={handleCloseDel}>
-                            Cancel
-                        </SoftButton>
-                        <SoftButton component='a'
-                            variant="gradient"
-                            color={"error"}
-                            sx={{ marginLeft: "30px" }}
-                            onClick={deleteNozzles}>
-
-                            Delete
-                        </SoftButton>
-                    </div> */}
-
                 </Box>
             </Modal>
-            {/* <EditManagerModal
-        isOpen={editModalOpen}
-        onClose={handleEditModalClose}
-        managerData={editModalData}
-        onSave={handleSaveChanges}
-      /> */}
         </DashboardLayout >
     );
 }

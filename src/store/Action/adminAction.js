@@ -9,9 +9,8 @@ const loginAdmin = (payload) => ({ type: LOGIN_ADMIN, payload: payload.data })
 
 export const registerAdminAction = (payload) => {
     return async (dispatch) => {
-        console.log("process.env.REACT_APP_BASE_URL", process.env.REACT_APP_BASE_URL);
         try {
-            await axios.post(`http://13.201.102.180:8000/api/v1/registration`, payload).then((res) => {
+            await axios.post(`${process.env.REACT_APP_BASE_URL}api/v1/registration`, payload).then((res) => {
                 toast.success('Admin Register Successfully!!');
                 localStorage.setItem('adminId', res?.data?.data?._id);
                 localStorage.setItem('token', res?.data?.data?.token);
@@ -29,9 +28,8 @@ export const registerAdminAction = (payload) => {
 
 export const loginAdminAction = (payload) => {
     return async (dispatch) => {
-        console.log("process.env.REACT_APP_BASE_URL", process.env.REACT_APP_BASE_URL);
         try {
-            await axios.post(`http://13.201.102.180:8000/api/v1/loginNormalUser`, payload).then((res) => {
+            await axios.post(`${process.env.REACT_APP_BASE_URL}api/v1/loginNormalUser`, payload).then((res) => {
                 toast.success('Admin Login Successfully!!');
                 localStorage.setItem('adminId', res?.data?.data?._id);
                 localStorage.setItem('token', res?.data?.data?.token);

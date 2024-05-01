@@ -21,7 +21,7 @@ export const stockAddAction = (payload) => {
         }
 
         try {
-            await axios.post(`http://localhost:8000/api/userStock/v1/userCreateStock`, payload).then((res) => {
+            await axios.post(`${process.env.REACT_APP_BASE_URL}api/userStock/v1/userCreateStock`, payload).then((res) => {
                 console.log("-----------------",payload);
                 toast.success('Nozzles Add successfully');
                 dispatch(stockAdd(res));
@@ -44,9 +44,9 @@ export const stockAddAction = (payload) => {
 
 export const getAllStockAction = (payload) => {
     return async (dispatch) => {
-        console.log("process.env.REACT_APP_BASE_URL", process.env.REACT_APP_BASE_URL);
+        // console.log("process.env.REACT_APP_BASE_URL", process.env.REACT_APP_BASE_URL);
         try {
-            await axios.get(`http://localhost:8000/api/userStock/v1/getAll`).then((res) => {
+            await axios.get(`${process.env.REACT_APP_BASE_URL}api/userStock/v1/getAll`).then((res) => {
                 dispatch(getAllStock(res));
             }).catch((error) => {
                 toast.error(error?.response?.data?.message)
