@@ -27,7 +27,7 @@ export const managerAddAction = (payload) => {
 export const getAllManagerAction = (payload) => {
     return async (dispatch) => {
         try {
-            await axios.get(`${process.env.REACT_APP_BASE_URL}api/v1/getUsers`).then((res) => {
+            await axios.get(`${process.env.REACT_APP_BASE_URL}api/v1/getAllManager`).then((res) => {
                 dispatch(getAllManager(res));
             }).catch((error) => {
                 toast.error(error?.response?.data?.message)

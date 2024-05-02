@@ -38,21 +38,23 @@ function Assets() {
     const [controller] = useSoftUIController();
     const { sidenavColor } = controller;
     const [open, setOpen] = useState(false);
-    const [mangerById, setManagerById] = useState({});
     const [openDel, setOpenDel] = useState(false);
+    const [mangerById, setManagerById] = useState({});
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const assetsGet = useSelector((state) => state.assets);
 
-    useEffect(() => {
-        dispatch(assetsGetAction());
-    }, [dispatch]);
-
+    
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const handleOpenDel = () => setOpenDel(true);
     const handleCloseDel = () => setOpenDel(false);
-
+    
+    
+    useEffect(() => {
+        dispatch(assetsGetAction());
+    }, [dispatch]);
+    
     const handleSubmit = () => {
         dispatch(updateAssetsAction(mangerById?._id, mangerById));
         handleClose();

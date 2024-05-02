@@ -114,7 +114,7 @@ function Header() {
         <Grid container spacing={3} alignItems="center">
           <Grid item>
             <SoftAvatar
-              src={`${process.env.REACT_APP_BASE_URL}${admin?.viewAdmin?.data?.profileImage}`}
+              src={`${process.env.REACT_APP_REACT_APP_BASE_URL}${admin?.viewAdmin?.data?.profileImage}`}
               alt="profile-image"
               variant="rounded"
               size="xl"

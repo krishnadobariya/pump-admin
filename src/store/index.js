@@ -6,8 +6,9 @@ import categoryReducer from "./Reducer/categoryReducer";
 import nozzlesReducer from "./Reducer/nozzlesReducer";
 import stockReducer from "./Reducer/stockReducer";
 import assetsReducer from "./Reducer/assetsReducer"
-import attendanceReducer from "./Reducer/attendanceReducer"
-
+import attendanceReducer from "./Reducer/attendanceReducer";
+import usersReducer from "./Reducer/userReducer";
+import expensesReducer from "./Reducer/expenseReducer";
 
 const rootReducer = combineReducers({
   admin: adminReducer,
@@ -17,7 +18,9 @@ const rootReducer = combineReducers({
   nozzles: nozzlesReducer,
   stock: stockReducer,
   assets: assetsReducer,
-  attendance: attendanceReducer
+  attendance: attendanceReducer,
+  users: usersReducer,
+  expenses: expensesReducer,
 })
 
 export default rootReducer;         

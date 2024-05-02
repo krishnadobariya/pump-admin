@@ -27,6 +27,7 @@ export const pumpAddAction = (payload) => {
 export const getAllPumpAction = (payload) => {
     return async (dispatch) => {
         try {
+            console.log("REACT_APP_BASE_URL-----",process.env.REACT_APP_BASE_URL);
             await axios.get(`${process.env.REACT_APP_BASE_URL}api/Pump/v1/getAllPumps`).then((res) => {
                 dispatch(getAllPump(res));
             }).catch((error) => {

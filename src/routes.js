@@ -75,6 +75,10 @@ import AddStock from "layouts/AddStock";
 import Assets from "layouts/Assets";
 import AddAssets from "layouts/AddAssets";
 import Attendance from "layouts/Attendance";
+import Manager from "layouts/Manager";
+import Users from "layouts/Users";
+import Expenses from "layouts/Expenses";
+import AddExpense from "layouts/AddExpenses";
 
 const routes = [
   {
@@ -92,9 +96,21 @@ const routes = [
     key: "manager",
     route: "/manager",
     icon: <Office size="12px" />,
-    component: <Tables />,
+    component: <Manager />,
     noCollapse: true,
   },
+  {
+    type: "collapse",
+    name: "User",
+    key: "user",
+    route: "/user",
+    icon: <CustomerSupport size="12px" />,
+    component: <Users />,
+    noCollapse: true,
+  },
+
+
+
   {
     type: "collapse",
     name: "Pump",
@@ -159,21 +175,12 @@ const routes = [
     key: "expenses",
     route: "/expenses",
     icon: <Document size="12px" />,
-    // component: <Assets />,
+    component: <Expenses />,
     noCollapse: true,
   },
 
 
-  {
-    type: "collapse",
-    name: "User",
-    key: "user",
-    route: "/user",
-    icon: <CustomerSupport size="12px" />,
-    // component: <Assets />,
-    noCollapse: true,
-  },
-
+  
   // { type: "title", title: "Account Pages", key: "account-pages" },
   // {
   //   type: "collapse",
@@ -237,6 +244,14 @@ const routes = [
     noCollapse: true,
   },
 
+
+  {
+    name: "Create Expense",
+    key: "addExpense",
+    route: "/addExpense",
+    component: <AddExpense />,
+    noCollapse: true,
+  },
 
 
   // {
