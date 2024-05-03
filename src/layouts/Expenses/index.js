@@ -11,8 +11,7 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
 import Table from "examples/Tables/Table";
 
-// Data
-import projectsTableData from "layouts/tables/data/projectsTableData";
+
 
 import { useNavigate } from "react-router-dom";
 
@@ -29,16 +28,7 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Checkbox,
-  FormControl,
-  FormControlLabel,
-  FormGroup,
   Grid,
-  MenuItem,
-  Select,
 } from "@mui/material";
 import SoftInput from "components/SoftInput";
 import { Close, ExpandMore } from "@mui/icons-material";

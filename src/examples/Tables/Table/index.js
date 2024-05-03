@@ -295,7 +295,7 @@ Table.defaultProps = {
 Table.propTypes = {
   columns: PropTypes.arrayOf(PropTypes.object),
   rows: PropTypes.arrayOf(PropTypes.object),
-  onEditClick: PropTypes.func.isRequired,
+  onEditClick: PropTypes.func,
 };
 
 export default Table;

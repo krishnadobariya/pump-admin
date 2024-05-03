@@ -9,6 +9,9 @@ import assetsReducer from "./Reducer/assetsReducer"
 import attendanceReducer from "./Reducer/attendanceReducer";
 import usersReducer from "./Reducer/userReducer";
 import expensesReducer from "./Reducer/expenseReducer";
+import bankReducer from "./Reducer/bankReducer";
+import cashFlowReducer from "./Reducer/cashFlowReducer";
+import creditsReducer from "./Reducer/creditsReducer";
 
 const rootReducer = combineReducers({
   admin: adminReducer,
@@ -21,6 +24,9 @@ const rootReducer = combineReducers({
   attendance: attendanceReducer,
   users: usersReducer,
   expenses: expensesReducer,
+  banks: bankReducer,
+  cashFlow: cashFlowReducer,
+  credits: creditsReducer,
 })
 
 export default rootReducer;         

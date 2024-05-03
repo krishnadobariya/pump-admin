@@ -155,7 +155,7 @@ function Tables() {
                 },
               }}
             >
-              <Table columns={columns} rows={getAllManager?.data} mangerById={mangerById} setManagerById={setManagerById} onEditClick={handleEditClick} handleOpen={handleOpen} handleOpenDel={handleOpenDel} />
+              <Table columns={columns} rows={getAllManager?.data} mangerById={mangerById} setManagerById={setManagerById} handleOpen={handleOpen} handleOpenDel={handleOpenDel} />
             </SoftBox>
           </Card>
         </SoftBox>

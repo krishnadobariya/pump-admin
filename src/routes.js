@@ -79,6 +79,11 @@ import Manager from "layouts/Manager";
 import Users from "layouts/Users";
 import Expenses from "layouts/Expenses";
 import AddExpense from "layouts/AddExpenses";
+import Bank from "layouts/Bank";
+import CashFlow from "layouts/CashFLow";
+import AddCashFlow from "layouts/AddCashflow";
+import Credits from "layouts/Credits";
+
 
 const routes = [
   {
@@ -180,6 +185,36 @@ const routes = [
   },
 
 
+  {
+    type: "collapse",
+    name: "Bank",
+    key: "bank",
+    route: "/bank",
+    icon: <Document size="12px" />,
+    component: <Bank />,
+    noCollapse: true,
+  },
+
+
+  {
+    type: "collapse",
+    name: "CashFlow",
+    key: "cashFlow",
+    route: "/cashFlow",
+    icon: <Document size="12px" />,
+    component: <CashFlow />,
+    noCollapse: true,
+  },
+
+  {
+    type: "collapse",
+    name: "Credits",
+    key: "credits",
+    route: "/credits",
+    icon: <Document size="12px" />,
+    component: <Credits />,
+    noCollapse: true,
+  },
   
   // { type: "title", title: "Account Pages", key: "account-pages" },
   // {
@@ -253,6 +288,14 @@ const routes = [
     noCollapse: true,
   },
 
+  {
+    name: "Create CashFlow",
+    key: "addCashFlow",
+    route: "/addCashFlow",
+    component: <AddCashFlow />,
+    noCollapse: true,
+  },
+
 
   // {
   //   type: "collapse",
@@ -275,3 +318,6 @@ const routes = [
 ];
 
 export default routes;
+
+
+

@@ -32,18 +32,18 @@ export const expenseAddAction = (payload) => {
 export const getAllExpensesAction = (payload) => {
     return async (dispatch) => {
         try {
-            await axios.get(`${process.env.REACT_APP_BASE_URL}api/Expenses/v1/all-expense`).then((res) => {
-                console.log("ressssssssss->>",res);
-                dispatch(getAllExpenses(res));
-            }).catch((error) => {
-                toast.error(error?.response?.data?.message)
-                dispatch(getAllExpenses(error?.response))
-            });
+            const res = await axios.get(`${process.env.REACT_APP_BASE_URL}api/Expenses/v1/all-expense`);
+            console.log("ressssssssss->>", res);
+            dispatch(getAllExpenses(res));
+
         } catch (error) {
+            toast.error(error?.response?.data?.message)
+            dispatch(getAllExpenses(error?.response))
             console.log("Error::::", error);
         }
     }
 }
+
 
 export const updateExpensesAction = (expenseId, updatedData) => {
     return async (dispatch) => {

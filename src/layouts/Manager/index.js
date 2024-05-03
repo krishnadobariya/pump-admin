@@ -23,7 +23,7 @@ import SoftButton from "components/SoftButton";
 // Pmate examples
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
-import EditManagerModal from "layouts/EditManager/index"
+// import EditManagerModal from "layouts/EditManager/index"
 import Footer from "examples/Footer";
 import Table from "examples/Tables/Table";
 
@@ -47,7 +47,7 @@ import { IoClose } from "react-icons/io5";
 
 
 function Manager() {
-  const { columns: prCols, rows: prRows } = projectsTableData;
+  // const { columns: prCols, rows: prRows } = projectsTableData;
   const [controller] = useSoftUIController();
   const [row, setRow] = useState([]);
   const { miniSidenav, sidenavColor } = controller;
@@ -160,7 +160,7 @@ function Manager() {
                 },
               }}
             >
-              <Table columns={columns} rows={getAllManager?.data} mangerById={mangerById} setManagerById={setManagerById} onEditClick={handleEditClick} handleOpen={handleOpen} handleOpenDel={handleOpenDel} />
+              <Table columns={columns} rows={getAllManager?.data} mangerById={mangerById} setManagerById={setManagerById}  handleOpen={handleOpen} handleOpenDel={handleOpenDel} />
             </SoftBox>
           </Card>
         </SoftBox>
