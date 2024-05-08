@@ -18,43 +18,49 @@ import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import SoftInput from "components/SoftInput";
 import { IoClose } from "react-icons/io5";
-import { Grid} from "@mui/material";
-import { getAllCreditsAction } from "store/Action/creditsAction";
+import { Grid } from "@mui/material";
+import { getAllCreditsAction, updateCreditsAction, deleteCreditsAction } from "store/Action/creditsAction";
 
 
-function Bank() {
+
+function Credits() {
     const [controller] = useSoftUIController();
     const { sidenavColor } = controller;
     const [open, setOpen] = useState(false);
-    const [attendanceId, setManagerById ] = useState({});
+    const [creditsId, setManagerById] = useState({});
     const [openDel, setOpenDel] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const getAllCashFlow = useSelector((state) => state.cashFlow);
+    const getAllCredits = useSelector((state) => state.credits);
 
+    
+    
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+    const handleOpenDel = () => setOpenDel(true);
+    const handleCloseDel = () => setOpenDel(false);
+    
     useEffect(() => {
         dispatch(getAllCreditsAction());
     }, [dispatch]);
 
 
     useEffect(() => {
-        console.log("Attendance Data:", getAllCashFlow);
-    }, [getAllCashFlow]);
-
-    // const handleSubmit = () => {
-    //     dispatch(updateAttendanceAction(attendanceId?._id, attendanceId))
-    //     handleClose()
-    // }
-
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
-    const handleOpenDel = () => setOpenDel(true);
-    const handleCloseDel = () => setOpenDel(false);
-
-
+        console.log("Credits Data:", getAllCredits);
+    }, [getAllCredits]);
+    
+    const handleSubmit = () => {
+        dispatch(updateCreditsAction(creditsId?._id, creditsId));
+        handleClose()
+    }
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setManagerById ({ ...attendanceId, [name]: value });
+        setManagerById({ ...creditsId, [name]: value });
+    };
+
+    const deleteCredits = () => {
+        dispatch(deleteCreditsAction(creditsId?._id));
+        handleCloseDel();
     };
 
     const style = {
@@ -87,6 +93,7 @@ function Bank() {
         { name: "Name", align: "left", backname: "name" },
         { name: "Category", align: "left", backname: "category" },
         { name: "", align: "right", backname: "EditButtonNoz", width: "1px" },
+        { name: "", align: "right", backname: "delBtn", width: "1px" }
 
     ];
     return (
@@ -97,7 +104,17 @@ function Bank() {
                     <Card>
                         <SoftBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
                             <SoftTypography variant="h6">Credits List</SoftTypography>
+
+                            <SoftButton
+                                component="a"
+                                variant="gradient"
+                                color={sidenavColor}
+                                onClick={() => { navigate('/AddCredits') }}
+                            >
+                                Add Credits
+                            </SoftButton>
                         </SoftBox>
+
                         <SoftBox
                             sx={{
                                 "& .MuiTableRow-root:not(:last-child)": {
@@ -108,13 +125,14 @@ function Bank() {
                                 },
                             }}
                         >
-                        {console.log("getAllCashFlow------>",getAllCashFlow)}
-                            <Table columns={columns} rows={getAllCashFlow?.getAllCashFlow?.data} attendanceId={attendanceId} setManagerById ={setManagerById } handleOpen={handleOpen} handleOpenDel={handleOpenDel} />                            
+                            {console.log("getAllCredits------>", getAllCredits)}
+                            <Table columns={columns} rows={getAllCredits?.getAllCredits?.data} creditsId={creditsId} setManagerById={setManagerById}  handleOpen={handleOpen} handleOpenDel={handleOpenDel} />
                         </SoftBox>
                     </Card>
                 </SoftBox>
             </SoftBox>
             <Footer />
+
             <Modal
                 open={open}
                 onClose={handleClose}
@@ -136,20 +154,20 @@ function Bank() {
                                         <SoftInput
                                             type="text"
                                             placeholder="Enter The name"
-                                            name="userName"
-                                            value={attendanceId?.userName}
+                                            name="name"
+                                            value={creditsId?.name}
                                             onChange={handleInputChange} />
                                     </SoftBox>
                                 </Grid>
 
                                 <Grid item xs={6}>
                                     <SoftBox mb={2}>
-                                        <label style={{ fontSize: "15px" }}>Description</label>
+                                        <label style={{ fontSize: "15px" }}>Category</label>
                                         <SoftInput
                                             type="text"
-                                            placeholder="Description"
-                                            name="status"
-                                            value={attendanceId?.status}
+                                            placeholder="Category"
+                                            name="category"
+                                            value={creditsId?.category}
                                             onChange={handleInputChange} />
                                     </SoftBox>
                                 </Grid>
@@ -161,14 +179,65 @@ function Bank() {
                         variant="gradient"
                         color={sidenavColor}
                         fullWidth
-                        // onClick={handleSubmit}
+                        onClick={handleSubmit}
                     >
-                        Update Category
+                        Update Credits
                     </SoftButton>
+                </Box>
+            </Modal>
 
+            <Modal
+                open={openDel}
+                onClose={handleCloseDel}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box sx={style1}>
+                    <div
+                        style={{ display: "flex", justifyContent: "end", width: "100%" }}
+                    >
+                        <IoClose
+                            style={{
+                                backgroundColor: "#DEDBD7",
+                                padding: "3px",
+                                borderRadius: "2px",
+                            }}
+                            onClick={handleCloseDel}
+                        />
+                    </div>
+
+                    <p
+                        style={{
+                            textAlign: "center",
+                            marginTop: "20px",
+                            marginBottom: "20px",
+                        }}
+                    >
+                        Are you sure you want to delete this Category?
+                    </p>
+
+                    <div style={{ display: "flex", justifyContent: "center" }}>
+                        <SoftButton
+                            component="a"
+                            variant="gradient"
+                            color={"secondary"}
+                            onClick={handleCloseDel}
+                        >
+                            Cancel
+                        </SoftButton>
+                        <SoftButton
+                            component="a"
+                            variant="gradient"
+                            color={"error"}
+                            sx={{ marginLeft: "30px" }}
+                            onClick={deleteCredits}
+                        >
+                            Delete
+                        </SoftButton>
+                    </div>
                 </Box>
             </Modal>
         </DashboardLayout >
     );
 }
-export default Bank;
+export default Credits;

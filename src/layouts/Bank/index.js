@@ -20,13 +20,15 @@ import SoftInput from "components/SoftInput";
 import { IoClose } from "react-icons/io5";
 import { Grid} from "@mui/material";
 import { getAllBanksAction } from "store/Action/bankAction";
+import { updateBankAction } from "store/Action/bankAction";
+import { deleteBankAction } from "store/Action/bankAction";
 
 
 function Bank() {
     const [controller] = useSoftUIController();
     const { sidenavColor } = controller;
     const [open, setOpen] = useState(false);
-    const [attendanceId, setManagerById ] = useState({});
+    const [bankId, setManagerById ] = useState({});
     const [openDel, setOpenDel] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -41,10 +43,15 @@ function Bank() {
         console.log("Attendance Data:", getAllbanks);
     }, [getAllbanks]);
 
-    // const handleSubmit = () => {
-    //     dispatch(updateAttendanceAction(attendanceId?._id, attendanceId))
-    //     handleClose()
-    // }
+    const handleSubmit = () => {
+        dispatch(updateBankAction(bankId?._id, bankId))
+        handleClose()
+    }
+    
+    const deleteBank = () => {
+        dispatch(deleteBankAction(bankId?._id));
+        handleCloseDel();
+    };
 
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -54,7 +61,7 @@ function Bank() {
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setManagerById ({ ...attendanceId, [name]: value });
+        setManagerById ({ ...bankId, [name]: value });
     };
 
     const style = {
@@ -88,6 +95,8 @@ function Bank() {
         { name: "Type", align: "left", backname: "type" },
         { name: "Category", align: "left", backname: "category" },
         { name: "", align: "right", backname: "EditButtonNoz", width: "1px" },
+        { name: "", align: "right", backname: "delBtn", width: "1px" },
+
 
     ];
     return (
@@ -98,6 +107,16 @@ function Bank() {
                     <Card>
                         <SoftBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
                             <SoftTypography variant="h6">Bank list</SoftTypography>
+
+                            <SoftButton
+                                component="a"
+                                variant="gradient"
+                                color={sidenavColor}
+                                onClick={() => { navigate('/AddBank') }}
+                            >
+                                Add Bank
+                            </SoftButton>
+
                         </SoftBox>
                         <SoftBox
                             sx={{
@@ -110,7 +129,7 @@ function Bank() {
                             }}
                         >
                         {console.log("getALlBanks------>",getAllbanks)}
-                            <Table columns={columns} rows={getAllbanks?.getAllBanks?.data} attendanceId={attendanceId} setManagerById ={setManagerById } handleOpen={handleOpen} handleOpenDel={handleOpenDel} />                            
+                            <Table columns={columns} rows={getAllbanks?.getAllBanks?.data} bankId={bankId} setManagerById ={setManagerById } handleOpen={handleOpen} handleOpenDel={handleOpenDel} />                            
                         </SoftBox>
                     </Card>
                 </SoftBox>
@@ -137,20 +156,32 @@ function Bank() {
                                         <SoftInput
                                             type="text"
                                             placeholder="Enter The name"
-                                            name="userName"
-                                            value={attendanceId?.userName}
+                                            name="name"
+                                            value={bankId?.name}
                                             onChange={handleInputChange} />
                                     </SoftBox>
                                 </Grid>
 
                                 <Grid item xs={6}>
                                     <SoftBox mb={2}>
-                                        <label style={{ fontSize: "15px" }}>Description</label>
+                                        <label style={{ fontSize: "15px" }}>Type</label>
                                         <SoftInput
                                             type="text"
-                                            placeholder="Description"
-                                            name="status"
-                                            value={attendanceId?.status}
+                                            placeholder="Type"
+                                            name="type"
+                                            value={bankId?.type}
+                                            onChange={handleInputChange} />
+                                    </SoftBox>
+                                </Grid>
+
+                                <Grid item xs={6}>
+                                    <SoftBox mb={2}>
+                                        <label style={{ fontSize: "15px" }}>Category</label>
+                                        <SoftInput
+                                            type="text"
+                                            placeholder="Category"
+                                            name="category"
+                                            value={bankId?.category}
                                             onChange={handleInputChange} />
                                     </SoftBox>
                                 </Grid>
@@ -162,11 +193,63 @@ function Bank() {
                         variant="gradient"
                         color={sidenavColor}
                         fullWidth
-                        // onClick={handleSubmit}
+                        onClick={handleSubmit}
                     >
                         Update Category
                     </SoftButton>
 
+                </Box>
+            </Modal>
+
+            <Modal
+                open={openDel}
+                onClose={handleCloseDel}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box sx={style1}>
+                    <div
+                        style={{ display: "flex", justifyContent: "end", width: "100%" }}
+                    >
+                        <IoClose
+                            style={{
+                                backgroundColor: "#DEDBD7",
+                                padding: "3px",
+                                borderRadius: "2px",
+                            }}
+                            onClick={handleCloseDel}
+                        />
+                    </div>
+
+                    <p
+                        style={{
+                            textAlign: "center",
+                            marginTop: "20px",
+                            marginBottom: "20px",
+                        }}
+                    >
+                        Are you sure you want to delete this Category?
+                    </p>
+
+                    <div style={{ display: "flex", justifyContent: "center" }}>
+                        <SoftButton
+                            component="a"
+                            variant="gradient"
+                            color={"secondary"}
+                            onClick={handleCloseDel}
+                        >
+                            Cancel
+                        </SoftButton>
+                        <SoftButton
+                            component="a"
+                            variant="gradient"
+                            color={"error"}
+                            sx={{ marginLeft: "30px" }}
+                            onClick={deleteBank}
+                        >
+                            Delete
+                        </SoftButton>
+                    </div>
                 </Box>
             </Modal>
         </DashboardLayout >
