@@ -56,6 +56,7 @@ import { useNavigate } from "react-router-dom";
 import { categoryAddAction } from "store/Action/categoryAction";
 import { getAllPumpAction } from "store/Action/pumpAction";
 import { FormControl, MenuItem, Select } from "@mui/material";
+import { AddCreditAction } from "store/Action/creditsAction";
 // import { BsCloudArrowUpFill } from "react-icons/bs";
 
 
@@ -86,6 +87,7 @@ const AddCategory = () => {
     })
 
     console.log("categoryData", categoryData);
+    
     const handleChange = (e) => {
         const { name, value } = e.target;
         console.log("value", value);
@@ -96,7 +98,8 @@ const AddCategory = () => {
     };
 
     const handleSubmit = () => {
-        dispatch(categoryAddAction(categoryData));
+        dispatch(AddCreditAction(categoryData));
+        // console.log("data",categoryData);
     }
 
 
@@ -119,8 +122,8 @@ const AddCategory = () => {
                                     <Grid container spacing={1}>
                                         <Grid item xs={12}>
                                             <SoftBox mb={2}>
-                                                <label style={{ fontSize: "15px" }}>Title</label>
-                                                <SoftInput type="text" placeholder="Title" onChange={handleChange} name="title" value={categoryData.title} />
+                                                <label style={{ fontSize: "15px" }}>Name</label>
+                                                <SoftInput type="text" placeholder="Name" onChange={handleChange} name="name" value={categoryData.name} />
 
                                             </SoftBox>
                                         </Grid>
@@ -128,13 +131,13 @@ const AddCategory = () => {
                                     <Grid container spacing={1}>
                                         <Grid item xs={12}>
                                             <SoftBox mb={2}>
-                                                <label style={{ fontSize: "15px" }}>Description</label>
-                                                <SoftInput type="text" placeholder="Description" onChange={handleChange} name="description" value={categoryData.description} />
+                                                <label style={{ fontSize: "15px" }}>Category</label>
+                                                <SoftInput type="text" placeholder="Catagory" onChange={handleChange} name="category" value={categoryData.category} />
                                             </SoftBox>
                                         </Grid>
                                     </Grid>
 
-                                    <Grid container spacing={1}>
+                                    {/* <Grid container spacing={1}>
                                         <Grid item xs={12}>
                                             <SoftBox mb={2}>
                                                 <label style={{ fontSize: "15px" }}>Select Pump</label>
@@ -156,7 +159,7 @@ const AddCategory = () => {
                                                 </FormControl>
                                             </SoftBox>
                                         </Grid>
-                                    </Grid>
+                                    </Grid> */}
                                     <SoftButton
                                         component="a"
                                         variant="gradient"
