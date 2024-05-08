@@ -84,6 +84,7 @@ import CashFlow from "layouts/CashFLow";
 import AddCashFlow from "layouts/AddCashflow";
 import Credits from "layouts/Credits";
 import AddCredits from "layouts/AddCredits";
+import AddBank from "layouts/AddBank";
 
 
 const routes = [
@@ -301,6 +302,14 @@ const routes = [
     key: "addCredits",
     route: "/addCredits",
     component: <AddCredits />,
+    noCollapse: true,
+  },
+
+  {
+    name: "Create bank",
+    key: "addBank",
+    route: "/addBank",
+    component: <AddBank />,
     noCollapse: true,
   },
 
