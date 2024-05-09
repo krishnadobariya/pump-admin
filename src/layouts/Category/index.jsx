@@ -95,13 +95,16 @@ function Category() {
         p: 4,
         maxHeight: "80vh"
     };
+    
+
+   
 
     const columns = [
         { name: "Title", align: "left", backname: "title" },
         // { name: "Client Industry", align: "left", backname: "clientindustry" },
         { name: "Description", align: "left", backname: "description" },
         { name: "Pump Id", align: "center", backname: "pumpId" },
-        { name: "", align: "right", backname: "EditButtonCat", width: "1px" },
+        { name: "", align: "right", backname: "EditButtonNoz", width: "1px"  },
         { name: "", align: "right", backname: "delBtn", width: "1px" }
     ];
 
@@ -256,7 +259,6 @@ function Category() {
                             color={"error"}
                             sx={{ marginLeft: "30px" }}
                             onClick={deleteCategory}>
-
                             Delete
                         </SoftButton>
                     </div>

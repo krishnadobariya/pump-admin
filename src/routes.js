@@ -51,6 +51,13 @@ import Settings from "examples/Icons/Settings";
 import Document from "examples/Icons/Document";
 import SpaceShip from "examples/Icons/SpaceShip";
 import CustomerSupport from "examples/Icons/CustomerSupport";
+import LocalGasStationIcon from '@mui/icons-material/LocalGasStation';
+import CategoryIcon from '@mui/icons-material/Category';
+import ShowChartIcon from '@mui/icons-material/ShowChart';
+import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
+import CreditScoreIcon from '@mui/icons-material/CreditScore';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
 
 import CreditCard from "examples/Icons/CreditCard";
 import Cube from "examples/Icons/Cube";
@@ -123,7 +130,7 @@ const routes = [
     name: "Pump",
     key: "pump",
     route: "/pump",
-    icon: <CustomerSupport size="12px" />,
+    icon: <LocalGasStationIcon size="12px" />,
     component: <Pump />,
     noCollapse: true,
   },
@@ -133,7 +140,7 @@ const routes = [
     name: "Category",
     key: "category",
     route: "/category",
-    icon: <CustomerSupport size="12px" />,
+    icon: <CategoryIcon size="12px" />,
     component: <Category />,
     noCollapse: true,
   },
@@ -151,7 +158,7 @@ const routes = [
     name: "Stock",
     key: "stock",
     route: "/stock",
-    icon: <SpaceShip size="12px" />,
+    icon: <ShowChartIcon size="12px" />,
     component: <Stock />,
     noCollapse: true,
   },
@@ -171,7 +178,7 @@ const routes = [
     name: "Attendance",
     key: "attendance",
     route: "/attendance",
-    icon: <Cube size="12px" />,
+    icon: <AssignmentTurnedInIcon size="12px" />,
     component: <Attendance />,
     noCollapse: true,
   },
@@ -192,7 +199,7 @@ const routes = [
     name: "Bank",
     key: "bank",
     route: "/bank",
-    icon: <Document size="12px" />,
+    icon: <AccountBalanceIcon size="12px" />,
     component: <Bank />,
     noCollapse: true,
   },
@@ -203,7 +210,7 @@ const routes = [
     name: "CashFlow",
     key: "cashFlow",
     route: "/cashFlow",
-    icon: <Document size="12px" />,
+    icon: <AttachMoneyIcon size="12px" />,
     component: <CashFlow />,
     noCollapse: true,
   },
@@ -213,7 +220,7 @@ const routes = [
     name: "Credits",
     key: "credits",
     route: "/credits",
-    icon: <Document size="12px" />,
+    icon: <CreditScoreIcon size="12px" />,
     component: <Credits />,
     noCollapse: true,
   },
