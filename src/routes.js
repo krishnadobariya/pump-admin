@@ -92,6 +92,10 @@ import AddCashFlow from "layouts/AddCashflow";
 import Credits from "layouts/Credits";
 import AddCredits from "layouts/AddCredits";
 import AddBank from "layouts/AddBank";
+import Transaction from "layouts/Transaction";
+import AddTrasaction from "layouts/AddTransaction";
+
+
 
 
 const routes = [
@@ -225,6 +229,17 @@ const routes = [
     noCollapse: true,
   },
   
+  {
+    type: "collapse",
+    name: "Transaction",
+    key: "transaction",
+    route: "/transaction",
+    icon: <Document size="12px" />,
+    component: < Transaction/>,
+    noCollapse: true,
+  },
+
+  
   // { type: "title", title: "Account Pages", key: "account-pages" },
   // {
   //   type: "collapse",
@@ -317,6 +332,14 @@ const routes = [
     key: "addBank",
     route: "/addBank",
     component: <AddBank />,
+    noCollapse: true,
+  },
+
+  {
+    name: "Create transaction",
+    key: "addtransaction",
+    route: "/addtransaction",
+    component: <AddTrasaction />,
     noCollapse: true,
   },
 
