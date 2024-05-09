@@ -44,14 +44,13 @@ export const getAllExpensesAction = (payload) => {
     }
 }
 
-
 export const updateExpensesAction = (expenseId, updatedData) => {
     return async (dispatch) => {
         try {
             await axios.put(`${process.env.REACT_APP_BASE_URL}api/Expenses/v1/update-expense/${expenseId}`, updatedData, {
-                // headers: {
-                //     'Authorization': localStorage.getItem('token'),
-                // }
+                headers: {
+                    'Authorization': localStorage.getItem('token'),
+                }
             }).then((res) => {
                 toast.success('Expenses Updated Successfully');
                 dispatch(getAllExpenses())

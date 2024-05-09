@@ -85,9 +85,7 @@ const AddCategory = () => {
         category: "" 
 
     })
-
     console.log("categoryData", categoryData);
-    
     const handleChange = (e) => {
         const { name, value } = e.target;
         console.log("value", value);
@@ -96,19 +94,14 @@ const AddCategory = () => {
             [name]: value
         });
     };
-
     const handleSubmit = () => {
         dispatch(AddCreditAction(categoryData));
         // console.log("data",categoryData);
     }
-
-
     const pumpList = useSelector(state => state.pump);
     useEffect(() => {
         dispatch(getAllPumpAction())
     }, []);
-
-
     return (
         <DashboardLayout>
             <DashboardNavbar />
@@ -170,10 +163,7 @@ const AddCategory = () => {
                                         Submit
                                     </SoftButton>
                                 </div>
-
                             </Card>
-
-
                         </Grid>
                     </Grid>
                 </SoftBox>
