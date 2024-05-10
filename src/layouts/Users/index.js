@@ -41,6 +41,8 @@ function User() {
   
     
   const getAllUsers = useSelector((state) => state.users);
+  console.log("getAllUsers",getAllUsers);
+
 
   useEffect(() => {
     dispatch(getAllUsersAction()); 

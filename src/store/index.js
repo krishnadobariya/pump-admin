@@ -29,6 +29,7 @@ const rootReducer = combineReducers({
   cashFlow: cashFlowReducer,
   credits: creditsReducer,
   transaction: transactionReducer,
+  
 
 })
 

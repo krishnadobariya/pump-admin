@@ -18,7 +18,7 @@ import { IoClose } from "react-icons/io5";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { getAllUsersAction } from "store/Action/userAction";
+import { getAllEmployeeAction } from "store/Action/userAction";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
@@ -27,8 +27,8 @@ import projectsTableData from "layouts/tables/data/projectsTableData";
 import { useSoftUIController } from "context";
 
 function Employ() {
-    const [managerById, setManagerById] = useState({});
-    const dispatch = useDispatch();
+  const [mangerById, setManagerById] = useState();
+  const dispatch = useDispatch();
     const navigate = useNavigate();
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
@@ -40,10 +40,11 @@ function Employ() {
 
   
     
-  const getAllUsers = useSelector((state) => state.users);
+  const getAllEmployee = useSelector((state) => state.users);
+  console.log("gettttttt",getAllEmployee);
 
   useEffect(() => {
-    dispatch(getAllUsersAction()); 
+    dispatch(getAllEmployeeAction()); 
   }, [dispatch]);
 
 
@@ -64,7 +65,7 @@ function Employ() {
         <SoftBox mb={3}>
           <Card>
             <SoftBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
-              <SoftTypography variant="h6">Employ list</SoftTypography>
+              <SoftTypography variant="h6">Employee list</SoftTypography>
             </SoftBox>
             <SoftBox
               sx={{
@@ -76,7 +77,7 @@ function Employ() {
                 },
               }}
             >
-              <Table columns={columns} rows={getAllUsers?.getAllUsers?.data} setManagerById={setManagerById} handleOpen={handleOpen} handleOpenDel={handleOpenDel} />
+              <Table columns={columns} rows={getAllEmployee?.data?.data}  mangerById={mangerById} setManagerById={setManagerById}  handleOpen={handleOpen} handleOpenDel={handleOpenDel} />
             </SoftBox>
           </Card>
         </SoftBox>
