@@ -58,6 +58,7 @@ import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import CreditScoreIcon from '@mui/icons-material/CreditScore';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
+import BadgeIcon from '@mui/icons-material/Badge';
 
 import CreditCard from "examples/Icons/CreditCard";
 import Cube from "examples/Icons/Cube";
@@ -94,6 +95,7 @@ import AddCredits from "layouts/AddCredits";
 import AddBank from "layouts/AddBank";
 import Transaction from "layouts/Transaction";
 import AddTrasaction from "layouts/AddTransaction";
+import Employ from "layouts/Employe";
 
 
 
@@ -124,6 +126,15 @@ const routes = [
     route: "/user",
     icon: <CustomerSupport size="12px" />,
     component: <Users />,
+    noCollapse: true,
+  },
+  {
+    type: "collapse",
+    name: "Employ",
+    key: "employ",
+    route: "/employ",
+    icon: <BadgeIcon size="12px" />,
+    component: <Employ />,
     noCollapse: true,
   },
 

@@ -40,10 +40,10 @@ import SoftButton from "components/SoftButton";
 import { useSoftUIController } from "context";
 import { useNavigate } from "react-router-dom";
 import { MdAutoDelete } from "react-icons/md";
-import { FaEdit } from "react-icons/fa";
+import { FaDownload, FaEdit } from "react-icons/fa";
 
 
-function Table({ columns, rows, mangerById, setManagerById, handleOpen, handleOpenDel }) {
+function Table({ columns, rows, mangerById, setManagerById, handleOpenDown,handleOpen, handleOpenDel }) {
   const { light } = colors;
   const { size, fontWeightBold } = typography;
   const { borderWidth } = borders;
@@ -189,6 +189,32 @@ function Table({ columns, rows, mangerById, setManagerById, handleOpen, handleOp
 
               {/* <Icon sx={{ fontWeight: "bold" }}>arrow_forward</Icon> */}
             </SoftButton>    </SoftBox>}
+
+            {backname == "DownloadButton" &&
+
+          <SoftBox
+            key={uuidv4()}
+            component="td"
+            p={1}
+            width={width}
+            textAlign={align}
+            borderBottom={row.hasBorder ? `${borderWidth[1]} solid ${light.main}` : null}
+          >
+            <SoftButton
+              component="a"
+              variant="gradient"
+              color={"success"}
+              sx={{ margin: "1px" }}
+              onClick={() => {
+                handleOpenDown(); setManagerById(row)
+              }}
+
+            >
+              <FaDownload />
+
+
+              {/* <Icon sx={{ fontWeight: "bold" }}>arrow_forward</Icon> */}
+            </SoftButton>    </SoftBox>}
         {backname == "delBtn" &&
 
           <SoftBox
@@ -240,7 +266,7 @@ function Table({ columns, rows, mangerById, setManagerById, handleOpen, handleOp
             </SoftButton>    </SoftBox>}
 
 
-        {(backname != "ViewButton" && backname != "EditButtonNoz" && backname != "delBtn" && backname != "EditButtonCat" && backname != "EditButton") &&
+        {(backname != "ViewButton" && backname != "EditButtonNoz" && backname != "delBtn" && backname != "EditButtonCat" && backname != "EditButton" && backname !="DownloadButton") &&
           <SoftBox
             key={uuidv4()}
             component="td"

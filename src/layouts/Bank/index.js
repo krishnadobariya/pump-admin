@@ -22,14 +22,19 @@ import { Grid} from "@mui/material";
 import { getAllBanksAction } from "store/Action/bankAction";
 import { updateBankAction } from "store/Action/bankAction";
 import { deleteBankAction } from "store/Action/bankAction";
+import { getAllPdfAction } from "store/Action/bankAction";
+import { getPdfAction } from "store/Action/bankAction";
 
 
 function Bank() {
     const [controller] = useSoftUIController();
     const { sidenavColor } = controller;
+    const [openDown, setOpenDown] = useState(false);
     const [open, setOpen] = useState(false);
     const [bankId, setManagerById ] = useState({});
+    console.log("bankId>>>",bankId)
     const [openDel, setOpenDel] = useState(false);
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const getAllbanks = useSelector((state) => state.banks);
@@ -53,6 +58,14 @@ function Bank() {
         handleCloseDel();
     };
 
+    const DownloadPdf = () => {
+        dispatch(getPdfAction(bankId?._id));
+        console.log("getpff", getPdfAction);
+        handleCloseDown();
+    };
+
+    const handleOpenDown = () => setOpenDown(true);
+    const handleCloseDown = () => setOpenDown(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const handleOpenDel = () => setOpenDel(true);
@@ -90,12 +103,26 @@ function Bank() {
         maxHeight: "80vh"
     };
 
+    const style2 = {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 600,
+        borderRadius: "10px",
+        bgcolor: 'background.paper',
+        boxShadow: 24,
+        p: 4,
+        maxHeight: "80vh"
+    };
+
     const columns = [
         { name: "Name", align: "left", backname: "name" },
         { name: "Type", align: "left", backname: "type" },
         { name: "Category", align: "left", backname: "category" },
         { name: "", align: "right", backname: "EditButtonNoz", width: "1px" },
         { name: "", align: "right", backname: "delBtn", width: "1px" },
+        { name: "", align: "right", backname: "DownloadButton", width: "1px" },
 
 
     ];
@@ -129,12 +156,85 @@ function Bank() {
                             }}
                         >
                         {console.log("getALlBanks------>",getAllbanks)}
-                            <Table columns={columns} rows={getAllbanks?.getAllBanks?.data} bankId={bankId} setManagerById ={setManagerById } handleOpen={handleOpen} handleOpenDel={handleOpenDel} />                            
+                            <Table columns={columns} rows={getAllbanks?.getAllBanks?.data} bankId={bankId} setManagerById ={setManagerById} handleOpenDown={handleOpenDown} handleOpen={handleOpen} handleOpenDel={handleOpenDel}  />                            
                         </SoftBox>
                     </Card>
                 </SoftBox>
             </SoftBox>
             <Footer />
+
+            <Modal
+                open={openDown}
+                onClose={handleCloseDown}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box sx={style2}>
+                    <div
+                        style={{ display: "flex", justifyContent: "end", width: "100%" }}
+                    >
+                        <IoClose
+                            style={{
+                                backgroundColor: "#DEDBD7",
+                                padding: "3px",
+                                borderRadius: "2px",
+                            }}
+                            onClick={handleCloseDown}
+                        />
+                    </div>
+                    <Grid container spacing={2} sx={{ marginTop: "10px" }}>
+                        <Grid item xs={12}>
+                            <Grid container spacing={2} px={2}>
+                                <Grid item xs={6}>
+                                    <SoftBox mb={2}>
+                                        <label style={{ fontSize: "15px" }}>From Date</label>
+                                        <SoftInput
+                                            type="date"
+                                            // placeholder="Enter The "
+                                            name="fromDate"
+                                            value={bankId?.fromDate}
+                                            onChange={handleInputChange} />
+                                    </SoftBox>
+                                </Grid>
+
+                                <Grid item xs={6}>
+                                    <SoftBox mb={2}>
+                                        <label style={{ fontSize: "15px" }}>To Date</label>
+                                        <SoftInput
+                                            type="date"
+                                            // placeholder="Type"
+                                            name="toDate"
+                                            value={bankId?.toDate}
+                                            onChange={handleInputChange} />
+                                    </SoftBox>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+
+                    </Grid>
+
+                    <div style={{ display: "flex", justifyContent: "center" }}>
+                        <SoftButton
+                            component="a"
+                            variant="gradient"
+                            color={"secondary"}
+                            onClick={handleCloseDown}
+                        >
+                            Cancel
+                        </SoftButton>
+                        <SoftButton
+                            component="a"
+                            variant="gradient"
+                            color={"error"}
+                            sx={{ marginLeft: "30px" }}
+                            onClick={DownloadPdf}
+                        >
+                            Download
+                        </SoftButton>
+                    </div>
+                </Box>
+            </Modal>
+
             <Modal
                 open={open}
                 onClose={handleClose}
@@ -252,6 +352,8 @@ function Bank() {
                     </div>
                 </Box>
             </Modal>
+
+
         </DashboardLayout >
     );
 }
