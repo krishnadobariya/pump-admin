@@ -73,7 +73,7 @@ const style = {
 };
 
 
-const AddCategory = () => {
+const AddCredits = () => {
     const [controller] = useSoftUIController();
     const { miniSidenav, sidenavColor } = controller;
     const navigate = useNavigate()
@@ -183,4 +183,4 @@ const AddCategory = () => {
     );
 }
 
-export default AddCategory;
+export default AddCredits;

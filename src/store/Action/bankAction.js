@@ -58,8 +58,8 @@ export const updateBankAction = (bankId, updatedData) => {
                 //     'Authorization': localStorage.getItem('token'),
                 // }
             }).then((res) => {
-                toast.success('Credits Updated Successfully');
-                dispatch(getAllBank())
+                toast.success('Bank Updated Successfully');
+                dispatch(getAllBanksAction())
                 dispatch(updatesBank(res));
             }).catch((error) => {
                 console.log(error);

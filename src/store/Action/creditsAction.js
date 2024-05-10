@@ -56,7 +56,7 @@ export const updateCreditsAction = (creditsId, updatedData) => {
                 // }
             }).then((res) => {
                 toast.success('Credits Updated Successfully');
-                dispatch(getAllCredits())
+                dispatch(getAllCreditsAction())
                 dispatch(updateCredits(res));
             }).catch((error) => {
                 console.log(error);

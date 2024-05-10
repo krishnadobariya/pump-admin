@@ -2,16 +2,16 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 export const GET_ALL_TRANSACTION = "GET_ALL_TRANSACTION";
-// export const UPDATE_CREDITS = "UPDATE_CREDITS";
-// export const  DELETE_CREDITS = "DELETE_CREDITS";
+export const UPDATE_TRANSACTION = "UPDATE_TRANSACTION";
+export const  DELETE_TRANSACTION = "DELETE_TRANSACTION";
 export const  ADD_TRANSACTION = "ADD_TRANSACTION";
 
 
 
 
 const getAllTransaction = (payload) => ({ type: GET_ALL_TRANSACTION, payload: payload.data });
-// const updateCredits = (payload) => ({ type: UPDATE_CREDITS, payload: payload.data });
-// const deleteCredits = (payload) => ({ type: DELETE_CREDITS, payload: payload.data });
+const updateTransaction = (payload) => ({ type: UPDATE_TRANSACTION, payload: payload.data });
+const deleteTransaction = (payload) => ({ type: DELETE_TRANSACTION, payload: payload.data });
 const transactionAdd = (payload) => ({ type: ADD_TRANSACTION, payload: payload.data });
 
 
@@ -47,64 +47,49 @@ export const AddTransactionAction = (payload) => {
     }
 }
 
-// export const AddCreditAction = (payload) => {
-//     return async (dispatch) => {
-//         try {
-//             await axios.post(`${process.env.REACT_APP_BASE_URL}api/Credits/v1/create-credits`, payload).then((res) => {
-//                 toast.success('Credits Add successfully');
-//                 dispatch(creditAdd(res));
-//             }).catch((error) => {
-//                 toast.error(error?.response?.data?.message)
-//                 dispatch(creditAdd(error?.response))
-//             });
-//         } catch (error) {
-//             console.log("Error::::", error);
-//         }
-//     }
-// }
 
-// export const updateCreditsAction = (creditsId, updatedData) => {
-//     return async (dispatch) => {
-//         try {
-//             await axios.put(`${process.env.REACT_APP_BASE_URL}api/Credits/v1/update-credits/${creditsId}`, updatedData, {
-//                 // headers: {
-//                 //     'Authorization': localStorage.getItem('token'),
-//                 // }
-//             }).then((res) => {
-//                 toast.success('Credits Updated Successfully');
-//                 dispatch(getAllCredits())
-//                 dispatch(updateCredits(res));
-//             }).catch((error) => {
-//                 console.log(error);
-//                 toast.error(error?.response?.data?.message)
-//                 dispatch(updateCredits(error?.response));
-//             });
-//         } catch (error) {
-//             console.log("Error::::", error);
-//         }
-//     };
-// };
+export const updateTransactionAction = (transactionId, updatedData) => {
+    return async (dispatch) => {
+        try {
+            await axios.put(`${process.env.REACT_APP_BASE_URL}api/Transaction/v1/updateTransaction/${transactionId}`, updatedData, {
+                // headers: {
+                //     'Authorization': localStorage.getItem('token'),
+                // }
+            }).then((res) => {
+                toast.success('Transaction Updated Successfully');
+                dispatch(getAllTransactionAction())
+                dispatch(updateTransaction(res));
+            }).catch((error) => {
+                console.log(error);
+                toast.error(error?.response?.data?.message)
+                dispatch(updateTransaction(error?.response));
+            });
+        } catch (error) {
+            console.log("Error::::", error);
+        }
+    };
+};
 
 
-// export const deleteCreditsAction = (creditsId) => {
-//     return async (dispatch) => {
-//         try {
-//             // Update the URL and use axios.put for updating data
-//             await axios.delete(`${process.env.REACT_APP_BASE_URL}api/Credits/v1/deleteCredits/${creditsId}`, {
-//                 // headers: {
-//                 //     'Authorization': localStorage.getItem('token'),
-//                 // }
-//             }).then((res) => {
-//                 toast.success('credits Delete Successfully');
-//                 dispatch(getAllCreditsAction())
-//                 dispatch(deleteCredits(res));
-//             }).catch((error) => {
-//                 console.log(error);
-//                 toast.error(error?.response?.data?.message)
-//                 dispatch(deleteCredits(error?.response));
-//             });
-//         } catch (error) {
-//             console.log("Error::::", error);
-//         }
-//     };
-// };
+export const deleteTransactionAction = (transactionId) => {
+    return async (dispatch) => {
+        try {
+            // Update the URL and use axios.put for updating data
+            await axios.delete(`${process.env.REACT_APP_BASE_URL}api/Transaction/v1/deleteTransaction/${transactionId}`, {
+                // headers: {
+                //     'Authorization': localStorage.getItem('token'),
+                // }
+            }).then((res) => {
+                toast.success('Transaction Delete Successfully');
+                dispatch(getAllTransactionAction())
+                dispatch(deleteTransaction(res));
+            }).catch((error) => {
+                console.log(error);
+                toast.error(error?.response?.data?.message)
+                dispatch(deleteTransaction(error?.response));
+            });
+        } catch (error) {
+            console.log("Error::::", error);
+        }
+    };
+};

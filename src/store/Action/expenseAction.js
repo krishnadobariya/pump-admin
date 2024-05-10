@@ -53,7 +53,7 @@ export const updateExpensesAction = (expenseId, updatedData) => {
                 }
             }).then((res) => {
                 toast.success('Expenses Updated Successfully');
-                dispatch(getAllExpenses())
+                dispatch(getAllExpensesAction())
                 dispatch(updateExpenses(res));
             }).catch((error) => {
                 console.log(error);

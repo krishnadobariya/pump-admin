@@ -34,7 +34,7 @@ export const updateAttendanceAction = (attendanceId, updatedData) => {
                 // }
             }).then((res) => {
                 toast.success('Attendance Updated Successfully');
-                dispatch(getAttendance())
+                dispatch(getAllAttendanceAction())
                 dispatch(updateAttendance(res));
             }).catch((error) => {
                 console.log(error);

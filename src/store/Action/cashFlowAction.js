@@ -77,7 +77,7 @@ export const updateCashFlowAction = (cashFlowId, updatedData) => {
               // }
           }).then((res) => {
               toast.success('Attendance Updated Successfully');
-              dispatch(getAllCashflow())
+              dispatch(getAllCashFlowAction())
               dispatch(updateCashflow(res));
           }).catch((error) => {
               console.log(error);

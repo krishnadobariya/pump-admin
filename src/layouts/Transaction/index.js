@@ -21,6 +21,8 @@ import { IoClose } from "react-icons/io5";
 import { Grid } from "@mui/material";
 // import { getAllCreditsAction, updateCreditsAction, deleteCreditsAction } from "store/Action/creditsAction";
 import { getAllTransactionAction } from "store/Action/transactionAction";
+import { updateTransactionAction } from "store/Action/transactionAction";
+import { deleteTransactionAction } from "store/Action/transactionAction";
 
 
 
@@ -47,22 +49,22 @@ function Transaction() {
 
 
     useEffect(() => {
-        console.log("transaction Data:", getAllTransaction);
+        console.log("transaction Data:", transactionId);
     }, [getAllTransaction]);
     
-    // const handleSubmit = () => {
-    //     dispatch(updateCreditsAction(creditsId?._id, creditsId));
-    //     handleClose()
-    // }
-    // const handleInputChange = (e) => {
-    //     const { name, value } = e.target;
-    //     setManagerById({ ...creditsId, [name]: value });
-    // };
+    const handleSubmit = () => {
+        dispatch(updateTransactionAction(transactionId?._id, transactionId));
+        handleClose()
+    }
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setManagerById({ ...transactionId, [name]: value });
+    };
 
-    // const deleteCredits = () => {
-    //     dispatch(deleteCreditsAction(creditsId?._id));
-    //     handleCloseDel();
-    // };
+    const deleteTransaction = () => {
+        dispatch(deleteTransactionAction(transactionId?._id));
+        handleCloseDel();
+    };
 
     const style = {
         position: 'absolute',
@@ -95,8 +97,8 @@ function Transaction() {
         { name: "Transaction_title", align: "left", backname: "transaction_title" },
         { name: "Amount", align: "left", backname: "amount" },
         { name: "Type", align: "left", backname: "type" },
-        // { name: "", align: "right", backname: "EditButtonNoz", width: "1px" },
-        // { name: "", align: "right", backname: "delBtn", width: "1px" }
+        { name: "", align: "right", backname: "EditButtonNoz", width: "1px" },
+        { name: "", align: "right", backname: "delBtn", width: "1px" }
 
     ];
     return (
@@ -135,7 +137,7 @@ function Transaction() {
                 </SoftBox>
             </SoftBox>
             <Footer />
-{/* 
+
             <Modal
                 open={open}
                 onClose={handleClose}
@@ -157,20 +159,44 @@ function Transaction() {
                                         <SoftInput
                                             type="text"
                                             placeholder="Enter The name"
-                                            name="name"
-                                            value={creditsId?.name}
+                                            name="customerName"
+                                            value={transactionId?.customerName}
                                             onChange={handleInputChange} />
                                     </SoftBox>
                                 </Grid>
 
                                 <Grid item xs={6}>
                                     <SoftBox mb={2}>
-                                        <label style={{ fontSize: "15px" }}>Category</label>
+                                        <label style={{ fontSize: "15px" }}>Transaction_title</label>
                                         <SoftInput
                                             type="text"
                                             placeholder="Category"
-                                            name="category"
-                                            value={creditsId?.category}
+                                            name="transaction_title"
+                                            value={transactionId?.transaction_title}
+                                            onChange={handleInputChange} />
+                                    </SoftBox>
+                                </Grid>
+
+                                <Grid item xs={6}>
+                                    <SoftBox mb={2}>
+                                        <label style={{ fontSize: "15px" }}>Amount</label>
+                                        <SoftInput
+                                            type="text"
+                                            placeholder="Category"
+                                            name="amount"
+                                            value={transactionId?.amount}
+                                            onChange={handleInputChange} />
+                                    </SoftBox>
+                                </Grid>
+
+                                <Grid item xs={6}>
+                                    <SoftBox mb={2}>
+                                        <label style={{ fontSize: "15px" }}>Type</label>
+                                        <SoftInput
+                                            type="text"
+                                            placeholder="Category"
+                                            name="type"
+                                            value={transactionId?.type}
                                             onChange={handleInputChange} />
                                     </SoftBox>
                                 </Grid>
@@ -187,9 +213,9 @@ function Transaction() {
                         Update Credits
                     </SoftButton>
                 </Box>
-            </Modal> */}
+            </Modal>
 
-            {/* <Modal
+            <Modal
                 open={openDel}
                 onClose={handleCloseDel}
                 aria-labelledby="modal-modal-title"
@@ -233,13 +259,13 @@ function Transaction() {
                             variant="gradient"
                             color={"error"}
                             sx={{ marginLeft: "30px" }}
-                            onClick={deleteCredits}
+                            onClick={deleteTransaction}
                         >
                             Delete
                         </SoftButton>
                     </div>
                 </Box>
-            </Modal> */}
+            </Modal>
         </DashboardLayout >
     );
 }
