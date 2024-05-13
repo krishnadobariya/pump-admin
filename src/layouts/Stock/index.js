@@ -49,6 +49,7 @@ import { IoClose } from "react-icons/io5";
 import { getAllCategoryAction } from "store/Action/categoryAction";
 import { updateCategoryAction } from "store/Action/categoryAction";
 import { getAllStockAction } from "store/Action/stockAction";
+import { updateStockAction } from "store/Action/stockAction";
 
 
 
@@ -77,10 +78,10 @@ function Stock() {
     }, [dispatch])
 
 
-    // const handleSubmit = () => {
-    //     dispatch(updateNozzlesAction(mangerById?._id, mangerById))
-    //     handleClose()
-    // }
+    const handleSubmit = () => {
+        dispatch(updateStockAction(mangerById?._id, mangerById))
+        handleClose()
+    }
 
 
     console.log("mangerByIdmangerByIdmangerById", mangerById);
@@ -124,10 +125,10 @@ function Stock() {
 
     ];
 
-    // const deleteNozzles = () => {
-    //     dispatch(deleteNozzlesAction(mangerById?._id))
-    //     handleCloseDel()
-    // }
+    const deleteStock = () => {
+        // dispatch(deleteNozzlesAction(mangerById?._id))
+        handleCloseDel()
+    }
     const pumpList = useSelector(state => state.pump);
     useEffect(() => {
         dispatch(getAllPumpAction())
@@ -346,14 +347,14 @@ function Stock() {
                         </Grid>
 
                     </Grid>
-                    {/* <SoftButton
+                    <SoftButton
                         variant="gradient"
                         color={sidenavColor}
                         fullWidth
                         onClick={handleSubmit}
                     >
-                        Update Nozzles
-                    </SoftButton> */}
+                        Update Stocks
+                    </SoftButton>
 
                 </Box>
             </Modal>
@@ -374,7 +375,7 @@ function Stock() {
                         Are you sure you want to delete this Nozzles?
                     </p>
 
-                    {/* <div style={{ display: "flex", justifyContent: "center" }}>
+                    <div style={{ display: "flex", justifyContent: "center" }}>
                         <SoftButton component='a'
                             variant="gradient"
                             color={"secondary"}
@@ -385,11 +386,11 @@ function Stock() {
                             variant="gradient"
                             color={"error"}
                             sx={{ marginLeft: "30px" }}
-                            onClick={deleteNozzles}>
+                            onClick={deleteStock}>
 
                             Delete
                         </SoftButton>
-                    </div> */}
+                    </div>
 
                 </Box>
             </Modal>

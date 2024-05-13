@@ -3,8 +3,8 @@ import { toast } from "react-toastify";
 
 export const GET_ALL_CREDITS = "GET_ALL_CREDITS";
 export const UPDATE_CREDITS = "UPDATE_CREDITS";
-export const  DELETE_CREDITS = "DELETE_CREDITS";
-export const  ADD_CREDITS = "ADD_CREDITS";
+export const DELETE_CREDITS = "DELETE_CREDITS";
+export const ADD_CREDITS = "ADD_CREDITS";
 
 
 
@@ -33,12 +33,27 @@ export const getAllCreditsAction = (payload) => {
 
 export const AddCreditAction = (payload) => {
     return async (dispatch) => {
+        const requiredFields = ['name', 'category'];
+        const emptyFields = requiredFields.filter(field => !payload[field]);
+
+        if (emptyFields.length > 0) {
+            // toast.error(`Please fill in the following fields: ${emptyFields.join(', ')}`);
+            toast.error("Please fill in the following fields!!!");
+            return;
+        }
+
         try {
             await axios.post(`${process.env.REACT_APP_BASE_URL}api/Credits/v1/create-credits`, payload).then((res) => {
                 toast.success('Credits Add successfully');
                 dispatch(creditAdd(res));
             }).catch((error) => {
-                toast.error(error?.response?.data?.message)
+                if (error.response) {
+                    toast.error(error.response.data.message || 'An error occurred');
+                } else if (error.request) {
+                    toast.error('No response received from the server');
+                } else {
+                    toast.error('An error occurred while sending the request');
+                }
                 dispatch(creditAdd(error?.response))
             });
         } catch (error) {

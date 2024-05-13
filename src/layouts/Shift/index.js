@@ -23,6 +23,7 @@ import { Grid } from "@mui/material";
 import { updateShiftAction } from "store/Action/shiftAction";
 import { getAllShiftAction } from "store/Action/shiftAction";
 import { deleteShiftAction } from "store/Action/shiftAction";
+import { getShiftPdfAction } from "store/Action/shiftAction";
 
 
 
@@ -64,8 +65,7 @@ function Shift() {
     };
 
     const DownloadPdf = () => {
-        // dispatch(getNozzlePdfAction(mangerById?._id));
-        // console.log("getpff", mangerById);
+        dispatch(getShiftPdfAction(shiftId?._id));
         handleCloseDown();
     }
 
@@ -175,22 +175,11 @@ function Shift() {
                                         <SoftInput
                                             type="date"
                                             name="fromDate"
-                                            value={shiftId?.fromDate}
+                                            value={shiftId?.date}
                                             onChange={handleInputChange} />
                                     </SoftBox>
                                 </Grid>
 
-                                <Grid item xs={6}>
-                                    <SoftBox mb={2}>
-                                        <label style={{ fontSize: "15px" }}>To Date</label>
-                                        <SoftInput
-                                            type="date"
-                                            // placeholder="Type"
-                                            name="toDate"
-                                            value={shiftId?.toDate}
-                                            onChange={handleInputChange} />
-                                    </SoftBox>
-                                </Grid>
                             </Grid>
                         </Grid>
 

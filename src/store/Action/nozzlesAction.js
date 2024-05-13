@@ -16,12 +16,27 @@ const deleteNozzles = (payload) => ({ type: DELTE_NOZZLES, payload: payload.data
 
 export const nozzlesAddAction = (payload) => {
     return async (dispatch) => {
+        const requiredFields = ['numberOfNozzles', 'categoryId','description','pumpId'];
+        const emptyFields = requiredFields.filter(field => !payload[field]);
+
+        if (emptyFields.length > 0) {
+            // toast.error(`Please fill in the following fields: ${emptyFields.join(', ')}`);
+            toast.error("Please fill in the following fields!!!");
+            return;
+        }
+
         try {
             await axios.post(`${process.env.REACT_APP_BASE_URL}api/nozzles/v1/create`, payload).then((res) => {
                 toast.success('Nozzles Add successfully');
                 dispatch(nozzlesAdd(res));
             }).catch((error) => {
-                toast.error(error?.response?.data?.message)
+                if (error.response) {
+                    toast.error(error.response.data.message || 'An error occurred');
+                } else if (error.request) {
+                    toast.error('No response received from the server');
+                } else {
+                    toast.error('An error occurred while sending the request');
+                } 
                 dispatch(nozzlesAdd(error?.response))
             });
         } catch (error) {
@@ -34,7 +49,7 @@ export const getAllNozzlesAction = (payload) => {
         try {
             await axios.get(`${process.env.REACT_APP_BASE_URL}api/nozzles/v1/getAll`).then((res) => {
                 dispatch(getAllNozzles(res));
-                console.log("resssssssssss",res);
+                console.log("resssssssssss", res);
             }).catch((error) => {
                 toast.error(error?.response?.data?.message)
                 dispatch(getAllNozzles(error?.response))

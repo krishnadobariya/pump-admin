@@ -14,12 +14,26 @@ const deleteCategory = (payload) => ({ type: DELTE_CATEGORY, payload: payload.da
 
 export const categoryAddAction = (payload) => {
     return async (dispatch) => {
+        const requiredFields = ['title', 'description', 'pumpId'];
+        const emptyFields = requiredFields.filter(field => !payload[field]);
+
+        if (emptyFields.length > 0) {
+            // toast.error(`Please fill in the following fields: ${emptyFields.join(', ')}`);
+            toast.error("Please fill in the following fields!!!");
+            return;
+        }
         try {
             await axios.post(`${process.env.REACT_APP_BASE_URL}api/categories/v1/create`, payload).then((res) => {
                 toast.success('Category Add successfully');
                 dispatch(categoryAdd(res));
             }).catch((error) => {
-                toast.error(error?.response?.data?.message)
+                if (error.response) {
+                    toast.error(error.response.data.message || 'An error occurred');
+                } else if (error.request) {
+                    toast.error('No response received from the server');
+                } else {
+                    toast.error('An error occurred while sending the request');
+                }
                 dispatch(categoryAdd(error?.response))
             });
         } catch (error) {

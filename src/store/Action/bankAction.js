@@ -54,12 +54,26 @@ export const getPdfAction = (payload) => {
 
 export const AddBankAction = (payload) => {
     return async (dispatch) => {
+        const requiredFields = ['name', 'type', 'category'];
+        const emptyFields = requiredFields.filter(field => !payload[field]);
+
+        if (emptyFields.length > 0) {
+            // toast.error(`Please fill in the following fields: ${emptyFields.join(', ')}`);
+            toast.error("Please fill in the following fields!!!");
+            return;
+        }
         try {
             await axios.post(`${process.env.REACT_APP_BASE_URL}api/Banks/v1/bankcreate`, payload).then((res) => {
                 toast.success('Bank Add successfully');
                 dispatch(BankAdd(res));
             }).catch((error) => {
-                toast.error(error?.response?.data?.message)
+                if (error.response) {
+                    toast.error(error.response.data.message || 'An error occurred');
+                } else if (error.request) {
+                    toast.error('No response received from the server');
+                } else {
+                    toast.error('An error occurred while sending the request');
+                }
                 dispatch(BankAdd(error?.response))
             });
         } catch (error) {

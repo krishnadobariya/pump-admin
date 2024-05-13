@@ -11,12 +11,27 @@ const updateManager = (payload) => ({ type: UPDATE_MANAGER, payload: payload.dat
 
 export const managerAddAction = (payload) => {
     return async (dispatch) => {
+        const requiredFields = ['fullName', 'email','mobile','role','password'];
+        const emptyFields = requiredFields.filter(field => !payload[field]);
+
+        if (emptyFields.length > 0) {
+            // toast.error(`Please fill in the following fields: ${emptyFields.join(', ')}`);
+            toast.error("Please fill in the following fields!!!");
+            return;
+        }
+
         try {
             await axios.post(`${process.env.REACT_APP_BASE_URL}api/v1/registration`, payload).then((res) => {
                 toast.success('Manager Add successfully');
                 dispatch(managerAdd(res));
             }).catch((error) => {
-                toast.error(error?.response?.data?.message)
+                if (error.response) {
+                    toast.error(error.response.data.message || 'An error occurred');
+                } else if (error.request) {
+                    toast.error('No response received from the server');
+                } else {
+                    toast.error('An error occurred while sending the request');
+                }
                 dispatch(managerAdd(error?.response))
             });
         } catch (error) {

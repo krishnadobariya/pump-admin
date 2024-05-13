@@ -11,12 +11,26 @@ const updatePump = (payload) => ({ type: UPDATE_PUMP, payload: payload.data })
 
 export const pumpAddAction = (payload) => {
     return async (dispatch) => {
+        const requiredFields = ['adminId', 'managerId', 'outletName', 'address', 'oilCompany', 'cmsCode', 'dealerName', 'dealerContact', 'dealerEmail', 'managerName', 'managerContact', 'managerEmail',];
+        const emptyFields = requiredFields.filter(field => !payload[field]);
+
+        if (emptyFields.length > 0) {
+            // toast.error(`Please fill in the following fields: ${emptyFields.join(', ')}`);
+            toast.error("Please fill in the following fields!!!");
+            return;
+        }
         try {
             await axios.post(`${process.env.REACT_APP_BASE_URL}api/Pump/v1/registration`, payload).then((res) => {
                 toast.success('Pump Add successfully');
                 dispatch(pumpAdd(res));
             }).catch((error) => {
-                toast.error(error?.response?.data?.message)
+                if (error.response) {
+                    toast.error(error.response.data.message || 'An error occurred');
+                } else if (error.request) {
+                    toast.error('No response received from the server');
+                } else {
+                    toast.error('An error occurred while sending the request');
+                }
                 dispatch(pumpAdd(error?.response))
             });
         } catch (error) {
@@ -27,7 +41,7 @@ export const pumpAddAction = (payload) => {
 export const getAllPumpAction = (payload) => {
     return async (dispatch) => {
         try {
-            console.log("REACT_APP_BASE_URL-----",process.env.REACT_APP_BASE_URL);
+            console.log("REACT_APP_BASE_URL-----", process.env.REACT_APP_BASE_URL);
             await axios.get(`${process.env.REACT_APP_BASE_URL}api/Pump/v1/getAllPumps`).then((res) => {
                 dispatch(getAllPump(res));
             }).catch((error) => {

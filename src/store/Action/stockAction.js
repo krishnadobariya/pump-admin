@@ -3,9 +3,12 @@ import { toast } from "react-toastify";
 
 export const GET_ALL_STOCK = "GET_ALL_STOCK";
 export const ADD_STOCK = "ADD_STOCK";
+export const UPDATE_ALL_STOCK = "UPDATE_ALL_STOCK";
 
 const stockAdd = (payload) => ({ type: ADD_STOCK, payload: payload.data });
 const getAllStock = (payload) => ({ type: GET_ALL_STOCK, payload: payload.data })
+const updateStock = (payload) => ({ type: UPDATE_ALL_STOCK, payload: payload.data })
+
 
 
 export const stockAddAction = (payload) => {
@@ -22,7 +25,7 @@ export const stockAddAction = (payload) => {
         try {
             await axios.post(`${process.env.REACT_APP_BASE_URL}api/userStock/v1/userCreateStock`, payload).then((res) => {
                 console.log("-----------------",payload);
-                toast.success('Nozzles Add successfully');
+                toast.success('Stock Add successfully');
                 dispatch(stockAdd(res));
             }).catch((error) => {
                 if (error.response) {
@@ -54,4 +57,27 @@ export const getAllStockAction = (payload) => {
             console.log("Error::::", error);
         }
     }
-}
+};
+
+export const updateStockAction = (mangerById, updatedData) => {
+    return async (dispatch) => {
+        try {
+            await axios.patch(`${process.env.REACT_APP_BASE_URL}api/userStock/v1/userUpdateStock/${mangerById}`, updatedData, {
+                // headers: {
+                //     'Authorization': localStorage.getItem('token'),
+                // }
+            }).then((res) => {
+                toast.success('Transaction Updated Successfully');
+                dispatch(getAllStockAction())
+                dispatch(updateStock(res));
+            }).catch((error) => {
+                console.log(error);
+                toast.error(error?.response?.data?.message)
+                dispatch(updateStock(error?.response));
+            });
+        } catch (error) {
+            console.log("Error::::", error);
+        }
+    };
+};
+

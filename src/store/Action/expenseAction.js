@@ -15,12 +15,27 @@ const expenseAdd = (payload) => ({ type: ADD_EXPENSES, payload: payload.data });
 
 export const expenseAddAction = (payload) => {
     return async (dispatch) => {
+        const requiredFields = ['assets_name', 'assets_type'];
+        const emptyFields = requiredFields.filter(field => !payload[field]);
+
+        if (emptyFields.length > 0) {
+            // toast.error(`Please fill in the following fields: ${emptyFields.join(', ')}`);
+            toast.error("Please fill in the following fields!!!");
+            return;
+        }
+
         try {
             await axios.post(`${process.env.REACT_APP_BASE_URL}api/Expenses/v1/create-expense`, payload).then((res) => {
                 toast.success('Expense Add successfully');
                 dispatch(expenseAdd(res));
             }).catch((error) => {
-                toast.error(error?.response?.data?.message)
+                if (error.response) {
+                    toast.error(error.response.data.message || 'An error occurred');
+                } else if (error.request) {
+                    toast.error('No response received from the server');
+                } else {
+                    toast.error('An error occurred while sending the request');
+                }
                 dispatch(expenseAdd(error?.response))
             });
         } catch (error) {
