@@ -120,6 +120,7 @@ function Nozzles() {
         { name: "Pump Id", align: "center", backname: "pumpId" },
         { name: "fromdate", align: "center", backname: "fromDate" },
         { name: "Category Id", align: "center", backname: "categoryId" },
+        { name: "User Id", align: "center", backname: "userId" },
         { name: "", align: "right", backname: "EditButtonNoz", width: "1px" },
         { name: "", align: "right", backname: "delBtn", width: "1px" },
         { name: "", align: "right", backname: "DownloadButton", width: "1px" }
@@ -327,6 +328,26 @@ function Nozzles() {
                                 <Grid item xs={12}>
                                     <SoftBox mb={2}>
                                         <label style={{ fontSize: "15px" }}>Select Category</label>
+                                        <FormControl fullWidth>
+                                            <Select
+                                                labelId="demo-simple-select-label"
+                                                id="demo-simple-select"
+                                                value={mangerById?.categoryId}
+                                                onChange={(e) => { handleChange(e) }}
+                                                name="categoryId"
+                                            >
+                                                {categoryList?.getAllCategory?.data?.map((res) => {
+                                                    return (
+                                                        <MenuItem value={res?._id}>{res?.title}</MenuItem>
+                                                    )
+                                                })}
+                                            </Select>
+                                        </FormControl>
+                                    </SoftBox>
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <SoftBox mb={2}>
+                                        <label style={{ fontSize: "15px" }}>Select Cashier</label>
                                         <FormControl fullWidth>
                                             <Select
                                                 labelId="demo-simple-select-label"
