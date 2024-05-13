@@ -55,11 +55,14 @@ import { getAllStockAction } from "store/Action/stockAction";
 function Stock() {
     const [controller] = useSoftUIController();
     const { miniSidenav, sidenavColor } = controller;
+    const [openDown, setOpenDown] = useState(false);
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const [mangerById, setManagerById] = useState();
     const [openDel, setOpenDel] = useState(false);
+    const handleOpenDown = () => setOpenDown(true);
+    const handleCloseDown = () => setOpenDown(false);
     const handleOpenDel = () => setOpenDel(true);
     const handleCloseDel = () => setOpenDel(false);
 
@@ -115,7 +118,9 @@ function Stock() {
         // { name: "Pump Id", align: "center", backname: "pumpId" },
         { name: "Category Id", align: "center", backname: "categoryId" },
         { name: "", align: "right", backname: "EditButtonNoz", width: "1px" },
-        { name: "", align: "right", backname: "delBtn", width: "1px" }
+        { name: "", align: "right", backname: "delBtn", width: "1px" },
+        { name: "", align: "right", backname: "DownloadButton", width: "1px" },
+
 
     ];
 
@@ -133,6 +138,11 @@ function Stock() {
         setManagerById({ ...mangerById, [name]: value });
     };
 
+    const DownloadPdf = () => {
+        // dispatch(getNozzlePdfAction(mangerById?._id));
+        // console.log("getpff", mangerById);
+        handleCloseDown();
+    };
     const handleChange = () => {
 
     }
@@ -169,13 +179,84 @@ function Stock() {
                                 },
                             }}
                         >
-                            <Table columns={columns} rows={getAllStock?.getAllStock?.data} mangerById={mangerById} setManagerById={setManagerById} handleOpen={handleOpen} handleOpenDel={handleOpenDel} />
+                            <Table columns={columns} rows={getAllStock?.getAllStock?.data} mangerById={mangerById} setManagerById={setManagerById} handleOpenDown={handleOpenDown} handleOpen={handleOpen} handleOpenDel={handleOpenDel} />
                         </SoftBox>
                     </Card>
                 </SoftBox>
 
             </SoftBox>
             <Footer />
+
+            <Modal
+                open={openDown}
+                onClose={handleCloseDown}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box sx={style1}>
+                    <div
+                        style={{ display: "flex", justifyContent: "end", width: "100%" }}
+                    >
+                        <IoClose
+                            style={{
+                                backgroundColor: "#DEDBD7",
+                                padding: "3px",
+                                borderRadius: "2px",
+                            }}
+                            onClick={handleCloseDown}
+                        />
+                    </div>
+                    <Grid container spacing={2} sx={{ marginTop: "10px" }}>
+                        <Grid item xs={12}>
+                            <Grid container spacing={2} px={2}>
+                                <Grid item xs={6}>
+                                    <SoftBox mb={2}>
+                                        <label style={{ fontSize: "15px" }}>From Date</label>
+                                        <SoftInput
+                                            type="date"
+                                            name="fromDate"
+                                            value={mangerById?.fromDate}
+                                            onChange={handleInputChange} />
+                                    </SoftBox>
+                                </Grid>
+
+                                <Grid item xs={6}>
+                                    <SoftBox mb={2}>
+                                        <label style={{ fontSize: "15px" }}>To Date</label>
+                                        <SoftInput
+                                            type="date"
+                                            // placeholder="Type"
+                                            name="toDate"
+                                            value={mangerById?.toDate}
+                                            onChange={handleInputChange} />
+                                    </SoftBox>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+
+                    </Grid>
+
+                    <div style={{ display: "flex", justifyContent: "center" }}>
+                        <SoftButton
+                            component="a"
+                            variant="gradient"
+                            color={"secondary"}
+                            onClick={handleCloseDown}
+                        >
+                            Cancel
+                        </SoftButton>
+                        <SoftButton
+                            component="a"
+                            variant="gradient"
+                            color={"error"}
+                            sx={{ marginLeft: "30px" }}
+                            onClick={DownloadPdf}
+                        >
+                            Download
+                        </SoftButton>
+                    </div>
+                </Box>
+            </Modal>
 
             <Modal
                 open={open}

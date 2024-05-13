@@ -13,6 +13,7 @@ import bankReducer from "./Reducer/bankReducer";
 import cashFlowReducer from "./Reducer/cashFlowReducer";
 import creditsReducer from "./Reducer/creditsReducer";
 import transactionReducer from "./Reducer/transactionReducer";
+import shiftReducer from "./Reducer/shiftReducer";
 
 const rootReducer = combineReducers({
   admin: adminReducer,
@@ -29,6 +30,8 @@ const rootReducer = combineReducers({
   cashFlow: cashFlowReducer,
   credits: creditsReducer,
   transaction: transactionReducer,
+  shift: shiftReducer,
+
 
 })
 

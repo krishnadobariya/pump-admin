@@ -3,11 +3,13 @@ import { toast } from "react-toastify";
 
 export const ADD_NOZZLES = "ADD_NOZZLES";
 export const GET_ALL_NOZZLES = "GET_ALL_NOZZLES";
+export const GET_PDF_NOZZLES = "GET_PDF_NOZZLES";
 export const UPDATE_NOZZLES = "UPDATE_NOZZLES";
 export const DELTE_NOZZLES = "DELTE_NOZZLES";
 
 const nozzlesAdd = (payload) => ({ type: ADD_NOZZLES, payload: payload.data });
 const getAllNozzles = (payload) => ({ type: GET_ALL_NOZZLES, payload: payload.data })
+const getPdfNozzle = (payload) => ({ type: GET_PDF_NOZZLES, payload: payload.data });
 const updateNozzles = (payload) => ({ type: UPDATE_NOZZLES, payload: payload.data })
 const deleteNozzles = (payload) => ({ type: DELTE_NOZZLES, payload: payload.data })
 
@@ -64,6 +66,22 @@ export const updateNozzlesAction = (userId, updatedData) => {
         }
     };
 };
+
+export const getNozzlePdfAction = (payload) => {
+    return async (dispatch) => {
+        try {
+            await axios.post(`${process.env.REACT_APP_BASE_URL}api/Reports/v1/calculateNozzleTotals`, payload).then((res) => {
+                toast.success('Pdf Download successfully');
+                dispatch(getPdfNozzle(res));
+            }).catch((error) => {
+                toast.error(error?.response?.data?.message)
+                dispatch(getPdfNozzle(error?.response))
+            });
+        } catch (error) {
+            console.log("Error::::", error);
+        }
+    }
+}
 
 export const deleteNozzlesAction = (userId) => {
     return async (dispatch) => {

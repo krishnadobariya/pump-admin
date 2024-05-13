@@ -30,19 +30,21 @@ function Transaction() {
     const [controller] = useSoftUIController();
     const { sidenavColor } = controller;
     const [open, setOpen] = useState(false);
+    const [openDown, setOpenDown] = useState(false);
     const [transactionId, setManagerById] = useState({});
     const [openDel, setOpenDel] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const getAllTransaction = useSelector((state) => state.transaction);
 
-    
-    
+
+    const handleOpenDown = () => setOpenDown(true);
+    const handleCloseDown = () => setOpenDown(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const handleOpenDel = () => setOpenDel(true);
     const handleCloseDel = () => setOpenDel(false);
-    
+
     useEffect(() => {
         dispatch(getAllTransactionAction());
     }, [dispatch]);
@@ -51,7 +53,7 @@ function Transaction() {
     useEffect(() => {
         console.log("transaction Data:", transactionId);
     }, [getAllTransaction]);
-    
+
     const handleSubmit = () => {
         dispatch(updateTransactionAction(transactionId?._id, transactionId));
         handleClose()
@@ -60,6 +62,12 @@ function Transaction() {
         const { name, value } = e.target;
         setManagerById({ ...transactionId, [name]: value });
     };
+
+    const DownloadPdf = () => {
+        // dispatch(getNozzlePdfAction(mangerById?._id));
+        // console.log("getpff", mangerById);
+        handleCloseDown();
+    }
 
     const deleteTransaction = () => {
         dispatch(deleteTransactionAction(transactionId?._id));
@@ -98,7 +106,9 @@ function Transaction() {
         { name: "Amount", align: "left", backname: "amount" },
         { name: "Type", align: "left", backname: "type" },
         { name: "", align: "right", backname: "EditButtonNoz", width: "1px" },
-        { name: "", align: "right", backname: "delBtn", width: "1px" }
+        { name: "", align: "right", backname: "delBtn", width: "1px" },
+        { name: "", align: "right", backname: "DownloadButton", width: "1px" },
+
 
     ];
     return (
@@ -116,7 +126,7 @@ function Transaction() {
                                 color={sidenavColor}
                                 onClick={() => { navigate('/addtransaction') }}
                             >
-                                Add Credits
+                                Add Transaction
                             </SoftButton>
                         </SoftBox>
 
@@ -131,12 +141,83 @@ function Transaction() {
                             }}
                         >
                             {console.log("getAllTransaction------>", getAllTransaction)}
-                            <Table columns={columns} rows={getAllTransaction?.getAllTransaction?.data} transactionId={transactionId} setManagerById={setManagerById}  handleOpen={handleOpen} handleOpenDel={handleOpenDel} />
+                            <Table columns={columns} rows={getAllTransaction?.getAllTransaction?.data} transactionId={transactionId} setManagerById={setManagerById} handleOpenDown={handleOpenDown} handleOpen={handleOpen} handleOpenDel={handleOpenDel} />
                         </SoftBox>
                     </Card>
                 </SoftBox>
             </SoftBox>
             <Footer />
+
+            <Modal
+                open={openDown}
+                onClose={handleCloseDown}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box sx={style1}>
+                    <div
+                        style={{ display: "flex", justifyContent: "end", width: "100%" }}
+                    >
+                        <IoClose
+                            style={{
+                                backgroundColor: "#DEDBD7",
+                                padding: "3px",
+                                borderRadius: "2px",
+                            }}
+                            onClick={handleCloseDown}
+                        />
+                    </div>
+                    <Grid container spacing={2} sx={{ marginTop: "10px" }}>
+                        <Grid item xs={12}>
+                            <Grid container spacing={2} px={2}>
+                                <Grid item xs={6}>
+                                    <SoftBox mb={2}>
+                                        <label style={{ fontSize: "15px" }}>From Date</label>
+                                        <SoftInput
+                                            type="date"
+                                            name="fromDate"
+                                            value={transactionId?.fromDate}
+                                            onChange={handleInputChange} />
+                                    </SoftBox>
+                                </Grid>
+
+                                <Grid item xs={6}>
+                                    <SoftBox mb={2}>
+                                        <label style={{ fontSize: "15px" }}>To Date</label>
+                                        <SoftInput
+                                            type="date"
+                                            // placeholder="Type"
+                                            name="toDate"
+                                            value={transactionId?.toDate}
+                                            onChange={handleInputChange} />
+                                    </SoftBox>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+
+                    </Grid>
+
+                    <div style={{ display: "flex", justifyContent: "center" }}>
+                        <SoftButton
+                            component="a"
+                            variant="gradient"
+                            color={"secondary"}
+                            onClick={handleCloseDown}
+                        >
+                            Cancel
+                        </SoftButton>
+                        <SoftButton
+                            component="a"
+                            variant="gradient"
+                            color={"error"}
+                            sx={{ marginLeft: "30px" }}
+                            onClick={DownloadPdf}
+                        >
+                            Download
+                        </SoftButton>
+                    </div>
+                </Box>
+            </Modal>
 
             <Modal
                 open={open}
@@ -210,7 +291,7 @@ function Transaction() {
                         fullWidth
                         onClick={handleSubmit}
                     >
-                        Update Credits
+                        Update Transaction
                     </SoftButton>
                 </Box>
             </Modal>

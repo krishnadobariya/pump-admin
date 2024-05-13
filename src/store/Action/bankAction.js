@@ -39,7 +39,7 @@ export const getPdfAction = (payload) => {
     return async (dispatch) => {
         try {
             await axios.post(`${process.env.REACT_APP_BASE_URL}api/Reports/v1/BankBookByDate`, payload).then((res) => {
-                toast.success('Bank Add successfully');
+                toast.success('Pdf Download successfully');
                 dispatch(getPdfBank(res));
             }).catch((error) => {
                 toast.error(error?.response?.data?.message)

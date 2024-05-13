@@ -59,6 +59,7 @@ import CreditScoreIcon from '@mui/icons-material/CreditScore';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
 import BadgeIcon from '@mui/icons-material/Badge';
+import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 
 import CreditCard from "examples/Icons/CreditCard";
 import Cube from "examples/Icons/Cube";
@@ -96,6 +97,8 @@ import AddBank from "layouts/AddBank";
 import Transaction from "layouts/Transaction";
 import AddTrasaction from "layouts/AddTransaction";
 import Employ from "layouts/Employe";
+import Shift from "layouts/Shift";
+import AddShift from "layouts/AddShift";
 
 
 
@@ -245,8 +248,18 @@ const routes = [
     name: "Transaction",
     key: "transaction",
     route: "/transaction",
-    icon: <Document size="12px" />,
+    icon: <ReceiptLongIcon size="12px" />,
     component: < Transaction/>,
+    noCollapse: true,
+  },
+
+  {
+    type: "collapse",
+    name: "Shift",
+    key: "shift",
+    route: "/shift",
+    icon: <ReceiptLongIcon size="12px" />,
+    component: < Shift/>,
     noCollapse: true,
   },
 
@@ -351,6 +364,14 @@ const routes = [
     key: "addtransaction",
     route: "/addtransaction",
     component: <AddTrasaction />,
+    noCollapse: true,
+  },
+
+  {
+    name: "Create shift",
+    key: "addshift",
+    route: "/addshift",
+    component: <AddShift />,
     noCollapse: true,
   },
 
