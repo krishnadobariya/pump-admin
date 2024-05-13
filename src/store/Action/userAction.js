@@ -30,7 +30,7 @@ export const getAllEmployeeAction = (payload) => {
     return async (dispatch) => {
         try {
             await axios.get(`${process.env.REACT_APP_BASE_URL}api/v1/getAllEmployee`).then((res) => {
-                console.log("--------------------->>>>",res);
+                console.log("employeee------",res);
                 dispatch(getAllEmployee(res));
             }).catch((error) => {
                 toast.error(error?.response?.data?.message)

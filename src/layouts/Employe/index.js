@@ -26,9 +26,9 @@ import Table from "examples/Tables/Table";
 import projectsTableData from "layouts/tables/data/projectsTableData";
 import { useSoftUIController } from "context";
 
-function Employ() {
-  const [mangerById, setManagerById] = useState();
-  const dispatch = useDispatch();
+function User() {
+    const [managerById, setManagerById] = useState({});
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
@@ -40,8 +40,9 @@ function Employ() {
 
   
     
-  const getAllEmployee = useSelector((state) => state.users);
-  console.log("gettttttt",getAllEmployee);
+  const getAllUsers = useSelector((state) => state.users);
+  console.log("getAllUsers",getAllUsers);
+
 
   useEffect(() => {
     dispatch(getAllEmployeeAction()); 
@@ -65,7 +66,7 @@ function Employ() {
         <SoftBox mb={3}>
           <Card>
             <SoftBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
-              <SoftTypography variant="h6">Employee list</SoftTypography>
+              <SoftTypography variant="h6">User list</SoftTypography>
             </SoftBox>
             <SoftBox
               sx={{
@@ -77,7 +78,7 @@ function Employ() {
                 },
               }}
             >
-              <Table columns={columns} rows={getAllEmployee?.data?.data}  mangerById={mangerById} setManagerById={setManagerById}  handleOpen={handleOpen} handleOpenDel={handleOpenDel} />
+              <Table columns={columns} rows={getAllUsers?.getAllemployee?.data} setManagerById={setManagerById} handleOpen={handleOpen} handleOpenDel={handleOpenDel} />
             </SoftBox>
           </Card>
         </SoftBox>
@@ -89,4 +90,4 @@ function Employ() {
   );
 }
 
-export default Employ;
+export default User;
