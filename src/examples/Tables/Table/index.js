@@ -40,10 +40,10 @@ import SoftButton from "components/SoftButton";
 import { useSoftUIController } from "context";
 import { useNavigate } from "react-router-dom";
 import { MdAutoDelete } from "react-icons/md";
-import { FaDownload, FaEdit } from "react-icons/fa";
+import { FaDownload, FaEdit, FaEye } from "react-icons/fa";
 
 
-function Table({ columns, rows, mangerById, setManagerById, handleOpenDown,handleOpen, handleOpenDel }) {
+function Table({ columns, rows, mangerById, setManagerById, handleOpenDown,handleOpen,handleOpenView, handleOpenDel }) {
   const { light } = colors;
   const { size, fontWeightBold } = typography;
   const { borderWidth } = borders;
@@ -113,24 +113,12 @@ function Table({ columns, rows, mangerById, setManagerById, handleOpenDown,handl
               color={sidenavColor}
               sx={{ margin: "1px" }}
               onClick={() => {
-                handleOpen(); setManagerById({
-                  "fullName": row?.fullName,
-                  "countryCode": row?.countryCode,
-                  "country": row?.country,
-                  "completeAddress": row?.completeAddress,
-                  "pinCode": row?.pinCode,
-                  "state": row?.state,
-                  "email": row?.email,
-                  "_id": row?._id,
-                  "city": row?.city,
-                  "gender": row?.gender,
-                  "country": row?.country,
-                  "address": row?.address
+                handleOpenView(); setManagerById(row)({
                 })
               }}
 
             >
-              <FaEdit />
+              <FaEye />
 
 
               {/* <Icon sx={{ fontWeight: "bold" }}>arrow_forward</Icon> */}

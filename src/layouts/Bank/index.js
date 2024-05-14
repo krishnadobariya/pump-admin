@@ -38,6 +38,7 @@ function Bank() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const getAllbanks = useSelector((state) => state.banks);
+   
 
     useEffect(() => {
         dispatch(getAllBanksAction());
@@ -59,7 +60,7 @@ function Bank() {
     };
 
     const DownloadPdf = () => {
-        dispatch(getPdfAction(bankId?._id));
+        dispatch(getPdfAction(bankId?.user_id));
         console.log("getpff", getPdfAction);
         handleCloseDown();
     };
@@ -183,6 +184,8 @@ function Bank() {
                         />
                     </div>
                     <Grid container spacing={2} sx={{ marginTop: "10px" }}>
+
+                    
                         <Grid item xs={12}>
                             <Grid container spacing={2} px={2}>
                                 <Grid item xs={6}>
