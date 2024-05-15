@@ -82,12 +82,12 @@ export const deleteManagerAction = (userId) => {
     return async (dispatch) => {
         try {
             // Update the URL and use axios.put for updating data
-            await axios.delete(`${process.env.REACT_APP_BASE_URL}api/nozzles/v1/deleteOne/${userId}`, {
+            await axios.delete(`${process.env.REACT_APP_BASE_URL}api/v1/deleteUserById/${userId}`, {
                 headers: {
                     'Authorization': localStorage.getItem('token'),
                 }
             }).then((res) => {
-                toast.success('Category Delete Successfully');
+                toast.success('Manager Delete Successfully');
                 dispatch(getAllManagerAction())
                 dispatch(deleteManager(res));
             }).catch((error) => {

@@ -25,6 +25,8 @@ import Footer from "examples/Footer";
 import Table from "examples/Tables/Table";
 import projectsTableData from "layouts/tables/data/projectsTableData";
 import { useSoftUIController } from "context";
+import { updateUserAction } from "store/Action/userAction";
+import { deleteUserAction } from "store/Action/userAction";
 
 function User() {
   const [controller] = useSoftUIController();
@@ -40,6 +42,9 @@ function User() {
   const handleOpenDel = () => setOpenDel(true);
   const handleCloseDel = () => setOpenDel(false);
 
+  const [openView, setOpenView] = useState(false);
+  const handleOpenView = () => setOpenView(true);
+  const handleCloseView = () => setOpenView(false);
 
 
   const getAllUsers = useSelector((state) => state.users);
@@ -51,9 +56,14 @@ function User() {
   }, [dispatch]);
 
   const handleSubmit = () => {
-    // dispatch(updateBankAction(managerById?._id, managerById))
+    dispatch(updateUserAction(managerById?._id, managerById))
     handleClose()
-}
+  }
+
+  const deleteEmploy = () => {
+    dispatch(deleteUserAction(managerById?._id));
+    handleCloseDel();
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -119,7 +129,7 @@ function User() {
                 },
               }}
             >
-              <Table columns={columns} rows={getAllUsers?.getAllemployee?.data} setManagerById={setManagerById} handleOpen={handleOpen} handleOpenDel={handleOpenDel} />
+              <Table columns={columns} rows={getAllUsers?.getAllemployee?.data} handleOpenView={handleOpenView} setManagerById={setManagerById} handleOpen={handleOpen} handleOpenDel={handleOpenDel}  />
             </SoftBox>
           </Card>
         </SoftBox>
@@ -147,32 +157,84 @@ function User() {
                     <SoftInput
                       type="text"
                       placeholder="Enter The name"
-                      name="name"
-                      value={managerById?.name}
+                      name="fullName"
+                      value={managerById?.fullName}
                       onChange={handleInputChange} />
                   </SoftBox>
                 </Grid>
 
                 <Grid item xs={6}>
                   <SoftBox mb={2}>
-                    <label style={{ fontSize: "15px" }}>Type</label>
+                    <label style={{ fontSize: "15px" }}>email</label>
                     <SoftInput
                       type="text"
                       placeholder="Type"
-                      name="type"
-                      value={managerById?.type}
+                      name="email"
+                      value={managerById?.email}
                       onChange={handleInputChange} />
                   </SoftBox>
                 </Grid>
 
                 <Grid item xs={6}>
                   <SoftBox mb={2}>
-                    <label style={{ fontSize: "15px" }}>Category</label>
+                    <label style={{ fontSize: "15px" }}>address</label>
                     <SoftInput
                       type="text"
-                      placeholder="Category"
-                      name="category"
-                      value={managerById?.category}
+                      placeholder="address"
+                      name="address"
+                      value={managerById?.address}
+                      onChange={handleInputChange} />
+                  </SoftBox>
+                </Grid>
+
+                <Grid item xs={6}>
+                  <RadioGroup
+                    row
+                    aria-labelledby="demo-radio-buttons-group-label"
+                    value={managerById?.gender}
+                    name="gender"
+                    onChange={handleInputChange}
+                  >
+                    <FormControlLabel value="female" control={<Radio />} label="Female" />
+                    <FormControlLabel value="male" control={<Radio />} label="Male" />
+                    <FormControlLabel value="other" control={<Radio />} label="Other" />
+                  </RadioGroup>
+                </Grid>
+
+
+
+                <Grid item xs={6}>
+                  <SoftBox mb={2}>
+                    <label style={{ fontSize: "15px" }}>role</label>
+                    <SoftInput
+                      type="text"
+                      placeholder="role"
+                      name="role"
+                      value={managerById?.role}
+                      onChange={handleInputChange} />
+                  </SoftBox>
+                </Grid>
+
+                <Grid item xs={6}>
+                  <SoftBox mb={2}>
+                    <label style={{ fontSize: "15px" }}>city</label>
+                    <SoftInput
+                      type="text"
+                      placeholder="city"
+                      name="city"
+                      value={managerById?.city}
+                      onChange={handleInputChange} />
+                  </SoftBox>
+                </Grid>
+
+                <Grid item xs={6}>
+                  <SoftBox mb={2}>
+                    <label style={{ fontSize: "15px" }}>pinCode</label>
+                    <SoftInput
+                      type="text"
+                      placeholder="pinCode"
+                      name="pinCode"
+                      value={managerById?.pinCode}
                       onChange={handleInputChange} />
                   </SoftBox>
                 </Grid>
@@ -191,6 +253,78 @@ function User() {
 
         </Box>
       </Modal>
+
+      <Modal
+        open={openView}
+        onClose={handleCloseView}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+
+        <Box sx={style}>
+          <div style={{ display: "flex", justifyContent: "end", width: "100%" }} >
+            <IoClose style={{ backgroundColor: "#DEDBD7", padding: "3px", borderRadius: "2px" }} onClick={handleCloseView} />
+          </div>
+
+          <Grid container spacing={2} sx={{ marginTop: "10px" }}>
+            <Grid item xs={12}>
+              <Grid container spacing={2} px={2}>
+                <Grid item xs={6}>
+                  <SoftBox mb={2}>
+                    <label style={{ fontSize: "15px" }} value="">Name: {managerById?.fullName}</label>
+                  </SoftBox>
+                </Grid>
+
+                <Grid item xs={6}>
+                  <SoftBox mb={2}>
+                    <label style={{ fontSize: "15px" }} value="">Email: {managerById?.email}</label>
+                  </SoftBox>
+                </Grid>
+
+                <Grid item xs={6}>
+                  <SoftBox mb={2}>
+                    <label style={{ fontSize: "15px" }} value="">address:{managerById?.address}</label>
+                  </SoftBox>
+                </Grid>
+
+                <Grid item xs={6}>
+                  <SoftBox mb={2}>
+                    <label style={{ fontSize: "15px" }} value="">gender:{managerById?.gender}</label>
+                  </SoftBox>
+                </Grid>
+
+                <Grid item xs={6}>
+                  <SoftBox mb={2}>
+                    <label style={{ fontSize: "15px" }} value="">role:{managerById?.role}</label>
+                  </SoftBox>
+                </Grid>
+
+                <Grid item xs={6}>
+                  <SoftBox mb={2}>
+                    <label style={{ fontSize: "15px" }} value="">city:{managerById?.city}</label>
+                  </SoftBox>
+                </Grid>
+
+                <Grid item xs={6}>
+                  <SoftBox mb={2}>
+                    <label style={{ fontSize: "15px" }} value="">pincode:{managerById?.pinCode}</label>
+                  </SoftBox>
+                </Grid>
+              </Grid>
+            </Grid>
+
+          </Grid>
+          <SoftButton
+            variant="gradient"
+            color={sidenavColor}
+            fullWidth
+            onClick={handleCloseView}
+          >
+            Close
+          </SoftButton>
+        </Box>
+      </Modal>
+
 
       <Modal
         open={openDel}
@@ -236,7 +370,7 @@ function User() {
               variant="gradient"
               color={"error"}
               sx={{ marginLeft: "30px" }}
-            // onClick={deleteBank}
+              onClick={deleteEmploy}
             >
               Delete
             </SoftButton>

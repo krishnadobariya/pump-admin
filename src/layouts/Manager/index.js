@@ -44,6 +44,7 @@ import { FormControl, FormControlLabel, FormLabel, Grid, Radio, RadioGroup } fro
 import SoftInput from "components/SoftInput";
 import { updateManagerAction } from "store/Action/managerAction";
 import { IoClose } from "react-icons/io5";
+import { deleteManagerAction } from "store/Action/managerAction";
 
 
 function Manager() {
@@ -72,10 +73,6 @@ function Manager() {
   const getAllManager = useSelector((state) => state.manager.getAllManager);
   console.log("getAllManager", getAllManager?.data)
 
-  const handleEditClick = (rowData) => {
-    navigate('/addmanager')
-  };
-
 
   useEffect(() => {
     dispatch(getAllManagerAction())
@@ -96,17 +93,17 @@ function Manager() {
     handleClose()
   }
   const deleteManager = () => {
-    // dispatch(deleteBankAction(bankId?._id));
+    dispatch(deleteManagerAction(mangerById?._id));
     handleCloseDel();
-};
+  };
 
   useEffect(() => {
     setRow(getAllManager?.data?.data || [])
-    console.log("getAllManager--->",getAllManager);
+    console.log("getAllManager--->", getAllManager);
   }, [getAllManager])
 
 
-  
+
 
 
   const style = {
@@ -170,7 +167,7 @@ function Manager() {
                 },
               }}
             >
-              <Table columns={columns} rows={getAllManager?.data} mangerById={mangerById} setManagerById={setManagerById}  handleOpen={handleOpen} handleOpenDel={handleOpenDel} handleOpenView={handleOpenView} />
+              <Table columns={columns} rows={getAllManager?.data} mangerById={mangerById} setManagerById={setManagerById} handleOpen={handleOpen} handleOpenDel={handleOpenDel} handleOpenView={handleOpenView} />
             </SoftBox>
           </Card>
         </SoftBox>
@@ -284,64 +281,64 @@ function Manager() {
       </Modal>
 
       <Modal
-                open={openDel}
-                onClose={handleCloseDel}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
+        open={openDel}
+        onClose={handleCloseDel}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <div
+            style={{ display: "flex", justifyContent: "end", width: "100%" }}
+          >
+            <IoClose
+              style={{
+                backgroundColor: "#DEDBD7",
+                padding: "3px",
+                borderRadius: "2px",
+              }}
+              onClick={handleCloseDel}
+            />
+          </div>
+
+          <p
+            style={{
+              textAlign: "center",
+              marginTop: "20px",
+              marginBottom: "20px",
+            }}
+          >
+            Are you sure you want to delete this Category?
+          </p>
+
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <SoftButton
+              component="a"
+              variant="gradient"
+              color={"secondary"}
+              onClick={handleCloseDel}
             >
-                <Box sx={style}>
-                    <div
-                        style={{ display: "flex", justifyContent: "end", width: "100%" }}
-                    >
-                        <IoClose
-                            style={{
-                                backgroundColor: "#DEDBD7",
-                                padding: "3px",
-                                borderRadius: "2px",
-                            }}
-                            onClick={handleCloseDel}
-                        />
-                    </div>
-
-                    <p
-                        style={{
-                            textAlign: "center",
-                            marginTop: "20px",
-                            marginBottom: "20px",
-                        }}
-                    >
-                        Are you sure you want to delete this Category?
-                    </p>
-
-                    <div style={{ display: "flex", justifyContent: "center" }}>
-                        <SoftButton
-                            component="a"
-                            variant="gradient"
-                            color={"secondary"}
-                            onClick={handleCloseDel}
-                        >
-                            Cancel
-                        </SoftButton>
-                        <SoftButton
-                            component="a"
-                            variant="gradient"
-                            color={"error"}
-                            sx={{ marginLeft: "30px" }}
-                            onClick={deleteManager}
-                        >
-                            Delete
-                        </SoftButton>
-                    </div>
-                </Box>
-            </Modal>
-
-            <Modal
-                open={openView}
-                onClose={handleCloseView}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
+              Cancel
+            </SoftButton>
+            <SoftButton
+              component="a"
+              variant="gradient"
+              color={"error"}
+              sx={{ marginLeft: "30px" }}
+              onClick={deleteManager}
             >
-                <Box sx={style}>
+              Delete
+            </SoftButton>
+          </div>
+        </Box>
+      </Modal>
+
+      <Modal
+        open={openView}
+        onClose={handleCloseView}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
           <div style={{ display: "flex", justifyContent: "end", width: "100%" }} >
             <IoClose style={{ backgroundColor: "#DEDBD7", padding: "3px", borderRadius: "2px" }} onClick={handleCloseView} />
           </div>
@@ -355,7 +352,7 @@ function Manager() {
             </Grid>
             <Grid item xs={6}>
               <SoftBox mb={2}>
-                <label style={{ fontSize: "15px" }}>Email {mangerById?.email}</label>
+                <label style={{ fontSize: "15px" }}>Email: {mangerById?.email}</label>
                 {/* <SoftInput type="text" placeholder="Email" onChange={handleChange} name="email" value={mangerById?.email} /> */}
               </SoftBox>
             </Grid>
@@ -363,32 +360,32 @@ function Manager() {
           <Grid container spacing={2}>
             <Grid item xs={6}>
               <SoftBox mb={2}>
-                <label style={{ fontSize: "15px" }}>Complete Address {mangerById?.completeAddress}</label>
+                <label style={{ fontSize: "15px" }}>Complete Address: {mangerById?.completeAddress}</label>
                 {/* <SoftInput type="text" placeholder="Complete Address" onChange={handleChange} name="completeAddress" value={mangerById?.completeAddress} /> */}
               </SoftBox>
             </Grid>
             <Grid item xs={6}>
               <SoftBox mb={2}>
-                <label style={{ fontSize: "15px" }}>Country Code:{mangerById?.countryCode}</label>
+                <label style={{ fontSize: "15px" }}>Country Code: {mangerById?.countryCode}</label>
                 {/* <SoftInput type="text" placeholder="Country Code" onChange={handleChange} name="countryCode" value={mangerById?.countryCode} /> */}
               </SoftBox>
             </Grid>
           </Grid>
           <Grid container spacing={3}>
 
-            <Grid item xs={4}>
+            <Grid item xs={6}>
               <SoftBox mb={2}>
                 <label style={{ fontSize: "15px" }}>Address: {mangerById?.address}</label>
                 {/* <SoftInput type="text" placeholder="Address" onChange={handleChange} name="address" value={mangerById?.address} /> */}
               </SoftBox>
             </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={6}>
               <SoftBox mb={2}>
                 <label style={{ fontSize: "15px" }}>City: {mangerById?.city}</label>
                 {/* <SoftInput type="text" placeholder="City" onChange={handleChange} name="city" value={mangerById?.city} /> */}
               </SoftBox>
             </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={6}>
               <SoftBox mb={2}>
                 <label style={{ fontSize: "15px" }}>State: {mangerById?.state}</label>
                 {/* <SoftInput type="text" placeholder="State" onChange={handleChange} name="state" value={mangerById?.state} /> */}
@@ -398,42 +395,37 @@ function Manager() {
             <Grid container spacing={3}>
 
             </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={6}>
               <SoftBox mb={2}>
-                <label style={{ fontSize: "15px" }}>Country</label>
+                <label style={{ fontSize: "15px" }}>Country: {mangerById?.country}</label>
                 {/* <SoftInput type="text" placeholder="Country" onChange={handleChange} name="country" value={mangerById?.country} /> */}
               </SoftBox>
             </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={6}>
               <SoftBox mb={2}>
-                <label style={{ fontSize: "15px" }}>Pin Code</label>
+                <label style={{ fontSize: "15px" }}>Pin Code: {mangerById?.pinCode}</label>
                 {/* <SoftInput type="number" placeholder="Pin Code" onChange={handleChange} name="pinCode" value={mangerById?.pinCode} /> */}
               </SoftBox>
             </Grid>
 
-            <Grid item xs={4}>
+            <Grid item xs={6}>
               <SoftBox mb={2}>
-                <label style={{ fontSize: "15px" }}>Gender</label>
-                <FormControl>
-                  {/* <RadioGroup
-                    row
-                    aria-labelledby="demo-radio-buttons-group-label"
-                    value={mangerById?.gender}
-                    name="gender"
-                    onChange={handleChange}
-                  >
-                    <FormControlLabel value="female" control={<Radio />} label="Female" />
-                    <FormControlLabel value="male" control={<Radio />} label="Male" />
-                    <FormControlLabel value="other" control={<Radio />} label="Other" />
-                  </RadioGroup> */}
-                </FormControl>
+                <label style={{ fontSize: "15px" }}>Gender: {mangerById?.gender}</label>
               </SoftBox>
             </Grid>
           </Grid>
+          <SoftButton
+            variant="gradient"
+            color={sidenavColor}
+            fullWidth
+            onClick={handleCloseView}
+          >
+            Close
+          </SoftButton>
         </Box>
-            </Modal>
-     
-     
+      </Modal>
+
+
     </DashboardLayout>
   );
 }
