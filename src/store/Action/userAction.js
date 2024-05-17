@@ -7,6 +7,7 @@ export const GET_ALL_USERS = "GET_ALL_USERS"
 export const GET_ALL_EMPLOYEE = "GET_ALL_EMPLOYEE"
 export const UPDATE_USER = "UPDATE_USER"
 export const DELETE_USER = "DELETE_USER"
+export const USER_PROFILE = "USER_PROFILE"
 
 
 const getAllUsers = (payload) => ({ type: GET_ALL_USERS, payload: payload.data });
@@ -90,3 +91,6 @@ export const deleteUserAction = (userId) => {
         }
     };
 };
+
+
+

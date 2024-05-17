@@ -65,10 +65,14 @@ const deleteUser = () => {
   handleCloseDel();
 };
 
+
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setManagerById({ ...managerById, [name]: value });
   };
+
+
   const style = {
     position: 'absolute',
     top: '50%',
@@ -128,7 +132,7 @@ const deleteUser = () => {
                 },
               }}
             >
-              <Table columns={columns} rows={getAllUsers?.getAllUsers?.data} setManagerById={setManagerById} handleOpen={handleOpen} handleOpenDel={handleOpenDel} handleOpenView={handleOpenView} />
+              <Table columns={columns} rows={getAllUsers?.getAllUsers?.data}  setManagerById={setManagerById} handleOpen={handleOpen} handleOpenDel={handleOpenDel} handleOpenView={handleOpenView} />
             </SoftBox>
           </Card>
         </SoftBox>
@@ -303,6 +307,7 @@ const deleteUser = () => {
         </Box>
       </Modal>
 
+      {/* user Profile Model */}
       <Modal
         open={openView}
         onClose={handleCloseView}

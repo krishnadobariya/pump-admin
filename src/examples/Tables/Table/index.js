@@ -42,8 +42,16 @@ import { useNavigate } from "react-router-dom";
 import { MdAutoDelete } from "react-icons/md";
 import { FaDownload, FaEdit, FaEye } from "react-icons/fa";
 
-
-function Table({ columns, rows, mangerById, setManagerById, handleOpenDown,handleOpen,handleOpenView, handleOpenDel }) {
+function Table({
+  columns,
+  rows,
+  mangerById,
+  setManagerById,
+  handleOpenDown,
+  handleOpen,
+  handleOpenView,
+  handleOpenDel,
+}) {
   const { light } = colors;
   const { size, fontWeightBold } = typography;
   const { borderWidth } = borders;
@@ -94,188 +102,202 @@ function Table({ columns, rows, mangerById, setManagerById, handleOpenDown,handl
     const tableRow = columns.map(({ name, align, backname, width }) => {
       let template;
       console.log("row[backname]", row[backname]);
-      template = (<>
-
-
-
-        {backname == "ViewButton" &&
-
-          <SoftBox
-            key={uuidv4()}
-            component="td"
-            p={1}
-            textAlign={align}
-            borderBottom={row.hasBorder ? `${borderWidth[1]} solid ${light.main}` : null}
-          >
-            <SoftButton
-              component="a"
-              variant="gradient"
-              color={sidenavColor}
-              sx={{ margin: "1px" }}
-              onClick={() => {
-                handleOpenView(); setManagerById(row)({
-                })
-              }}
-
-            >
-              <FaEye />
-
-
-              {/* <Icon sx={{ fontWeight: "bold" }}>arrow_forward</Icon> */}
-            </SoftButton>    </SoftBox>}
-
-
-
-        {backname == "EditButton" &&
-
-          <SoftBox
-            key={uuidv4()}
-            component="td"
-            p={1}
-            width={width}
-            textAlign={align}
-            borderBottom={row.hasBorder ? `${borderWidth[1]} solid ${light.main}` : null}
-          >
-            <SoftButton
-              component="a"
-              variant="gradient"
-              color={sidenavColor}
-              sx={{ margin: "1px" }}
-              onClick={() => {
-                handleOpen(); setManagerById(row)
-              }}
-
-            >
-              <FaEdit />
-
-
-              {/* <Icon sx={{ fontWeight: "bold" }}>arrow_forward</Icon> */}
-            </SoftButton>    </SoftBox>}
-
-        {backname == "EditButtonCat" &&
-
-          <SoftBox
-            key={uuidv4()}
-            component="td"
-            p={1}
-            width={width}
-            textAlign={align}
-            borderBottom={row.hasBorder ? `${borderWidth[1]} solid ${light.main}` : null}
-          >
-            <SoftButton
-              component="a"
-              variant="gradient"
-              color={"success"}
-              sx={{ margin: "1px" }}
-              onClick={() => {
-                handleOpen(); setManagerById(row)
-              }}
-
-            >
-              <FaEdit />
-
-
-              {/* <Icon sx={{ fontWeight: "bold" }}>arrow_forward</Icon> */}
-            </SoftButton>    </SoftBox>}
-
-            {backname == "DownloadButton" &&
-
-          <SoftBox
-            key={uuidv4()}
-            component="td"
-            p={1}
-            width={width}
-            textAlign={align}
-            borderBottom={row.hasBorder ? `${borderWidth[1]} solid ${light.main}` : null}
-          >
-            <SoftButton
-              component="a"
-              variant="gradient"
-              color={"success"}
-              sx={{ margin: "1px" }}
-              onClick={() => {
-                handleOpenDown(); setManagerById(row)
-              }}
-
-            >
-              <FaDownload />
-
-
-              {/* <Icon sx={{ fontWeight: "bold" }}>arrow_forward</Icon> */}
-            </SoftButton>    </SoftBox>}
-        {backname == "delBtn" &&
-
-          <SoftBox
-            key={uuidv4()}
-            component="td"
-            p={1}
-            width={width}
-            textAlign={align}
-            borderBottom={row.hasBorder ? `${borderWidth[1]} solid ${light.main}` : null}
-          >
-            <SoftButton
-              component="a"
-              variant="gradient"
-              color={"error"}
-              sx={{ margin: "1px" }}
-              onClick={() => {
-                handleOpenDel(); setManagerById(row)
-              }}
-            >
-              <MdAutoDelete />
-
-              {/* <Icon sx={{ fontWeight: "bold" }}>arrow_forward</Icon> */}
-            </SoftButton>    </SoftBox>}
-
-        {backname == "EditButtonNoz" &&
-
-          <SoftBox
-            key={uuidv4()}
-            component="td"
-            p={1}
-            width={width}
-            textAlign={align}
-            borderBottom={row.hasBorder ? `${borderWidth[1]} solid ${light.main}` : null}
-          >
-            <SoftButton
-              component="a"
-              variant="gradient"
-              color={sidenavColor}
-              sx={{ margin: "1px" }}
-              onClick={() => {
-                handleOpen(); setManagerById(row)
-              }}
-
-            >
-              <FaEdit />
-
-
-              {/* <Icon sx={{ fontWeight: "bold" }}>arrow_forward</Icon> */}
-            </SoftButton>    </SoftBox>}
-
-
-        {(backname != "ViewButton" && backname != "EditButtonNoz" && backname != "delBtn" && backname != "EditButtonCat" && backname != "EditButton" && backname !="DownloadButton") &&
-          <SoftBox
-            key={uuidv4()}
-            component="td"
-            p={1}
-            width={width}
-            textAlign={align}
-            borderBottom={row.hasBorder ? `${borderWidth[1]} solid ${light.main}` : null}
-          >
-            <SoftTypography
-              variant="button"
-              fontWeight="regular"
-              color="secondary"
+      template = (
+        <>
+          {backname == "ViewButton" && (
+            <SoftBox
+              key={uuidv4()}
+              component="td"
+              p={1}
               textAlign={align}
-              sx={{ display: "inline-block", width: "max-content" }}
+              borderBottom={
+                row.hasBorder ? `${borderWidth[1]} solid ${light.main}` : null
+              }
             >
-              {row[backname]}
-            </SoftTypography>
-          </SoftBox>
-        }
-      </>
+              <SoftButton
+                component="a"
+                variant="gradient"
+                color={sidenavColor}
+                sx={{ margin: "1px" }}
+                onClick={() => {
+                  setManagerById(row);
+                  handleOpenView();
+                }}
+              >
+                <FaEye />
 
+                {/* <Icon sx={{ fontWeight: "bold" }}>arrow_forward</Icon> */}
+              </SoftButton>{" "}
+            </SoftBox>
+          )}
+
+          {backname == "EditButton" && (
+            <SoftBox
+              key={uuidv4()}
+              component="td"
+              p={1}
+              width={width}
+              textAlign={align}
+              borderBottom={
+                row.hasBorder ? `${borderWidth[1]} solid ${light.main}` : null
+              }
+            >
+              <SoftButton
+                component="a"
+                variant="gradient"
+                color={sidenavColor}
+                sx={{ margin: "1px" }}
+                onClick={() => {
+                  handleOpen();
+                  setManagerById(row);
+                }}
+              >
+                <FaEdit />
+
+                {/* <Icon sx={{ fontWeight: "bold" }}>arrow_forward</Icon> */}
+              </SoftButton>{" "}
+            </SoftBox>
+          )}
+
+          {backname == "EditButtonCat" && (
+            <SoftBox
+              key={uuidv4()}
+              component="td"
+              p={1}
+              width={width}
+              textAlign={align}
+              borderBottom={
+                row.hasBorder ? `${borderWidth[1]} solid ${light.main}` : null
+              }
+            >
+              <SoftButton
+                component="a"
+                variant="gradient"
+                color={"success"}
+                sx={{ margin: "1px" }}
+                onClick={() => {
+                  handleOpen();
+                  setManagerById(row);
+                }}
+              >
+                <FaEdit />
+
+                {/* <Icon sx={{ fontWeight: "bold" }}>arrow_forward</Icon> */}
+              </SoftButton>{" "}
+            </SoftBox>
+          )}
+
+          {backname == "DownloadButton" && (
+            <SoftBox
+              key={uuidv4()}
+              component="td"
+              p={1}
+              width={width}
+              textAlign={align}
+              borderBottom={
+                row.hasBorder ? `${borderWidth[1]} solid ${light.main}` : null
+              }
+            >
+              <SoftButton
+                component="a"
+                variant="gradient"
+                color={"success"}
+                sx={{ margin: "1px" }}
+                onClick={() => {
+                  handleOpenDown();
+                  setManagerById(row);
+                }}
+              >
+                <FaDownload />
+
+                {/* <Icon sx={{ fontWeight: "bold" }}>arrow_forward</Icon> */}
+              </SoftButton>{" "}
+            </SoftBox>
+          )}
+          {backname == "delBtn" && (
+            <SoftBox
+              key={uuidv4()}
+              component="td"
+              p={1}
+              width={width}
+              textAlign={align}
+              borderBottom={
+                row.hasBorder ? `${borderWidth[1]} solid ${light.main}` : null
+              }
+            >
+              <SoftButton
+                component="a"
+                variant="gradient"
+                color={"error"}
+                sx={{ margin: "1px" }}
+                onClick={() => {
+                  handleOpenDel();
+                  setManagerById(row);
+                }}
+              >
+                <MdAutoDelete />
+
+                {/* <Icon sx={{ fontWeight: "bold" }}>arrow_forward</Icon> */}
+              </SoftButton>{" "}
+            </SoftBox>
+          )}
+
+          {backname == "EditButtonNoz" && (
+            <SoftBox
+              key={uuidv4()}
+              component="td"
+              p={1}
+              width={width}
+              textAlign={align}
+              borderBottom={
+                row.hasBorder ? `${borderWidth[1]} solid ${light.main}` : null
+              }
+            >
+              <SoftButton
+                component="a"
+                variant="gradient"
+                color={sidenavColor}
+                sx={{ margin: "1px" }}
+                onClick={() => {
+                  handleOpen();
+                  setManagerById(row);
+                }}
+              >
+                <FaEdit />
+
+                {/* <Icon sx={{ fontWeight: "bold" }}>arrow_forward</Icon> */}
+              </SoftButton>{" "}
+            </SoftBox>
+          )}
+
+          {backname != "ViewButton" &&
+            backname != "EditButtonNoz" &&
+            backname != "delBtn" &&
+            backname != "EditButtonCat" &&
+            backname != "EditButton" &&
+            backname != "DownloadButton" && (
+              <SoftBox
+                key={uuidv4()}
+                component="td"
+                p={1}
+                width={width}
+                textAlign={align}
+                borderBottom={
+                  row.hasBorder ? `${borderWidth[1]} solid ${light.main}` : null
+                }
+              >
+                <SoftTypography
+                  variant="button"
+                  fontWeight="regular"
+                  color="secondary"
+                  textAlign={align}
+                  sx={{ display: "inline-block", width: "max-content" }}
+                >
+                  {row[backname]}
+                </SoftTypography>
+              </SoftBox>
+            )}
+        </>
       );
 
       return template;
