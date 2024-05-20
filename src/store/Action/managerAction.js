@@ -16,34 +16,51 @@ const ViewManager = (payload) => ({ type: VIEW_MANAGER, payload: payload.data })
 
 export const managerAddAction = (payload) => {
     return async (dispatch) => {
-        const requiredFields = ['fullName', 'email','mobile','role','password'];
+        const requiredFields = ['fullName', 'email', 'mobile', 'role', 'password'];
         const emptyFields = requiredFields.filter(field => !payload[field]);
 
         if (emptyFields.length > 0) {
-            // toast.error(`Please fill in the following fields: ${emptyFields.join(', ')}`);
             toast.error("Please fill in the following fields!!!");
             return;
         }
 
-        try {
-            await axios.post(`${process.env.REACT_APP_BASE_URL}api/v1/registration`, payload).then((res) => {
-                toast.success('Manager Add successfully');
-                dispatch(managerAdd(res));
-            }).catch((error) => {
-                if (error.response) {
-                    toast.error(error.response.data.message || 'An error occurred');
-                } else if (error.request) {
-                    toast.error('No response received from the server');
-                } else {
-                    toast.error('An error occurred while sending the request');
-                }
-                dispatch(managerAdd(error?.response))
-            });
-        } catch (error) {
-            console.log("Error::::", error);
+        const token = localStorage.getItem('token');
+        console.log("Token Retrieved:", token);
+
+        if (!token) {
+            toast.error("Authorization token is missing");
+            return;
         }
-    }
-}
+
+        try {
+            const response = await axios.post(
+                `${process.env.REACT_APP_BASE_URL}api/v1/adminAddManager`,
+                payload,
+                {
+                    headers: {
+                        'Authorization': token, 
+                    }
+                }
+            );
+            toast.success('Manager added successfully');
+            dispatch(managerAdd(response.data));
+        } catch (error) {
+            console.log("Error Response:", error.response);
+            console.log("Error Request:", error.request);
+            console.log("Error Message:", error.message);
+
+            if (error.response) {
+                toast.error(error.response.data.message || 'An error occurred');
+            } else if (error.request) {
+                toast.error('No response received from the server');
+            } else {
+                toast.error('An error occurred while sending the request');
+            }
+            dispatch(managerAdd(error?.response));
+        }
+    };
+};
+
 export const getAllManagerAction = (payload) => {
     return async (dispatch) => {
         try {

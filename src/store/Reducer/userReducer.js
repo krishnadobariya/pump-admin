@@ -2,6 +2,8 @@ import { UPDATE_USER } from "store/Action/userAction";
 import { DELETE_USER } from "store/Action/userAction";
 import { GET_ALL_EMPLOYEE } from "store/Action/userAction";
 import { GET_ALL_USERS } from "store/Action/userAction";
+import { ADD_USERS } from "store/Action/userAction";
+import { ADD_EMPLOYEE } from "store/Action/userAction";
 
 
 export const initialState = {
@@ -9,6 +11,8 @@ export const initialState = {
     getAllemployee: "",
     updateUser: "",
     deleteUser: "",
+    userAdd: "",
+    employeeAdd: ""
 }
 
 const usersReducer = (state = initialState, action) => {
@@ -21,6 +25,10 @@ const usersReducer = (state = initialState, action) => {
             return { ...state, updateUser: action.payload };
         case DELETE_USER:
             return { ...state, deleteUser: action.payload };
+        case ADD_USERS:
+            return { ...state, userAdd: action.payload };
+        case ADD_EMPLOYEE:
+            return { ...state, employeeAdd: action.payload };
         default:
             return state;
     }

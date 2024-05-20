@@ -118,6 +118,14 @@ function User() {
           <Card>
             <SoftBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
               <SoftTypography variant="h6">User list</SoftTypography>
+              <SoftButton
+                component="a"
+                variant="gradient"
+                color={sidenavColor}
+                onClick={() => { navigate('/addemployee') }}
+              >
+                Add Employee
+              </SoftButton>
             </SoftBox>
             <SoftBox
               sx={{

@@ -99,6 +99,8 @@ import AddTrasaction from "layouts/AddTransaction";
 import Employ from "layouts/Employe";
 import Shift from "layouts/Shift";
 import AddShift from "layouts/AddShift";
+import AddUser from "layouts/AddUsers";
+import AddEmployee from "layouts/AddEmployee";
 
 
 
@@ -374,8 +376,22 @@ const routes = [
     component: <AddShift />,
     noCollapse: true,
   },
+  
+  {
+    name: "Create User",
+    key: "adduser",
+    route: "/adduser",
+    component: <AddUser />,
+    noCollapse: true,
+  },
 
-
+  {
+    name: "Create Employee",
+    key: "addemployee",
+    route: "/addemployee",
+    component: <AddEmployee />,
+    noCollapse: true,
+  }
   // {
   //   type: "collapse",
   //   name: "Sign In",
