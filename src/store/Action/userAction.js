@@ -95,7 +95,7 @@ export const employeeAddAction = (payload) => {
                     }
                 }
             );
-            toast.success('User added successfully');
+            toast.success('Emplyee added successfully');
             dispatch(userAdd(response.data));
         } catch (error) {
             console.log("Error Response:", error.response);
@@ -150,7 +150,7 @@ export const updateUserAction = (userId, updatedData) => {
         try {
             // Update the URL and use axios.put for updating data
             await axios.patch(`${process.env.REACT_APP_BASE_URL}api/v1/userUpdate/${userId}`, updatedData).then((res) => {
-                toast.success('Manager Updated Successfully');
+                toast.success('User Updated Successfully');
                 dispatch(getAllUsersAction())
                 dispatch(getAllEmployeeAction())
                 dispatch(updateUser(res));

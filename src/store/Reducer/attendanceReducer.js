@@ -1,17 +1,20 @@
-import { GET_ATTENDANCE } from "../Action/attendanceAction";
+import { ADD_ATTENDANCE, GET_ATTENDANCE } from "../Action/attendanceAction";
 
 
-export  const initialState  = {
-    getAttendance : "",
+export const initialState = {
+    getAttendance: "",
+    addAttendance: "",
 }
 
 
 const attendanceReducer = (state = initialState, action) => {
-    switch(action.type){
+    switch (action.type) {
         case GET_ATTENDANCE:
-            return {...state, getAttendance : action.payload}
+            return { ...state, getAttendance: action.payload }
+        case ADD_ATTENDANCE:
+            return { ...state, addAttendance: action.payload }
         default:
-            return  state;
+            return state;
     }
 }
 export default attendanceReducer;

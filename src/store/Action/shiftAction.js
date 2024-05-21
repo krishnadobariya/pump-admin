@@ -94,7 +94,7 @@ export const deleteShiftAction = (shiftId) => {
     return async (dispatch) => {
         try {
             // Update the URL and use axios.put for updating data
-            await axios.delete(`${process.env.REACT_APP_BASE_URL}api/Transaction/v1/deleteTransaction/${shiftId}`, {
+            await axios.delete(`${process.env.REACT_APP_BASE_URL}api/User/Shift/v1/deleteShift/${shiftId}`, {
                 // headers: {
                 //     'Authorization': localStorage.getItem('token'),
                 // }

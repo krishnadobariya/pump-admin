@@ -4,10 +4,12 @@ import { toast } from "react-toastify";
 export const ADD_PUMP = "ADD_PUMP";
 export const GET_ALL_PUMP = "GET_ALL_PUMP";
 export const UPDATE_PUMP = "UPDATE_PUMP"
+export const DELETE_PUMP = "DELETE_PUMP"
 
 const pumpAdd = (payload) => ({ type: ADD_PUMP, payload: payload.data });
 const getAllPump = (payload) => ({ type: GET_ALL_PUMP, payload: payload.data })
 const updatePump = (payload) => ({ type: UPDATE_PUMP, payload: payload.data })
+const deletePump = (payload) => ({ type: DELETE_PUMP, payload: payload.data })
 
 export const pumpAddAction = (payload) => {
     return async (dispatch) => {
@@ -69,6 +71,29 @@ export const updatePumpAction = (userId, updatedData) => {
             }).catch((error) => {
                 toast.error(error?.response?.data?.message)
                 dispatch(updatePump(error?.response));
+            });
+        } catch (error) {
+            console.log("Error::::", error);
+        }
+    };
+};
+
+export const deletePumpAction = (userId) => {
+    return async (dispatch) => {
+        try {
+            // Update the URL and use axios.put for updating data
+            await axios.delete(`${process.env.REACT_APP_BASE_URL}api/Pump/v1/deletepump/${userId}`, {
+                // headers: {
+                //     'Authorization': localStorage.getItem('token'),
+                // }
+            }).then((res) => {
+                toast.success('Pump Delete Successfully');
+                dispatch(getAllPumpAction())
+                dispatch(deletePump(res));
+            }).catch((error) => {
+                console.log(error);
+                toast.error(error?.response?.data?.message)
+                dispatch(deletePump(error?.response));
             });
         } catch (error) {
             console.log("Error::::", error);

@@ -107,7 +107,7 @@ export const deleteNozzlesAction = (userId) => {
                     'Authorization': localStorage.getItem('token'),
                 }
             }).then((res) => {
-                toast.success('Category Delete Successfully');
+                toast.success('Nozzles Delete Successfully');
                 dispatch(getAllNozzlesAction())
                 dispatch(deleteNozzles(res));
             }).catch((error) => {

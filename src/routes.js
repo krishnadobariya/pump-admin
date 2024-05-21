@@ -101,6 +101,7 @@ import Shift from "layouts/Shift";
 import AddShift from "layouts/AddShift";
 import AddUser from "layouts/AddUsers";
 import AddEmployee from "layouts/AddEmployee";
+import AddAttendance from "layouts/AddAttendance";
 
 
 
@@ -390,6 +391,14 @@ const routes = [
     key: "addemployee",
     route: "/addemployee",
     component: <AddEmployee />,
+    noCollapse: true,
+  },
+
+  {
+    name: "Create Attendance",
+    key: "addAttendance",
+    route: "/addAttendance",
+    component: <AddAttendance />,
     noCollapse: true,
   }
   // {

@@ -45,8 +45,8 @@ import SoftInput from "components/SoftInput";
 import { getAllPumpAction } from "store/Action/pumpAction";
 import { Close, ExpandMore } from "@mui/icons-material";
 import { updatePumpAction } from "store/Action/pumpAction";
-import SoftAlertCloseIcon from "components/SoftAlert/SoftAlertCloseIcon";
 import { IoClose } from "react-icons/io5";
+import { deletePumpAction } from "store/Action/pumpAction";
 
 
 function Pump() {
@@ -59,6 +59,10 @@ function Pump() {
     const [mangerById, setManagerById] = useState();
     const handleOpenDown = () => setOpenDown(true);
     const handleCloseDown = () => setOpenDown(false);
+
+    const [openDel, setOpenDel] = useState(false);
+    const handleOpenDel = () => setOpenDel(true);
+    const handleCloseDel = () => setOpenDel(false);
 
     const dispatch = useDispatch()
     const navigate = useNavigate();
@@ -73,6 +77,11 @@ function Pump() {
 
     const handleSubmit = () => {
         dispatch(updatePumpAction(mangerById?._id, mangerById))
+    }
+
+    const deletePump = () => {
+        dispatch(deletePumpAction(mangerById?._id))
+        handleCloseDel()
     }
 
     const DownloadPdf = () => {
@@ -109,6 +118,7 @@ function Pump() {
         { name: "Address", align: "center", backname: "address" },
         { name: "Outlet Name", align: "center", backname: "outletName" },
         { name: "", align: "right", backname: "EditButton" },
+        { name: "", align: "right", backname: "delBtn", width: "1px" },
         { name: "", align: "right", backname: "DownloadButton", width: "1px" },
 
 
@@ -175,7 +185,7 @@ function Pump() {
                                 },
                             }}
                         >
-                            <Table columns={columns} rows={getAllPump?.getAllPump?.data} mangerById={mangerById} handleOpenDown={handleOpenDown} setManagerById={setManagerById} handleOpen={handleOpen} />
+                            <Table columns={columns} rows={getAllPump?.getAllPump?.data} mangerById={mangerById} handleOpenDown={handleOpenDown} setManagerById={setManagerById} handleOpenDel={handleOpenDel} handleOpen={handleOpen} />
                         </SoftBox>
                     </Card>
                 </SoftBox>
@@ -999,6 +1009,42 @@ function Pump() {
                     >
                         Update Pump
                     </SoftButton>
+
+                </Box>
+            </Modal>
+
+            <Modal
+                open={openDel}
+                onClose={handleCloseDel}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box sx={style}>
+                    <div style={{ display: "flex", justifyContent: "end", width: "100%" }} >
+                        <IoClose style={{ backgroundColor: "#DEDBD7", padding: "3px", borderRadius: "2px" }} onClick={handleCloseDel} />
+                    </div>
+
+
+                    <p style={{ textAlign: "center", marginTop: "20px", marginBottom: "20px" }}>
+                        Are you sure you want to delete this Nozzles?
+                    </p>
+
+                    <div style={{ display: "flex", justifyContent: "center" }}>
+                        <SoftButton component='a'
+                            variant="gradient"
+                            color={"secondary"}
+                            onClick={handleCloseDel}>
+                            Cancel
+                        </SoftButton>
+                        <SoftButton component='a'
+                            variant="gradient"
+                            color={"error"}
+                            sx={{ marginLeft: "30px" }}
+                            onClick={deletePump}>
+
+                            Delete
+                        </SoftButton>
+                    </div>
 
                 </Box>
             </Modal>

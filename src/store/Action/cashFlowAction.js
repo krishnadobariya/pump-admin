@@ -76,7 +76,7 @@ export const updateCashFlowAction = (cashFlowId, updatedData) => {
               //     'Authorization': localStorage.getItem('token'),
               // }
           }).then((res) => {
-              toast.success('Attendance Updated Successfully');
+              toast.success('Casflow Updated Successfully');
               dispatch(getAllCashFlowAction())
               dispatch(updateCashflow(res));
           }).catch((error) => {

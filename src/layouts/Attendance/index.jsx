@@ -116,6 +116,14 @@ function Assets() {
                     <Card>
                         <SoftBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
                             <SoftTypography variant="h6">Attendace list</SoftTypography>
+                            <SoftButton
+                                component="a"
+                                variant="gradient"
+                                color={sidenavColor}
+                                onClick={() => { navigate('/addAttendance') }}
+                            >
+                                Add Attendance
+                            </SoftButton>
                         </SoftBox>
                         <SoftBox
                             sx={{

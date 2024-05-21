@@ -67,7 +67,7 @@ export const updateStockAction = (mangerById, updatedData) => {
                 //     'Authorization': localStorage.getItem('token'),
                 // }
             }).then((res) => {
-                toast.success('Transaction Updated Successfully');
+                toast.success('Stock Updated Successfully');
                 dispatch(getAllStockAction())
                 dispatch(updateStock(res));
             }).catch((error) => {
