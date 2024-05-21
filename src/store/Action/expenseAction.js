@@ -15,7 +15,7 @@ const expenseAdd = (payload) => ({ type: ADD_EXPENSES, payload: payload.data });
 
 export const expenseAddAction = (payload) => {
     return async (dispatch) => {
-        const requiredFields = ['assets_name', 'assets_type'];
+        const requiredFields = ['name', 'type'];
         const emptyFields = requiredFields.filter(field => !payload[field]);
 
         if (emptyFields.length > 0) {

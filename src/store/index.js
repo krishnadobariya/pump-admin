@@ -31,9 +31,6 @@ const rootReducer = combineReducers({
   credits: creditsReducer,
   transaction: transactionReducer,
   shift: shiftReducer,
-
-  
-
 })
 
 export default rootReducer;         
