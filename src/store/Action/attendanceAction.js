@@ -28,7 +28,7 @@ export const getAllAttendanceAction = (payload) => {
 
 export const attendanceAddAction = (payload) => {
     return async (dispatch) => {
-      const requiredFields = ["userName", "status"];
+      const requiredFields = ["userId", "status"];
       const emptyFields = requiredFields.filter((field) => !payload[field]);
       if (emptyFields.length > 0) {
         toast.error("Please fill in the following fields!!!");

@@ -78,7 +78,7 @@ const AddAttendance = () => {
 
     const [AttendanceData, setattendanceData] = useState({
 
-        userName: "",
+        userId: "",
         status: "" 
 
     })
@@ -112,8 +112,8 @@ const AddAttendance = () => {
                                     <Grid container spacing={1}>
                                         <Grid item xs={12}>
                                             <SoftBox mb={2}>
-                                                <label style={{ fontSize: "15px" }}>User Name</label>
-                                                <SoftInput type="text" placeholder="userName" onChange={handleChange} name="userName" value={AttendanceData.userName} />
+                                                <label style={{ fontSize: "15px" }}>UserID</label>
+                                                <SoftInput type="text" placeholder="userId" onChange={handleChange} name="userId" value={AttendanceData.userId} />
 
                                             </SoftBox>
                                         </Grid>
