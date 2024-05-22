@@ -127,7 +127,7 @@ function Assets() {
                                 color={sidenavColor}
                                 onClick={() => { navigate('/addassets') }}
                             >
-                                Assets
+                                Add Assets
                             </SoftButton>
                         </SoftBox>
 
@@ -265,7 +265,7 @@ function Assets() {
                         fullWidth
                         onClick={handleSubmit}
                     >
-                        Update Category
+                        Update Assets
                     </SoftButton>
                 </Box>
             </Modal>

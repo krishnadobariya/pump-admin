@@ -327,7 +327,7 @@ function User() {
               marginBottom: "20px",
             }}
           >
-            Are you sure you want to delete this Category?
+            Are you sure you want to delete this expenses?
           </p>
 
           <div style={{ display: "flex", justifyContent: "center" }}>

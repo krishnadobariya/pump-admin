@@ -260,7 +260,7 @@ function Assets() {
                         fullWidth
                         onClick={handleSubmit}
                     >
-                        Update Category
+                        Update Attendance
                     </SoftButton>
 
                 </Box>

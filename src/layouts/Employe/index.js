@@ -256,7 +256,7 @@ function User() {
             fullWidth
             onClick={handleSubmit}
           >
-            Update Category
+            Update Employe
           </SoftButton>
 
         </Box>
@@ -361,7 +361,7 @@ function User() {
               marginBottom: "20px",
             }}
           >
-            Are you sure you want to delete this Category?
+            Are you sure you want to delete this employe?
           </p>
 
           <div style={{ display: "flex", justifyContent: "center" }}>

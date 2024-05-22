@@ -1026,7 +1026,7 @@ function Pump() {
 
 
                     <p style={{ textAlign: "center", marginTop: "20px", marginBottom: "20px" }}>
-                        Are you sure you want to delete this Nozzles?
+                        Are you sure you want to delete this Pump?
                     </p>
 
                     <div style={{ display: "flex", justifyContent: "center" }}>

@@ -294,7 +294,7 @@ function Credits() {
                             marginBottom: "20px",
                         }}
                     >
-                        Are you sure you want to delete this Category?
+                        Are you sure you want to delete this Credits?
                     </p>
 
                     <div style={{ display: "flex", justifyContent: "center" }}>

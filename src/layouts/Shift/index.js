@@ -65,7 +65,7 @@ function Shift() {
     };
 
     const DownloadPdf = () => {
-        dispatch(getShiftPdfAction(shiftId?._id));
+        dispatch(getShiftPdfAction(shiftId));
         handleCloseDown();
     }
 
@@ -170,11 +170,19 @@ function Shift() {
                         <Grid item xs={12}>
                             <Grid container spacing={2} px={2}>
                                 <Grid item xs={6}>
+                                <SoftBox mb={2}>
+                                        <label style={{ fontSize: "15px" }}> Date</label>
+                                        <SoftInput
+                                            type="text"
+                                            name="shiftId"
+                                            value={shiftId?.shiftId}
+                                            onChange={handleInputChange} />
+                                    </SoftBox>
                                     <SoftBox mb={2}>
-                                        <label style={{ fontSize: "15px" }}>From Date</label>
+                                        <label style={{ fontSize: "15px" }}> Date</label>
                                         <SoftInput
                                             type="date"
-                                            name="fromDate"
+                                            name="date"
                                             value={shiftId?.date}
                                             onChange={handleInputChange} />
                                     </SoftBox>
@@ -300,7 +308,7 @@ function Shift() {
                             marginBottom: "20px",
                         }}
                     >
-                        Are you sure you want to delete this Category?
+                        Are you sure you want to delete this Shift?
                     </p>
 
                     <div style={{ display: "flex", justifyContent: "center" }}>

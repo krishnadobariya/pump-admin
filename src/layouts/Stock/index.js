@@ -372,7 +372,7 @@ function Stock() {
 
 
                     <p style={{ textAlign: "center", marginTop: "20px", marginBottom: "20px" }}>
-                        Are you sure you want to delete this Nozzles?
+                        Are you sure you want to delete this Stock?
                     </p>
 
                     <div style={{ display: "flex", justifyContent: "center" }}>

@@ -257,7 +257,7 @@ const deleteUser = () => {
             fullWidth
             onClick={handleSubmit}
           >
-            Update Category
+            Update User
           </SoftButton>
 
         </Box>
@@ -290,7 +290,7 @@ const deleteUser = () => {
               marginBottom: "20px",
             }}
           >
-            Are you sure you want to delete this Category?
+            Are you sure you want to delete this User?
           </p>
 
           <div style={{ display: "flex", justifyContent: "center" }}>

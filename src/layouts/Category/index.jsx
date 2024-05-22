@@ -312,6 +312,8 @@ function Category() {
 
                 </Box>
             </Modal>
+
+            
             <Modal
                 open={openDel}
                 onClose={handleCloseDel}

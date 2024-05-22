@@ -151,7 +151,7 @@ function Nozzles() {
     }, []);
 
     const DownloadPdf = () => {
-        dispatch(getNozzlePdfAction(mangerById?._id));
+        dispatch(getNozzlePdfAction(mangerById));
         console.log("getpff", mangerById);
         handleCloseDown();
     };

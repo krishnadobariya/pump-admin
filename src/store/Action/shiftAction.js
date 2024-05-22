@@ -116,7 +116,7 @@ export const deleteShiftAction = (shiftId) => {
 export const getShiftPdfAction = (payload) => {
     return async (dispatch) => {
         try {
-            await axios.post(`${process.env.REACT_APP_BASE_URL}api/User/Shift/v1/downloadShiftReport`, payload).then((res) => {
+            await axios.get(`${process.env.REACT_APP_BASE_URL}api/Reports/v1/shiftReport`, payload).then((res) => {
                 toast.success('Pdf Download successfully');
                 dispatch(getPdfShift(res));
             }).catch((error) => {

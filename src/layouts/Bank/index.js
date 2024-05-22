@@ -60,7 +60,7 @@ function Bank() {
     };
 
     const DownloadPdf = () => {
-        dispatch(getPdfAction(bankId?.user_id));
+        dispatch(getPdfAction(bankId));
         console.log("getpff", getPdfAction);
         handleCloseDown();
     };
@@ -188,6 +188,18 @@ function Bank() {
                     
                         <Grid item xs={12}>
                             <Grid container spacing={2} px={2}>
+                            <Grid item xs={6}>
+                                    <SoftBox mb={2}>
+                                        <label style={{ fontSize: "15px" }}>user_id</label>
+                                        <SoftInput
+                                            type="text"
+                                            // placeholder="Enter The "
+                                            name="user_id"
+                                            value={bankId?.user_id}
+                                            onChange={handleInputChange} />
+                                    </SoftBox>
+                                </Grid>
+
                                 <Grid item xs={6}>
                                     <SoftBox mb={2}>
                                         <label style={{ fontSize: "15px" }}>From Date</label>
@@ -298,7 +310,7 @@ function Bank() {
                         fullWidth
                         onClick={handleSubmit}
                     >
-                        Update Category
+                        Update Bank
                     </SoftButton>
 
                 </Box>
@@ -331,7 +343,7 @@ function Bank() {
                             marginBottom: "20px",
                         }}
                     >
-                        Are you sure you want to delete this Category?
+                        Are you sure you want to delete this Bank?
                     </p>
 
                     <div style={{ display: "flex", justifyContent: "center" }}>

@@ -288,7 +288,7 @@ function Bank() {
             fullWidth
             onClick={handleSubmit}
           >
-            Update Category
+            Update CashFlow
           </SoftButton>
         </Box>
       </Modal>
@@ -304,7 +304,7 @@ function Bank() {
             <IoClose style={{ backgroundColor: "#DEDBD7", padding: "3px", borderRadius: "2px" }} onClick={handleCloseDel} />
           </div>
           <p style={{ textAlign: "center", marginTop: "20px", marginBottom: "20px" }}>
-            Are you sure you want to delete this Assets?
+            Are you sure you want to delete this CashFlow?
           </p>
           <div style={{ display: "flex", justifyContent: "center" }}>
             <SoftButton component='a'
